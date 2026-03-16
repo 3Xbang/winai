@@ -172,7 +172,7 @@ function generateDeterministicVector(text: string): number[] {
     vector.reduce((sum, val) => sum + val * val, 0)
   );
   for (let i = 0; i < EMBEDDING_DIMENSION; i++) {
-    vector[i] = vector[i] / magnitude;
+    vector[i] = (vector[i] ?? 0) / magnitude;
   }
 
   return vector;
