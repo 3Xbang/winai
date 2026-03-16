@@ -211,8 +211,18 @@ export function classifyIntent(text: string): IntentClassification {
     };
   }
 
-  const primaryDomain: LegalDomain = sorted[0][0];
-  const primaryScore = sorted[0][1];
+  const firstEntry = sorted[0];
+  if (!firstEntry) {
+    return {
+      primaryIntent: LegalDomain.CIVIL,
+      secondaryIntents: [],
+      confidence: 0.3,
+      routingTarget: ROUTING_MAP[LegalDomain.CIVIL],
+    };
+  }
+
+  const primaryDomain: LegalDomain = firstEntry[0];
+  const primaryScore = firstEntry[1];
 
   // Secondary intents: all other matched domains
   const secondaryIntents: LegalDomain[] = sorted.slice(1).map((entry) => entry[0]);
