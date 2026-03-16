@@ -7,14 +7,14 @@ services:
       dockerfile: Dockerfile
     container_name: winai-app
     ports:
-      - '3000:3000'
+      - '3001:3000'
     env_file:
       - ../.env
     environment:
       - DATABASE_URL=postgresql://winai:winai_secure_2024@postgres:5432/winai
       - REDIS_URL=redis://redis:6379
       - NODE_ENV=production
-      - NODE_OPTIONS=--max-old-space-size=256
+      - NODE_OPTIONS=--max-old-space-size=512
     depends_on:
       postgres:
         condition: service_healthy
@@ -24,7 +24,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 350M
+          memory: 512M
 
   postgres:
     image: postgres:16-alpine
@@ -34,7 +34,7 @@ services:
       POSTGRES_PASSWORD: winai_secure_2024
       POSTGRES_DB: winai
     ports:
-      - '127.0.0.1:5432:5432'
+      - '127.0.0.1:5433:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
     command: >
@@ -59,7 +59,7 @@ services:
     image: redis:7-alpine
     container_name: winai-redis
     ports:
-      - '127.0.0.1:6379:6379'
+      - '127.0.0.1:6380:6379'
     command: redis-server --maxmemory 50mb --maxmemory-policy allkeys-lru --save ""
     volumes:
       - redisdata:/data
