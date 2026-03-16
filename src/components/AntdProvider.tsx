@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import { useLocale } from 'next-intl';
 import zhCN from 'antd/locale/zh_CN';
@@ -16,6 +17,15 @@ const antdLocaleMap: Record<string, AntdLocale> = {
 export default function AntdProvider({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
   const antdLocale = antdLocaleMap[locale] || enUS;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <>{children}</>;
+  }
 
   return (
     <ConfigProvider
