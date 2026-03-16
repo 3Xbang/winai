@@ -24,7 +24,7 @@ export class LLMGateway {
   private anthropicModel: string;
 
   constructor() {
-    this.glmModel = process.env.GLM_MODEL || 'glm-4-flash';
+    this.glmModel = process.env.GLM_MODEL || 'glm-4-flash-250414';
     this.openaiModel = process.env.OPENAI_MODEL || 'gpt-4';
     this.anthropicModel = process.env.ANTHROPIC_MODEL || 'claude-3-sonnet-20240229';
 
