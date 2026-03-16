@@ -1,0 +1,797 @@
+{
+  "common": {
+    "appName": "WINAI",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "confirm": "Confirm",
+    "search": "Search"
+  },
+  "nav": {
+    "home": "Home",
+    "consultation": "Legal Consultation",
+    "contract": "Contract Services",
+    "caseAnalysis": "Case Analysis",
+    "visa": "Visa Consultation",
+    "history": "Consultation History",
+    "pricing": "Pricing",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "languageSwitcher": {
+    "label": "Switch Language",
+    "zh": "Chinese",
+    "th": "Thai",
+    "en": "English"
+  },
+  "footer": {
+    "copyright": "© {year} WINAI. All rights reserved.",
+    "disclaimer": "Legal information provided is for reference only and does not constitute formal legal advice",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact Us"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "phone": "Phone",
+    "verificationCode": "Verification Code",
+    "sendCode": "Send Code",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "loginWithEmail": "Email Login",
+    "loginWithPhone": "Phone Login",
+    "registerWithEmail": "Email Registration",
+    "registerWithPhone": "Phone Registration",
+    "wechatLogin": "WeChat Login",
+    "lineLogin": "Line Login",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "goToRegister": "Register now",
+    "goToLogin": "Login now",
+    "loginButton": "Login",
+    "registerButton": "Register",
+    "resetButton": "Reset Password",
+    "stepVerify": "Verify Identity",
+    "stepReset": "Set New Password",
+    "stepDone": "Done",
+    "emailOrPhone": "Email or Phone",
+    "resetSuccess": "Password reset successful. Please login with your new password.",
+    "backToLogin": "Back to Login",
+    "passwordMismatch": "Passwords do not match",
+    "requiredField": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMinLength": "Password must be at least 8 characters"
+  },
+  "consultation": {
+    "title": "AI Legal Consultation",
+    "placeholder": "Type your legal question...",
+    "send": "Send",
+    "typing": "AI is analyzing...",
+    "disclaimer": "Legal analysis provided by this system is for reference only and does not replace professional legal advice. Please consult a licensed attorney before making important legal decisions.",
+    "loadingHistory": "Loading history...",
+    "noMoreHistory": "All history loaded",
+    "statusAnalyzing": "Analyzing your legal question...",
+    "statusSearching": "Searching relevant legal provisions...",
+    "statusGenerating": "Generating legal analysis report...",
+    "irac": {
+      "issue": "Issue",
+      "rule": "Rule",
+      "analysis": "Analysis",
+      "conclusion": "Conclusion"
+    },
+    "risk": {
+      "highRisk": "⚠️ High Risk Warning",
+      "disclaimer": "Disclaimer: System output does not constitute formal legal advice",
+      "lawyerAdvice": "This case involves criminal law. It is strongly recommended to hire a professional lawyer. Do not rely solely on AI analysis."
+    }
+  },
+  "fileUpload": {
+    "dragText": "Click or drag files to this area to upload",
+    "dragAreaLabel": "File upload area",
+    "hint": "Supports PDF, Word, and image files (JPG, PNG, GIF, WebP). Max 20MB per file",
+    "uploadProgress": "Upload progress",
+    "uploadSuccess": "Upload successful",
+    "errorSize": "File size exceeds the limit (max {max}, got {actual})",
+    "errorType": "Unsupported file type. Please upload PDF, Word, or image files",
+    "errorGeneric": "Upload failed. Please try again",
+    "retry": "Retry upload",
+    "remove": "Remove file"
+  },
+  "history": {
+    "title": "Consultation History",
+    "allSessions": "All Sessions",
+    "bookmarks": "Bookmarks",
+    "searchPlaceholder": "Search consultations...",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "allDomains": "All Domains",
+    "noResults": "No matching consultation records",
+    "messageCount": "{count} messages",
+    "addBookmark": "Add Bookmark",
+    "removeBookmark": "Remove Bookmark",
+    "viewDetails": "View Details",
+    "continueConsultation": "Continue Consultation",
+    "exportPDF": "Export PDF",
+    "domains": {
+      "CORPORATE": "Corporate",
+      "CONTRACT": "Contract",
+      "CRIMINAL": "Criminal",
+      "CIVIL": "Civil",
+      "VISA": "Visa",
+      "TAX": "Tax",
+      "IP": "Intellectual Property",
+      "LABOR": "Labor",
+      "TRADE": "Trade"
+    }
+  },
+  "pricing": {
+    "title": "Pricing Plans",
+    "subtitle": "Choose the right legal consultation plan for you",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "annualDiscount": "Annual Discount",
+    "savePercent": "Save {percent}%",
+    "perMonth": "/mo",
+    "perYear": "/yr",
+    "currentPlan": "Current Plan",
+    "subscribe": "Subscribe Now",
+    "upgrade": "Upgrade",
+    "downgrade": "Downgrade",
+    "contactSales": "Contact Sales",
+    "freeTrial": "7-Day Free Trial",
+    "features": "Features",
+    "plans": {
+      "FREE": {
+        "name": "Free",
+        "description": "Perfect for trying out legal consultation services",
+        "dailyLimit": "3 consultations per day",
+        "monthlyLimit": "30 consultations per month",
+        "features": ["Basic legal consultation", "Jurisdiction identification", "IRAC analysis", "Basic report generation"]
+      },
+      "STANDARD": {
+        "name": "Standard",
+        "description": "For users with ongoing legal consultation needs",
+        "dailyLimit": "20 consultations per day",
+        "monthlyLimit": "500 consultations per month",
+        "features": ["All Free features", "Contract drafting & review", "Case analysis", "Evidence assessment", "Case search", "PDF report export"]
+      },
+      "VIP": {
+        "name": "VIP",
+        "description": "For enterprises and high-frequency legal consultation needs",
+        "dailyLimit": "Unlimited consultations",
+        "monthlyLimit": "Unlimited consultations",
+        "features": ["All Standard features", "Unlimited consultations", "Priority response queue", "Exclusive report templates", "Priority case search", "Visa consultation", "Enterprise compliance analysis"]
+      }
+    },
+    "comparison": {
+      "feature": "Feature",
+      "basicConsultation": "Basic Legal Consultation",
+      "contractService": "Contract Services",
+      "caseAnalysis": "Case Analysis",
+      "evidenceAssessment": "Evidence Assessment",
+      "caseSearch": "Case Search",
+      "visaConsultation": "Visa Consultation",
+      "priorityResponse": "Priority Response",
+      "unlimitedConsultation": "Unlimited Consultation",
+      "included": "✓",
+      "notIncluded": "✗"
+    }
+  },
+  "payment": {
+    "title": "Payment",
+    "orderSummary": "Order Summary",
+    "plan": "Plan",
+    "period": "Billing Period",
+    "amount": "Amount",
+    "selectMethod": "Select Payment Method",
+    "methods": {
+      "WECHAT": "WeChat Pay",
+      "ALIPAY": "Alipay",
+      "PROMPTPAY": "PromptPay",
+      "STRIPE": "Credit Card (Stripe)"
+    },
+    "payNow": "Pay Now",
+    "processing": "Processing payment...",
+    "polling": "Confirming payment status...",
+    "success": "Payment Successful",
+    "successMessage": "Your subscription is now active. Thank you for your purchase!",
+    "failed": "Payment Failed",
+    "failedMessage": "Payment was not completed. Please try again or choose another payment method.",
+    "expired": "Order Expired",
+    "expiredMessage": "The order has exceeded the 30-minute validity period. Please place a new order.",
+    "retry": "Retry Payment",
+    "backToPricing": "Back to Pricing",
+    "goToConsultation": "Start Consultation"
+  },
+  "orders": {
+    "title": "Order History",
+    "noOrders": "No orders yet",
+    "orderNumber": "Order No.",
+    "date": "Date",
+    "product": "Product",
+    "amount": "Amount",
+    "status": "Status",
+    "action": "Action",
+    "requestInvoice": "Request Invoice",
+    "viewDetails": "View Details",
+    "statuses": {
+      "PAID": "Paid",
+      "PENDING": "Pending",
+      "EXPIRED": "Expired",
+      "REFUNDED": "Refunded",
+      "FAILED": "Failed"
+    },
+    "invoice": {
+      "title": "Request Invoice",
+      "type": "Invoice Type",
+      "CN_VAT": "China VAT Invoice",
+      "TH_TAX": "Thailand Tax Invoice",
+      "companyName": "Company Name",
+      "taxId": "Tax ID",
+      "address": "Address",
+      "submitRequest": "Submit Request",
+      "success": "Invoice request submitted"
+    }
+  },
+  "contract": {
+    "title": "Contract Services",
+    "subtitle": "AI-powered contract drafting and review services",
+    "draftTitle": "Contract Drafting",
+    "draftDescription": "AI automatically generates professional contracts compliant with China-Thailand legal requirements",
+    "reviewTitle": "Contract Review",
+    "reviewDescription": "Upload or paste contract text for AI clause-by-clause risk analysis and revision suggestions",
+    "goToDraft": "Start Drafting",
+    "goToReview": "Start Review",
+    "draft": {
+      "title": "AI Contract Drafting",
+      "contractType": "Contract Type",
+      "selectType": "Select contract type",
+      "types": {
+        "EMPLOYMENT": "Employment Contract",
+        "SALE": "Sale Agreement",
+        "SERVICE": "Service Agreement",
+        "LEASE": "Lease Agreement",
+        "PARTNERSHIP": "Partnership Agreement",
+        "OTHER": "Other"
+      },
+      "partyInfo": "Party Information",
+      "partyA": "Party A",
+      "partyB": "Party B",
+      "partyName": "Name",
+      "partyRole": "Role",
+      "partyNationality": "Nationality",
+      "partyAddress": "Address",
+      "keyTerms": "Key Terms",
+      "governingLaw": "Governing Law",
+      "disputeResolution": "Dispute Resolution",
+      "language": "Contract Language",
+      "specialClauses": "Special Clauses",
+      "generate": "Generate Contract",
+      "generating": "Generating contract...",
+      "result": "Generated Result",
+      "copyText": "Copy Text",
+      "copied": "Copied"
+    },
+    "review": {
+      "title": "AI Contract Review",
+      "inputMethod": "Input Method",
+      "pasteText": "Paste Text",
+      "uploadFile": "Upload File",
+      "contractText": "Contract Text",
+      "contractTextPlaceholder": "Paste contract text here...",
+      "startReview": "Start Review",
+      "reviewing": "Reviewing contract...",
+      "results": "Review Results",
+      "overallRisk": "Overall Risk Level",
+      "riskItems": "Risk Items",
+      "riskHigh": "High Risk",
+      "riskMedium": "Medium Risk",
+      "riskLow": "Low Risk",
+      "clause": "Clause",
+      "riskLevel": "Risk Level",
+      "description": "Description",
+      "legalBasis": "Legal Basis",
+      "suggestion": "Suggestion",
+      "reviewReport": "Review Report"
+    }
+  },
+  "caseAnalysis": {
+    "title": "AI Case Analysis",
+    "caseType": "Case Type",
+    "selectCaseType": "Select case type",
+    "caseTypes": {
+      "CIVIL": "Civil Case",
+      "CRIMINAL": "Criminal Case",
+      "ADMINISTRATIVE": "Administrative Case",
+      "OTHER": "Other"
+    },
+    "jurisdiction": "Jurisdiction",
+    "selectJurisdiction": "Select jurisdiction",
+    "jurisdictions": {
+      "CHINA": "Chinese Law",
+      "THAILAND": "Thai Law",
+      "DUAL": "Dual Jurisdiction (Chinese & Thai Law)"
+    },
+    "partyInfo": "Party Information",
+    "partyName": "Party Name",
+    "partyRole": "Party Role",
+    "partyRoles": {
+      "PLAINTIFF": "Plaintiff",
+      "DEFENDANT": "Defendant",
+      "THIRD_PARTY": "Third Party",
+      "OTHER": "Other"
+    },
+    "caseDescription": "Case Description",
+    "enterDescription": "Please enter case description",
+    "descriptionPlaceholder": "Describe the case facts in detail...",
+    "keyFacts": "Key Facts",
+    "keyFactsPlaceholder": "List key facts, one per line...",
+    "keyDates": "Key Dates",
+    "keyDatesPlaceholder": "e.g., contract signing date, breach date, etc.",
+    "additionalContext": "Additional Context",
+    "startAnalysis": "Start Analysis",
+    "analyzing": "Analyzing case...",
+    "timeline": "Case Timeline",
+    "legalSignificance": "Legal Significance",
+    "disputeFocus": "Dispute Focus",
+    "issue": "Issue",
+    "legalBasis": "Legal Basis",
+    "analysis": "Legal Analysis",
+    "strategies": "Three-Perspective Strategy",
+    "plaintiffPerspective": "Plaintiff Perspective",
+    "defendantPerspective": "Defendant Perspective",
+    "judgePerspective": "Judge Perspective",
+    "keyArguments": "Key Arguments",
+    "riskAssessment": "Risk Assessment",
+    "overallStrategy": "Overall Strategy",
+    "recommendation": "Recommendation",
+    "riskLevel": "Risk Level",
+    "riskLevels": {
+      "HIGH": "High Risk",
+      "MEDIUM": "Medium Risk",
+      "LOW": "Low Risk"
+    },
+    "nextSteps": "Next Steps"
+  },
+  "evidence": {
+    "title": "Evidence Management",
+    "backToCaseAnalysis": "Back to Case Analysis",
+    "generateChecklist": "Generate Evidence Checklist",
+    "loading": "Generating evidence analysis...",
+    "checklist": "Evidence Checklist",
+    "priorities": {
+      "ESSENTIAL": "Essential",
+      "IMPORTANT": "Important",
+      "SUPPLEMENTARY": "Supplementary"
+    },
+    "evidenceTypes": {
+      "DOCUMENTARY": "Documentary",
+      "PHYSICAL": "Physical",
+      "TESTIMONY": "Testimony",
+      "ELECTRONIC": "Electronic",
+      "EXPERT_OPINION": "Expert Opinion"
+    },
+    "collectionSuggestion": "Collection Suggestion",
+    "strengthAssessment": "Evidence Strength Assessment",
+    "overallStrength": "Overall Strength",
+    "strengths": {
+      "STRONG": "Strong",
+      "MEDIUM": "Medium",
+      "WEAK": "Weak"
+    },
+    "legalityRisk": "Legality Risk",
+    "alternativeCollection": "Alternative Collection",
+    "evidenceGaps": "Evidence Gaps",
+    "noGaps": "No evidence gaps identified",
+    "gapImportance": {
+      "CRITICAL": "Critical",
+      "IMPORTANT": "Important",
+      "OPTIONAL": "Optional"
+    },
+    "relatedIssue": "Related Issue",
+    "suggestion": "Suggestion"
+  },
+  "visa": {
+    "title": "Thailand Visa Consultation",
+    "subtitle": "AI-powered visa type recommendation and application guidance",
+    "form": {
+      "nationality": "Nationality",
+      "nationalityPlaceholder": "Enter your nationality",
+      "currentVisaType": "Current Visa Type",
+      "currentVisaTypePlaceholder": "Select current visa type (if any)",
+      "purpose": "Purpose of Stay",
+      "purposePlaceholder": "Select purpose of stay",
+      "duration": "Planned Duration",
+      "durationPlaceholder": "Select planned duration",
+      "occupation": "Occupation",
+      "occupationPlaceholder": "Enter your occupation",
+      "budget": "Budget Range",
+      "budgetPlaceholder": "Select budget range"
+    },
+    "purposes": {
+      "TOURISM": "Tourism",
+      "BUSINESS": "Business",
+      "WORK": "Employment",
+      "RETIREMENT": "Retirement",
+      "EDUCATION": "Education",
+      "FAMILY": "Family Reunion",
+      "INVESTMENT": "Investment",
+      "DIGITAL_NOMAD": "Digital Nomad"
+    },
+    "durations": {
+      "SHORT": "Short-term (under 30 days)",
+      "MEDIUM": "Medium-term (1-3 months)",
+      "LONG": "Long-term (3-12 months)",
+      "EXTENDED": "Extended stay (over 1 year)"
+    },
+    "budgets": {
+      "LOW": "Economy (under 50,000 THB)",
+      "MEDIUM": "Standard (50,000-200,000 THB)",
+      "HIGH": "Premium (200,000-500,000 THB)",
+      "PREMIUM": "Luxury (over 500,000 THB)"
+    },
+    "currentVisaTypes": {
+      "NONE": "None (First application)",
+      "TOURIST": "Tourist Visa",
+      "NON_B": "Non-B Business Visa",
+      "NON_O": "Non-O Family Visa",
+      "EDUCATION": "Education Visa",
+      "RETIREMENT": "Retirement Visa",
+      "ELITE": "Elite Visa",
+      "OTHER": "Other"
+    },
+    "analyze": "Get Visa Recommendations",
+    "analyzing": "Analyzing your situation...",
+    "results": {
+      "title": "Visa Recommendations",
+      "matchScore": "Match Score",
+      "visaType": "Visa Type",
+      "requirements": "Requirements",
+      "documents": "Required Documents",
+      "process": "Application Process",
+      "step": "Step {num}",
+      "estimatedDuration": "Estimated Duration",
+      "estimatedCost": "Estimated Cost",
+      "costBreakdown": "Cost Breakdown",
+      "rejectionRisks": "Common Rejection Reasons",
+      "avoidanceAdvice": "Avoidance Advice",
+      "processingTime": "Estimated Processing Time",
+      "noResults": "No matching visa types found. Please adjust your criteria and try again"
+    },
+    "visaTypes": {
+      "TOURIST": "Tourist Visa",
+      "NON_B": "Non-B Business Visa",
+      "NON_O": "Non-O Family Visa",
+      "ELITE": "Thailand Elite Visa",
+      "BOI": "BOI Investment Visa",
+      "SMART": "Smart Visa",
+      "EDUCATION": "Education Visa",
+      "RETIREMENT": "Retirement Visa"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "personalInfo": "Personal Information",
+    "enterpriseInfo": "Enterprise Information",
+    "name": "Name",
+    "avatar": "Avatar",
+    "uploadAvatar": "Upload Avatar",
+    "companyName": "Company Name",
+    "businessLicense": "Business License Number",
+    "companyAddress": "Company Address",
+    "saveSuccess": "Saved successfully",
+    "saveButton": "Save Changes"
+  },
+  "home": {
+    "badge": "AI-Powered · Available 24/7",
+    "heroTitle": "Cross-Border Legal, Intelligently Protected",
+    "heroHighlight": "WINAI Makes Law Accessible",
+    "heroDescription": "Combining China-Thailand legal knowledge with deep AI analysis to deliver professional, efficient, and trustworthy cross-border legal consultation",
+    "ctaPrimary": "Start Free Consultation",
+    "ctaSecondary": "View Plans",
+    "trustChina": "Chinese Law Coverage",
+    "trustThailand": "Thai Law Coverage",
+    "trustAI": "AI-Powered Analysis",
+    "featuresTitle": "Comprehensive Legal Services",
+    "featuresSubtitle": "From everyday questions to complex cases, WINAI provides one-stop cross-border legal solutions",
+    "consultation": "AI Legal Consultation",
+    "consultationDesc": "Real-time conversational legal consultation with deep AI analysis and structured IRAC reports",
+    "contract": "Contract Services",
+    "contractDesc": "Smart contract drafting and review with automatic risk clause detection and China-Thailand compliant suggestions",
+    "caseAnalysis": "Case Analysis",
+    "caseAnalysisDesc": "Multi-dimensional case analysis from plaintiff, defendant, and judge perspectives with risk assessment",
+    "visa": "Visa Consultation",
+    "visaDesc": "Smart Thailand visa matching based on your situation with complete application guidance",
+    "evidence": "Evidence Management",
+    "evidenceDesc": "Intelligent evidence checklist generation and strength assessment for systematic case evidence management",
+    "caseSearch": "Case Search",
+    "caseSearchDesc": "RAG-powered intelligent case search to quickly find relevant precedents and legal provisions",
+    "ctaTitle": "Start Your Smart Legal Journey",
+    "ctaDescription": "Sign up for free AI legal consultation and let WINAI be your cross-border legal advisor",
+    "ctaButton": "Get Started Free"
+  },
+  "seo": {
+    "topics": {
+      "company-registration": {
+        "title": "China-Thailand Company Registration Services",
+        "description": "Professional cross-border company registration consulting for China-Thailand, including BOI investment promotion, foreign enterprise establishment, and equity structure design",
+        "keywords": "Thailand company registration,China-Thailand cross-border,BOI investment,foreign enterprise,equity structure",
+        "heroTitle": "One-Stop China-Thailand Company Registration",
+        "heroDescription": "From company type selection to registration completion, our AI legal system provides professional guidance throughout the process",
+        "features": ["Company type consulting", "Foreign ownership analysis", "BOI application assistance", "Equity structure design", "Business license processing", "Tax registration guidance"],
+        "faq": {
+          "q1": "What are the requirements for foreigners to register a company in Thailand?",
+          "a1": "Under Thailand's Foreign Business Act, foreigners can establish companies through BOI investment promotion, the Treaty of Amity, and other pathways. Specific requirements vary by company type.",
+          "q2": "How long does it take to register a company in Thailand?",
+          "a2": "Typically, the Thailand company registration process takes 2-4 weeks, including name approval, articles of association drafting, and registration filing.",
+          "q3": "Is there a minimum registered capital requirement?",
+          "a3": "Thai limited companies require a minimum registered capital of 5 million THB (if work permits are needed). BOI companies have different requirements based on project type."
+        }
+      },
+      "visa-consultation": {
+        "title": "Thailand Visa Consultation Services",
+        "description": "Professional consultation for all Thailand visa types including work visas, business visas, Elite visas, retirement visas, and DTV digital nomad visas",
+        "keywords": "Thailand visa,work visa,business visa,Elite visa,retirement visa,DTV visa",
+        "heroTitle": "Smart Thailand Visa Consultation",
+        "heroDescription": "AI-powered matching for the best visa type for your situation, with complete application guidance and document checklists",
+        "features": ["Visa type recommendation", "Document checklist", "Process guidance", "Rejection risk assessment", "Renewal & conversion consulting", "Compliance check"],
+        "faq": {
+          "q1": "What are the common visa types in Thailand?",
+          "a1": "Common visa types include Tourist visa, Non-B Business visa, Non-O Family visa, Elite visa, Retirement visa, Education visa, and DTV Digital Nomad visa.",
+          "q2": "What are the advantages of the Thailand Elite visa?",
+          "a2": "The Elite visa provides 5-20 years of long-term residency, eliminating frequent renewals, with VIP immigration lane access and other privileges.",
+          "q3": "What are the consequences of overstaying a visa?",
+          "a3": "Overstaying results in a fine of 500 THB per day (max 20,000 THB). Severe cases may lead to detention, deportation, and blacklisting."
+        }
+      },
+      "contract-disputes": {
+        "title": "Cross-Border Contract Dispute Resolution",
+        "description": "Professional legal analysis for China-Thailand cross-border contract disputes, including contract review, risk assessment, dispute resolution strategies, and litigation/arbitration guidance",
+        "keywords": "cross-border contract disputes,contract review,dispute resolution,international arbitration,China-Thailand trade disputes",
+        "heroTitle": "Smart Cross-Border Contract Dispute Analysis",
+        "heroDescription": "AI-driven contract risk identification and dispute resolution strategies to protect your cross-border business interests",
+        "features": ["Contract clause review", "Risk identification", "Dispute resolution strategy", "Litigation/arbitration guidance", "Settlement negotiation advice", "Legal document drafting"],
+        "faq": {
+          "q1": "Should I choose litigation or arbitration for cross-border contract disputes?",
+          "a1": "International arbitration is usually preferred for cross-border disputes, as arbitral awards are more easily enforced across New York Convention signatory states.",
+          "q2": "What if the contract doesn't specify governing law?",
+          "a2": "If no governing law is specified, courts or tribunals will determine the applicable law based on the closest connection principle.",
+          "q3": "What is the statute of limitations for cross-border contract disputes?",
+          "a3": "Limitation periods vary by applicable law. China generally has 3 years, Thailand's civil limitation is generally 10 years, depending on the case type."
+        }
+      },
+      "labor-law": {
+        "title": "China-Thailand Labor Law Consulting",
+        "description": "Professional labor law consulting for China and Thailand, covering employment contracts, work permits, social security, and labor disputes",
+        "keywords": "Thailand labor law,work permit,employment contract,social security,labor disputes",
+        "heroTitle": "China-Thailand Labor Law Professional Consulting",
+        "heroDescription": "Comprehensive understanding of labor regulations in both countries to ensure employer compliance and employee rights protection",
+        "features": ["Employment contract review", "Work permit processing", "Social security compliance", "Labor dispute mediation", "Termination compliance", "Foreign employee management"],
+        "faq": {
+          "q1": "What restrictions apply to hiring foreign employees in Thailand?",
+          "a1": "Thailand requires a foreign-to-Thai employee ratio not exceeding 1:4, and all foreign employees must hold valid work permits.",
+          "q2": "What is the minimum wage in Thailand?",
+          "a2": "Thailand's minimum daily wage varies by region. In Bangkok, it is approximately 353 THB/day, with slight variations in other areas.",
+          "q3": "What does Thai labor law say about termination?",
+          "a3": "Thailand's Labor Protection Act requires employers to provide advance notice or pay in lieu of notice. Employees with sufficient tenure are entitled to severance pay."
+        }
+      },
+      "tax-advisory": {
+        "title": "China-Thailand Tax Advisory Services",
+        "description": "Professional cross-border tax consulting for China-Thailand, including double taxation agreements, transfer pricing, tax compliance, and tax planning",
+        "keywords": "China-Thailand tax,double taxation agreement,transfer pricing,tax compliance,cross-border tax planning",
+        "heroTitle": "Smart China-Thailand Cross-Border Tax Advisory",
+        "heroDescription": "Optimize tax structures using the China-Thailand Double Taxation Agreement to ensure cross-border tax compliance",
+        "features": ["Double taxation analysis", "Transfer pricing consulting", "Tax compliance review", "Tax planning solutions", "Personal income tax consulting", "VAT compliance"],
+        "faq": {
+          "q1": "Is there a double taxation agreement between China and Thailand?",
+          "a1": "Yes, China and Thailand have signed an Agreement for the Avoidance of Double Taxation, effectively preventing the same income from being taxed by both countries.",
+          "q2": "What taxes apply to businesses operating in Thailand?",
+          "a2": "Main taxes include corporate income tax (20%), VAT (7%), withholding tax, and stamp duty. Specific rates vary by business type.",
+          "q3": "How is personal income tax calculated for foreigners in Thailand?",
+          "a3": "Foreigners residing in Thailand for more than 180 days are taxed on worldwide income at progressive rates of 5%-35%."
+        }
+      },
+      "ip-protection": {
+        "title": "Intellectual Property Protection Services",
+        "description": "Cross-border IP protection consulting for China-Thailand, covering trademark registration, patent applications, copyright protection, and IP enforcement",
+        "keywords": "IP protection,trademark registration,patent application,copyright protection,cross-border IP",
+        "heroTitle": "Smart Cross-Border IP Protection",
+        "heroDescription": "AI-assisted IP risk assessment and protection strategies to safeguard your innovations",
+        "features": ["Trademark registration consulting", "Patent application guidance", "Copyright protection plans", "IP enforcement", "Infringement risk assessment", "License agreement review"],
+        "faq": {
+          "q1": "How long does trademark registration take in Thailand?",
+          "a1": "Thailand trademark registration typically takes 12-18 months, including formal examination, substantive examination, and publication period.",
+          "q2": "Is a Chinese trademark protected in Thailand?",
+          "a2": "Trademark protection is territorial. A trademark registered in China is not automatically protected in Thailand and requires separate registration.",
+          "q3": "What should I do if my IP rights are infringed?",
+          "a3": "You can pursue administrative complaints, civil litigation, or criminal prosecution. It is recommended to collect evidence of infringement and consult a professional lawyer first."
+        }
+      }
+    },
+    "cta": {
+      "title": "Get Professional Legal Consultation Now",
+      "description": "AI-powered legal system providing 24/7 professional legal services",
+      "button": "Free Consultation"
+    },
+    "featuresTitle": "Core Services",
+    "faqTitle": "FAQ"
+  },
+  "blog": {
+    "title": "Legal Knowledge Base",
+    "subtitle": "Professional articles and practical guides on China-Thailand law",
+    "searchPlaceholder": "Search articles...",
+    "allCategories": "All Categories",
+    "categories": {
+      "company": "Corporate Law",
+      "visa": "Visa & Immigration",
+      "contract": "Contract Law",
+      "labor": "Labor Law",
+      "tax": "Tax",
+      "ip": "Intellectual Property"
+    },
+    "readMore": "Read More",
+    "readTime": "{min} min read",
+    "author": "Author",
+    "publishedAt": "Published on",
+    "category": "Category",
+    "backToBlog": "Back to Knowledge Base",
+    "relatedPosts": "Related Articles",
+    "share": "Share Article",
+    "shareOn": {
+      "twitter": "Share on Twitter",
+      "linkedin": "Share on LinkedIn",
+      "wechat": "Share on WeChat"
+    },
+    "noResults": "No matching articles found",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next"
+    }
+  },
+  "testimonials": {
+    "title": "User Reviews",
+    "subtitle": "See what our users have to say",
+    "reviewCount": "reviews",
+    "noReviews": "No reviews yet"
+  },
+  "referral": {
+    "title": "Referral Program",
+    "subtitle": "Invite friends to register and both of you will receive consultation credit rewards",
+    "yourCode": "Your Referral Code",
+    "shareLink": "Share Link",
+    "copyCode": "Copy Code",
+    "copyLink": "Copy Link",
+    "codeCopied": "Referral code copied",
+    "linkCopied": "Link copied",
+    "stats": {
+      "totalReferrals": "Total Referrals",
+      "rewardsGranted": "Rewards Granted",
+      "creditsEarned": "Credits Earned"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": "Copy your unique referral code or share link with friends",
+      "step2": "Your friend registers through your link and completes verification",
+      "step3": "Both of you receive 5 free consultation credits"
+    },
+    "history": "Referral History",
+    "table": {
+      "user": "Referred User",
+      "date": "Date",
+      "status": "Status",
+      "credits": "Credits",
+      "completed": "Completed",
+      "pending": "Pending"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "users": "User Management",
+      "content": "Content Management",
+      "orders": "Order Management"
+    },
+    "adminOnly": "Admin access only",
+    "dashboard": {
+      "title": "Dashboard Overview",
+      "totalUsers": "Total Users",
+      "activeSubscriptions": "Active Subscriptions",
+      "totalOrders": "Total Orders",
+      "totalRevenue": "Total Revenue",
+      "recentActivity": "Recent Activity",
+      "quickActions": "Quick Actions",
+      "manageUsers": "Manage Users",
+      "manageContent": "Manage Content",
+      "viewOrders": "View Orders"
+    },
+    "users": {
+      "title": "User Management",
+      "searchPlaceholder": "Search by name or email...",
+      "filterByRole": "Filter by role",
+      "allRoles": "All Roles",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "subscription": "Subscription",
+      "status": "Status",
+      "createdAt": "Created Date",
+      "actions": "Actions",
+      "changeRole": "Change Role",
+      "active": "Active",
+      "inactive": "Inactive",
+      "roles": {
+        "FREE_USER": "Free User",
+        "PAID_USER": "Paid User",
+        "VIP_MEMBER": "VIP Member",
+        "ADMIN": "Admin"
+      }
+    },
+    "content": {
+      "title": "Content Management",
+      "blogPosts": "Blog Posts",
+      "testimonials": "Testimonials",
+      "blog": {
+        "postTitle": "Title",
+        "author": "Author",
+        "status": "Status",
+        "date": "Date",
+        "actions": "Actions",
+        "draft": "Draft",
+        "published": "Published",
+        "edit": "Edit",
+        "delete": "Delete",
+        "publish": "Publish"
+      },
+      "testimonial": {
+        "user": "User",
+        "content": "Content",
+        "rating": "Rating",
+        "status": "Status",
+        "actions": "Actions",
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "approve": "Approve",
+        "reject": "Reject"
+      }
+    },
+    "orders": {
+      "title": "Order Management",
+      "searchPlaceholder": "Search by order number...",
+      "filterByStatus": "Filter by status",
+      "allStatuses": "All Statuses",
+      "orderNumber": "Order No.",
+      "user": "User",
+      "product": "Product",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date",
+      "actions": "Actions",
+      "refund": "Refund",
+      "viewDetails": "View Details",
+      "statuses": {
+        "PAID": "Paid",
+        "PENDING": "Pending",
+        "EXPIRED": "Expired",
+        "REFUNDED": "Refunded",
+        "FAILED": "Failed"
+      }
+    }
+  }
+}

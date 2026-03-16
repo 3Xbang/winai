@@ -1,0 +1,797 @@
+{
+  "common": {
+    "appName": "WINAI",
+    "loading": "加载中...",
+    "error": "出错了",
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "back": "返回",
+    "next": "下一步",
+    "confirm": "确认",
+    "search": "搜索"
+  },
+  "nav": {
+    "home": "首页",
+    "consultation": "法律咨询",
+    "contract": "合同服务",
+    "caseAnalysis": "案件分析",
+    "visa": "签证咨询",
+    "history": "咨询历史",
+    "pricing": "订阅计划",
+    "login": "登录",
+    "register": "注册",
+    "profile": "个人中心",
+    "logout": "退出登录"
+  },
+  "languageSwitcher": {
+    "label": "切换语言",
+    "zh": "中文",
+    "th": "泰文",
+    "en": "英文"
+  },
+  "footer": {
+    "copyright": "© {year} WINAI 版权所有",
+    "disclaimer": "本系统提供的法律信息仅供参考，不构成正式法律意见",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "contact": "联系我们"
+  },
+  "auth": {
+    "loginTitle": "登录",
+    "registerTitle": "注册",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "newPassword": "新密码",
+    "confirmNewPassword": "确认新密码",
+    "phone": "手机号",
+    "verificationCode": "验证码",
+    "sendCode": "发送验证码",
+    "forgotPassword": "忘记密码？",
+    "resetPassword": "重置密码",
+    "loginWithEmail": "邮箱登录",
+    "loginWithPhone": "手机登录",
+    "registerWithEmail": "邮箱注册",
+    "registerWithPhone": "手机注册",
+    "wechatLogin": "微信登录",
+    "lineLogin": "Line 登录",
+    "noAccount": "还没有账号？",
+    "hasAccount": "已有账号？",
+    "goToRegister": "立即注册",
+    "goToLogin": "立即登录",
+    "loginButton": "登录",
+    "registerButton": "注册",
+    "resetButton": "重置密码",
+    "stepVerify": "验证身份",
+    "stepReset": "设置新密码",
+    "stepDone": "完成",
+    "emailOrPhone": "邮箱或手机号",
+    "resetSuccess": "密码重置成功，请使用新密码登录",
+    "backToLogin": "返回登录",
+    "passwordMismatch": "两次输入的密码不一致",
+    "requiredField": "此项为必填",
+    "invalidEmail": "请输入有效的邮箱地址",
+    "passwordMinLength": "密码至少需要8个字符"
+  },
+  "consultation": {
+    "title": "AI 法律咨询",
+    "placeholder": "请输入您的法律问题...",
+    "send": "发送",
+    "typing": "AI 正在分析中...",
+    "disclaimer": "本系统提供的法律分析仅供参考，不替代专业律师意见。请在做出重要法律决策前咨询持牌律师。",
+    "loadingHistory": "加载历史消息...",
+    "noMoreHistory": "已加载全部历史消息",
+    "statusAnalyzing": "正在分析您的法律问题...",
+    "statusSearching": "正在检索相关法律条文...",
+    "statusGenerating": "正在生成法律分析报告...",
+    "irac": {
+      "issue": "争议焦点 (Issue)",
+      "rule": "法律规则 (Rule)",
+      "analysis": "法律分析 (Analysis)",
+      "conclusion": "结论 (Conclusion)"
+    },
+    "risk": {
+      "highRisk": "⚠️ 高风险警示",
+      "disclaimer": "免责声明：本系统输出不构成正式法律意见",
+      "lawyerAdvice": "本案涉及刑事法律领域，强烈建议您聘请专业律师处理，切勿仅依赖AI分析结果。"
+    }
+  },
+  "fileUpload": {
+    "dragText": "点击或拖拽文件到此区域上传",
+    "dragAreaLabel": "文件上传区域",
+    "hint": "支持 PDF、Word、图片文件（JPG、PNG、GIF、WebP），单个文件不超过 20MB",
+    "uploadProgress": "上传进度",
+    "uploadSuccess": "上传成功",
+    "errorSize": "文件大小超过限制（最大 {max}，当前 {actual}）",
+    "errorType": "不支持的文件类型，请上传 PDF、Word 或图片文件",
+    "errorGeneric": "上传失败，请重试",
+    "retry": "重新上传",
+    "remove": "删除文件"
+  },
+  "history": {
+    "title": "咨询历史",
+    "allSessions": "全部咨询",
+    "bookmarks": "收藏",
+    "searchPlaceholder": "搜索咨询记录...",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "allDomains": "全部领域",
+    "noResults": "暂无匹配的咨询记录",
+    "messageCount": "{count} 条消息",
+    "addBookmark": "添加收藏",
+    "removeBookmark": "取消收藏",
+    "viewDetails": "查看详情",
+    "continueConsultation": "继续咨询",
+    "exportPDF": "导出 PDF",
+    "domains": {
+      "CORPORATE": "企业合规",
+      "CONTRACT": "合同法",
+      "CRIMINAL": "刑事法",
+      "CIVIL": "民事法",
+      "VISA": "签证",
+      "TAX": "税务",
+      "IP": "知识产权",
+      "LABOR": "劳动法",
+      "TRADE": "贸易"
+    }
+  },
+  "pricing": {
+    "title": "订阅计划",
+    "subtitle": "选择适合您的法律咨询服务方案",
+    "monthly": "月付",
+    "annual": "年付",
+    "annualDiscount": "年付优惠",
+    "savePercent": "节省 {percent}%",
+    "perMonth": "/月",
+    "perYear": "/年",
+    "currentPlan": "当前方案",
+    "subscribe": "立即订阅",
+    "upgrade": "升级方案",
+    "downgrade": "降级方案",
+    "contactSales": "联系销售",
+    "freeTrial": "7天免费试用",
+    "features": "功能特性",
+    "plans": {
+      "FREE": {
+        "name": "免费版",
+        "description": "适合初次体验法律咨询服务",
+        "dailyLimit": "每日 3 次咨询",
+        "monthlyLimit": "每月 30 次咨询",
+        "features": ["基础法律咨询", "管辖权识别", "IRAC 分析", "基础报告生成"]
+      },
+      "STANDARD": {
+        "name": "标准版",
+        "description": "适合有持续法律咨询需求的用户",
+        "dailyLimit": "每日 20 次咨询",
+        "monthlyLimit": "每月 500 次咨询",
+        "features": ["全部免费版功能", "合同起草与审查", "案件分析", "证据评估", "案例检索", "PDF 报告导出"]
+      },
+      "VIP": {
+        "name": "尊享版",
+        "description": "适合企业用户和高频法律咨询需求",
+        "dailyLimit": "无限咨询",
+        "monthlyLimit": "无限咨询",
+        "features": ["全部标准版功能", "无限咨询次数", "优先响应队列", "专属报告模板", "优先案例检索", "签证咨询服务", "企业合规分析"]
+      }
+    },
+    "comparison": {
+      "feature": "功能",
+      "basicConsultation": "基础法律咨询",
+      "contractService": "合同服务",
+      "caseAnalysis": "案件分析",
+      "evidenceAssessment": "证据评估",
+      "caseSearch": "案例检索",
+      "visaConsultation": "签证咨询",
+      "priorityResponse": "优先响应",
+      "unlimitedConsultation": "无限咨询",
+      "included": "✓",
+      "notIncluded": "✗"
+    }
+  },
+  "payment": {
+    "title": "支付",
+    "orderSummary": "订单摘要",
+    "plan": "订阅方案",
+    "period": "订阅周期",
+    "amount": "支付金额",
+    "selectMethod": "选择支付方式",
+    "methods": {
+      "WECHAT": "微信支付",
+      "ALIPAY": "支付宝",
+      "PROMPTPAY": "PromptPay",
+      "STRIPE": "信用卡 (Stripe)"
+    },
+    "payNow": "立即支付",
+    "processing": "支付处理中...",
+    "polling": "正在确认支付结果...",
+    "success": "支付成功",
+    "successMessage": "您的订阅已激活，感谢您的购买！",
+    "failed": "支付失败",
+    "failedMessage": "支付未完成，请重试或选择其他支付方式。",
+    "expired": "订单已过期",
+    "expiredMessage": "订单已超过30分钟有效期，请重新下单。",
+    "retry": "重新支付",
+    "backToPricing": "返回订阅计划",
+    "goToConsultation": "开始咨询"
+  },
+  "orders": {
+    "title": "订单历史",
+    "noOrders": "暂无订单记录",
+    "orderNumber": "订单号",
+    "date": "日期",
+    "product": "产品",
+    "amount": "金额",
+    "status": "状态",
+    "action": "操作",
+    "requestInvoice": "申请发票",
+    "viewDetails": "查看详情",
+    "statuses": {
+      "PAID": "已支付",
+      "PENDING": "待支付",
+      "EXPIRED": "已过期",
+      "REFUNDED": "已退款",
+      "FAILED": "支付失败"
+    },
+    "invoice": {
+      "title": "申请发票",
+      "type": "发票类型",
+      "CN_VAT": "中国增值税发票",
+      "TH_TAX": "泰国税务发票",
+      "companyName": "公司名称",
+      "taxId": "税号",
+      "address": "地址",
+      "submitRequest": "提交申请",
+      "success": "发票申请已提交"
+    }
+  },
+  "contract": {
+    "title": "合同服务",
+    "subtitle": "AI 驱动的合同起草与审查服务",
+    "draftTitle": "合同起草",
+    "draftDescription": "根据您的需求，AI 自动生成符合中泰法律要求的专业合同",
+    "reviewTitle": "合同审查",
+    "reviewDescription": "上传或粘贴合同文本，AI 逐条分析风险并提供修改建议",
+    "goToDraft": "开始起草",
+    "goToReview": "开始审查",
+    "draft": {
+      "title": "AI 合同起草",
+      "contractType": "合同类型",
+      "selectType": "请选择合同类型",
+      "types": {
+        "EMPLOYMENT": "劳动合同",
+        "SALE": "买卖合同",
+        "SERVICE": "服务合同",
+        "LEASE": "租赁合同",
+        "PARTNERSHIP": "合伙协议",
+        "OTHER": "其他合同"
+      },
+      "partyInfo": "当事人信息",
+      "partyA": "甲方",
+      "partyB": "乙方",
+      "partyName": "名称",
+      "partyRole": "角色",
+      "partyNationality": "国籍",
+      "partyAddress": "地址",
+      "keyTerms": "关键条款",
+      "governingLaw": "适用法律",
+      "disputeResolution": "争议解决方式",
+      "language": "合同语言",
+      "specialClauses": "特殊条款",
+      "generate": "生成合同",
+      "generating": "正在生成合同...",
+      "result": "生成结果",
+      "copyText": "复制文本",
+      "copied": "已复制"
+    },
+    "review": {
+      "title": "AI 合同审查",
+      "inputMethod": "输入方式",
+      "pasteText": "粘贴文本",
+      "uploadFile": "上传文件",
+      "contractText": "合同文本",
+      "contractTextPlaceholder": "请粘贴合同文本...",
+      "startReview": "开始审查",
+      "reviewing": "正在审查合同...",
+      "results": "审查结果",
+      "overallRisk": "整体风险等级",
+      "riskItems": "风险项目",
+      "riskHigh": "高风险",
+      "riskMedium": "中风险",
+      "riskLow": "低风险",
+      "clause": "条款",
+      "riskLevel": "风险等级",
+      "description": "风险描述",
+      "legalBasis": "法律依据",
+      "suggestion": "修改建议",
+      "reviewReport": "审查报告"
+    }
+  },
+  "caseAnalysis": {
+    "title": "AI 案件分析",
+    "caseType": "案件类型",
+    "selectCaseType": "请选择案件类型",
+    "caseTypes": {
+      "CIVIL": "民事案件",
+      "CRIMINAL": "刑事案件",
+      "ADMINISTRATIVE": "行政案件",
+      "OTHER": "其他"
+    },
+    "jurisdiction": "管辖区",
+    "selectJurisdiction": "请选择管辖区",
+    "jurisdictions": {
+      "CHINA": "中国法",
+      "THAILAND": "泰国法",
+      "DUAL": "双重管辖（中国法与泰国法）"
+    },
+    "partyInfo": "当事人信息",
+    "partyName": "当事人姓名",
+    "partyRole": "当事人角色",
+    "partyRoles": {
+      "PLAINTIFF": "原告",
+      "DEFENDANT": "被告",
+      "THIRD_PARTY": "第三方",
+      "OTHER": "其他"
+    },
+    "caseDescription": "案件描述",
+    "enterDescription": "请输入案件描述",
+    "descriptionPlaceholder": "请详细描述案件事实经过...",
+    "keyFacts": "关键事实",
+    "keyFactsPlaceholder": "请列出关键事实，每行一条...",
+    "keyDates": "关键日期",
+    "keyDatesPlaceholder": "如：合同签订日期、违约日期等",
+    "additionalContext": "补充信息",
+    "startAnalysis": "开始分析",
+    "analyzing": "正在分析案件...",
+    "timeline": "案件时间线",
+    "legalSignificance": "法律意义",
+    "disputeFocus": "争议焦点",
+    "issue": "争议焦点",
+    "legalBasis": "法律依据",
+    "analysis": "法律分析",
+    "strategies": "三视角策略",
+    "plaintiffPerspective": "原告视角",
+    "defendantPerspective": "被告视角",
+    "judgePerspective": "法官视角",
+    "keyArguments": "核心论点",
+    "riskAssessment": "风险评估",
+    "overallStrategy": "综合策略建议",
+    "recommendation": "策略建议",
+    "riskLevel": "风险等级",
+    "riskLevels": {
+      "HIGH": "高风险",
+      "MEDIUM": "中风险",
+      "LOW": "低风险"
+    },
+    "nextSteps": "下一步行动"
+  },
+  "evidence": {
+    "title": "证据管理",
+    "backToCaseAnalysis": "返回案件分析",
+    "generateChecklist": "生成证据清单",
+    "loading": "正在生成证据分析...",
+    "checklist": "证据清单",
+    "priorities": {
+      "ESSENTIAL": "必要",
+      "IMPORTANT": "重要",
+      "SUPPLEMENTARY": "补充"
+    },
+    "evidenceTypes": {
+      "DOCUMENTARY": "书证",
+      "PHYSICAL": "物证",
+      "TESTIMONY": "证人证言",
+      "ELECTRONIC": "电子数据",
+      "EXPERT_OPINION": "专家意见"
+    },
+    "collectionSuggestion": "收集建议",
+    "strengthAssessment": "证据强度评估",
+    "overallStrength": "整体证明力",
+    "strengths": {
+      "STRONG": "强",
+      "MEDIUM": "中",
+      "WEAK": "弱"
+    },
+    "legalityRisk": "合法性风险",
+    "alternativeCollection": "替代取证方式",
+    "evidenceGaps": "证据缺口",
+    "noGaps": "未发现证据缺口",
+    "gapImportance": {
+      "CRITICAL": "关键",
+      "IMPORTANT": "重要",
+      "OPTIONAL": "可选"
+    },
+    "relatedIssue": "相关争议焦点",
+    "suggestion": "补充建议"
+  },
+  "visa": {
+    "title": "泰国签证咨询",
+    "subtitle": "AI 智能签证类型推荐与申请指导",
+    "form": {
+      "nationality": "国籍",
+      "nationalityPlaceholder": "请输入您的国籍",
+      "currentVisaType": "当前签证类型",
+      "currentVisaTypePlaceholder": "请选择当前签证类型（如有）",
+      "purpose": "赴泰目的",
+      "purposePlaceholder": "请选择赴泰目的",
+      "duration": "计划停留时间",
+      "durationPlaceholder": "请选择计划停留时间",
+      "occupation": "职业",
+      "occupationPlaceholder": "请输入您的职业",
+      "budget": "预算范围",
+      "budgetPlaceholder": "请选择预算范围"
+    },
+    "purposes": {
+      "TOURISM": "旅游观光",
+      "BUSINESS": "商务活动",
+      "WORK": "工作就业",
+      "RETIREMENT": "退休养老",
+      "EDUCATION": "留学教育",
+      "FAMILY": "家庭团聚",
+      "INVESTMENT": "投资",
+      "DIGITAL_NOMAD": "数字游民"
+    },
+    "durations": {
+      "SHORT": "短期（30天以内）",
+      "MEDIUM": "中期（1-3个月）",
+      "LONG": "长期（3-12个月）",
+      "EXTENDED": "长期居留（1年以上）"
+    },
+    "budgets": {
+      "LOW": "经济型（5万泰铢以下）",
+      "MEDIUM": "标准型（5-20万泰铢）",
+      "HIGH": "高端型（20-50万泰铢）",
+      "PREMIUM": "尊享型（50万泰铢以上）"
+    },
+    "currentVisaTypes": {
+      "NONE": "无（首次申请）",
+      "TOURIST": "旅游签证",
+      "NON_B": "Non-B 商务签证",
+      "NON_O": "Non-O 家庭签证",
+      "EDUCATION": "教育签证",
+      "RETIREMENT": "退休签证",
+      "ELITE": "精英签证",
+      "OTHER": "其他"
+    },
+    "analyze": "获取签证推荐",
+    "analyzing": "正在分析您的情况...",
+    "results": {
+      "title": "签证推荐结果",
+      "matchScore": "匹配度",
+      "visaType": "签证类型",
+      "requirements": "申请条件",
+      "documents": "所需材料",
+      "process": "申请流程",
+      "step": "步骤 {num}",
+      "estimatedDuration": "预计耗时",
+      "estimatedCost": "预估费用",
+      "costBreakdown": "费用明细",
+      "rejectionRisks": "常见拒签原因",
+      "avoidanceAdvice": "规避建议",
+      "processingTime": "预计处理时间",
+      "noResults": "暂无匹配的签证类型，请调整您的条件后重试"
+    },
+    "visaTypes": {
+      "TOURIST": "旅游签证",
+      "NON_B": "Non-B 商务签证",
+      "NON_O": "Non-O 家庭签证",
+      "ELITE": "泰国精英签证",
+      "BOI": "BOI 投资签证",
+      "SMART": "Smart 签证",
+      "EDUCATION": "教育签证",
+      "RETIREMENT": "退休签证"
+    }
+  },
+  "profile": {
+    "title": "个人中心",
+    "personalInfo": "个人信息",
+    "enterpriseInfo": "企业信息",
+    "name": "姓名",
+    "avatar": "头像",
+    "uploadAvatar": "上传头像",
+    "companyName": "公司名称",
+    "businessLicense": "营业执照号",
+    "companyAddress": "公司地址",
+    "saveSuccess": "保存成功",
+    "saveButton": "保存修改"
+  },
+  "home": {
+    "badge": "AI 驱动 · 7×24 小时在线",
+    "heroTitle": "跨境法律，智能守护",
+    "heroHighlight": "WINAI 让法律触手可及",
+    "heroDescription": "融合中泰双国法律知识库与 AI 深度分析，为您提供专业、高效、可信赖的跨境法律咨询服务",
+    "ctaPrimary": "免费开始咨询",
+    "ctaSecondary": "查看订阅方案",
+    "trustChina": "中国法律覆盖",
+    "trustThailand": "泰国法律覆盖",
+    "trustAI": "AI 智能分析",
+    "featuresTitle": "全方位法律服务",
+    "featuresSubtitle": "从日常咨询到复杂案件，WINAI 为您提供一站式跨境法律解决方案",
+    "consultation": "AI 法律咨询",
+    "consultationDesc": "实时对话式法律咨询，AI 深度分析您的法律问题并提供 IRAC 结构化分析报告",
+    "contract": "合同服务",
+    "contractDesc": "智能合同起草与审查，自动识别风险条款并提供符合中泰法律的修改建议",
+    "caseAnalysis": "案件分析",
+    "caseAnalysisDesc": "多维度案件分析，从原告、被告、法官三视角提供策略建议和风险评估",
+    "visa": "签证咨询",
+    "visaDesc": "泰国签证智能匹配，根据您的情况推荐最佳签证类型并提供完整申请指导",
+    "evidence": "证据管理",
+    "evidenceDesc": "智能证据清单生成与强度评估，帮助您系统化管理案件证据链",
+    "caseSearch": "案例检索",
+    "caseSearchDesc": "基于 RAG 技术的智能案例检索，快速找到相关判例和法律条文",
+    "ctaTitle": "开启您的智能法律之旅",
+    "ctaDescription": "注册即可免费体验 AI 法律咨询服务，让 WINAI 成为您的跨境法律智囊",
+    "ctaButton": "立即免费体验"
+  },
+  "seo": {
+    "topics": {
+      "company-registration": {
+        "title": "中泰公司注册服务",
+        "description": "专业中泰跨境公司注册咨询，提供泰国BOI投资促进、外资企业设立、股权架构设计等一站式服务",
+        "keywords": "泰国公司注册,中泰跨境企业,BOI投资,外资企业设立,股权架构",
+        "heroTitle": "中泰公司注册一站式服务",
+        "heroDescription": "从公司类型选择到注册完成，AI智能法律系统为您提供全流程专业指导",
+        "features": ["公司类型咨询", "外资持股比例分析", "BOI投资促进申请", "股权架构设计", "营业执照办理", "税务登记指导"],
+        "faq": {
+          "q1": "外国人在泰国注册公司需要什么条件？",
+          "a1": "根据泰国《外国人经商法》，外国人可通过BOI投资促进、中泰友好条约等途径设立公司，具体条件因公司类型而异。",
+          "q2": "泰国公司注册需要多长时间？",
+          "a2": "一般情况下，泰国公司注册流程需要2-4周，包括名称核准、章程制定、注册登记等步骤。",
+          "q3": "注册资本有最低要求吗？",
+          "a3": "泰国有限公司最低注册资本为500万泰铢（如需办理工作许可），BOI企业根据项目类型有不同要求。"
+        }
+      },
+      "visa-consultation": {
+        "title": "泰国签证咨询服务",
+        "description": "泰国各类签证专业咨询，包括工作签证、商务签证、精英签证、退休签证、DTV数字游民签证等",
+        "keywords": "泰国签证,工作签证,商务签证,精英签证,退休签证,DTV签证",
+        "heroTitle": "泰国签证智能咨询",
+        "heroDescription": "AI智能匹配最适合您的签证类型，提供完整申请指导和材料清单",
+        "features": ["签证类型推荐", "申请材料清单", "办理流程指导", "拒签风险评估", "续签转签咨询", "合规性检查"],
+        "faq": {
+          "q1": "泰国有哪些常见的签证类型？",
+          "a1": "常见签证类型包括旅游签证、Non-B商务签证、Non-O家庭签证、精英签证、退休签证、教育签证和DTV数字游民签证等。",
+          "q2": "泰国精英签证有什么优势？",
+          "a2": "精英签证提供5-20年长期居留权，免去频繁续签的麻烦，享受VIP入境通道等特权服务。",
+          "q3": "签证过期滞留有什么后果？",
+          "a3": "非法滞留将面临每天500泰铢罚款（上限20,000泰铢），严重者可能被拘留、遣返并列入黑名单。"
+        }
+      },
+      "contract-disputes": {
+        "title": "跨境合同纠纷解决",
+        "description": "中泰跨境合同纠纷专业法律分析，提供合同审查、风险评估、争议解决策略和诉讼/仲裁指导",
+        "keywords": "跨境合同纠纷,合同审查,争议解决,国际仲裁,中泰贸易纠纷",
+        "heroTitle": "跨境合同纠纷智能分析",
+        "heroDescription": "AI驱动的合同风险识别和争议解决策略，保护您的跨境商业利益",
+        "features": ["合同条款审查", "风险点识别", "争议解决策略", "诉讼/仲裁指导", "和解谈判建议", "法律文书起草"],
+        "faq": {
+          "q1": "跨境合同纠纷应该选择诉讼还是仲裁？",
+          "a1": "国际仲裁通常是跨境纠纷的首选，因为仲裁裁决在《纽约公约》缔约国间更容易执行。",
+          "q2": "合同没有约定管辖法律怎么办？",
+          "a2": "如果合同未约定适用法律，法院或仲裁庭将根据最密切联系原则确定适用法律。",
+          "q3": "跨境合同纠纷的诉讼时效是多久？",
+          "a3": "诉讼时效因适用法律而异，中国一般为3年，泰国民事诉讼时效一般为10年，具体需根据案件类型确定。"
+        }
+      },
+      "labor-law": {
+        "title": "中泰劳动法咨询",
+        "description": "中泰两国劳动法专业咨询，涵盖劳动合同、工作许可、社保缴纳、劳动争议等法律服务",
+        "keywords": "泰国劳动法,工作许可,劳动合同,社保缴纳,劳动争议",
+        "heroTitle": "中泰劳动法专业咨询",
+        "heroDescription": "全面了解中泰两国劳动法规，确保企业用工合规和员工权益保障",
+        "features": ["劳动合同审查", "工作许可办理", "社保合规咨询", "劳动争议调解", "解雇合规指导", "外籍员工管理"],
+        "faq": {
+          "q1": "在泰国雇佣外籍员工有什么限制？",
+          "a1": "泰国要求外籍员工与泰籍员工比例不超过1:4，且外籍员工必须持有有效工作许可证。",
+          "q2": "泰国的最低工资标准是多少？",
+          "a2": "泰国最低日薪因地区而异，曼谷地区约为353泰铢/天，其他地区略有不同。",
+          "q3": "泰国劳动法对解雇有什么规定？",
+          "a3": "泰国《劳动保护法》规定，雇主解雇员工需提前通知或支付代通知金，工作满一定年限的员工有权获得遣散费。"
+        }
+      },
+      "tax-advisory": {
+        "title": "中泰税务咨询服务",
+        "description": "中泰跨境税务专业咨询，包括双重征税协定、转让定价、税务合规和税务筹划服务",
+        "keywords": "中泰税务,双重征税协定,转让定价,税务合规,跨境税务筹划",
+        "heroTitle": "中泰跨境税务智能咨询",
+        "heroDescription": "利用中泰双重征税协定优化税务结构，确保跨境经营税务合规",
+        "features": ["双重征税协定分析", "转让定价咨询", "税务合规审查", "税务筹划方案", "个人所得税咨询", "增值税合规"],
+        "faq": {
+          "q1": "中泰之间有避免双重征税协定吗？",
+          "a1": "是的，中泰两国签有《避免双重征税和防止偷漏税协定》，可有效避免同一收入被两国重复征税。",
+          "q2": "在泰国经营需要缴纳哪些税？",
+          "a2": "主要税种包括企业所得税（20%）、增值税（7%）、预扣税、印花税等，具体税率因业务类型而异。",
+          "q3": "外国人在泰国的个人所得税如何计算？",
+          "a3": "在泰国居住超过180天的外国人需就全球收入纳税，税率为5%-35%的累进税率。"
+        }
+      },
+      "ip-protection": {
+        "title": "知识产权保护服务",
+        "description": "中泰跨境知识产权保护咨询，涵盖商标注册、专利申请、版权保护和知识产权维权",
+        "keywords": "知识产权保护,商标注册,专利申请,版权保护,跨境知识产权",
+        "heroTitle": "跨境知识产权智能保护",
+        "heroDescription": "AI辅助的知识产权风险评估和保护策略，守护您的创新成果",
+        "features": ["商标注册咨询", "专利申请指导", "版权保护方案", "知识产权维权", "侵权风险评估", "许可协议审查"],
+        "faq": {
+          "q1": "在泰国注册商标需要多长时间？",
+          "a1": "泰国商标注册通常需要12-18个月，包括形式审查、实质审查和公告期。",
+          "q2": "中国的商标在泰国受保护吗？",
+          "a2": "商标保护具有地域性，中国注册的商标在泰国不自动受保护，需要在泰国单独申请注册。",
+          "q3": "发现知识产权被侵权怎么办？",
+          "a3": "可通过行政投诉、民事诉讼或刑事举报等途径维权，建议先收集侵权证据并咨询专业律师。"
+        }
+      }
+    },
+    "cta": {
+      "title": "立即获取专业法律咨询",
+      "description": "AI智能法律系统为您提供7×24小时专业法律服务",
+      "button": "免费咨询"
+    },
+    "featuresTitle": "核心服务",
+    "faqTitle": "常见问题"
+  },
+  "blog": {
+    "title": "法律知识库",
+    "subtitle": "中泰法律专业文章与实务指南",
+    "searchPlaceholder": "搜索文章...",
+    "allCategories": "全部分类",
+    "categories": {
+      "company": "公司法务",
+      "visa": "签证移民",
+      "contract": "合同法",
+      "labor": "劳动法",
+      "tax": "税务",
+      "ip": "知识产权"
+    },
+    "readMore": "阅读全文",
+    "readTime": "{min} 分钟阅读",
+    "author": "作者",
+    "publishedAt": "发布于",
+    "category": "分类",
+    "backToBlog": "返回知识库",
+    "relatedPosts": "相关文章",
+    "share": "分享文章",
+    "shareOn": {
+      "twitter": "分享到 Twitter",
+      "linkedin": "分享到 LinkedIn",
+      "wechat": "分享到微信"
+    },
+    "noResults": "暂无匹配的文章",
+    "pagination": {
+      "prev": "上一页",
+      "next": "下一页"
+    }
+  },
+  "testimonials": {
+    "title": "用户评价",
+    "subtitle": "看看我们的用户怎么说",
+    "reviewCount": "条评价",
+    "noReviews": "暂无评价"
+  },
+  "referral": {
+    "title": "推荐计划",
+    "subtitle": "邀请好友注册，双方均可获得咨询额度奖励",
+    "yourCode": "您的推荐码",
+    "shareLink": "分享链接",
+    "copyCode": "复制推荐码",
+    "copyLink": "复制链接",
+    "codeCopied": "推荐码已复制",
+    "linkCopied": "链接已复制",
+    "stats": {
+      "totalReferrals": "总推荐人数",
+      "rewardsGranted": "已发放奖励",
+      "creditsEarned": "获得额度"
+    },
+    "howItWorks": {
+      "title": "如何参与",
+      "step1": "复制您的专属推荐码或分享链接给好友",
+      "step2": "好友通过您的链接注册并完成验证",
+      "step3": "双方各获得 5 次免费咨询额度奖励"
+    },
+    "history": "推荐记录",
+    "table": {
+      "user": "被推荐用户",
+      "date": "日期",
+      "status": "状态",
+      "credits": "奖励额度",
+      "completed": "已完成",
+      "pending": "待确认"
+    }
+  },
+  "admin": {
+    "title": "管理后台",
+    "sidebar": {
+      "dashboard": "仪表盘",
+      "users": "用户管理",
+      "content": "内容管理",
+      "orders": "订单管理"
+    },
+    "adminOnly": "仅管理员可访问",
+    "dashboard": {
+      "title": "仪表盘概览",
+      "totalUsers": "总用户数",
+      "activeSubscriptions": "活跃订阅",
+      "totalOrders": "总订单数",
+      "totalRevenue": "总收入",
+      "recentActivity": "最近活动",
+      "quickActions": "快捷操作",
+      "manageUsers": "管理用户",
+      "manageContent": "管理内容",
+      "viewOrders": "查看订单"
+    },
+    "users": {
+      "title": "用户管理",
+      "searchPlaceholder": "搜索用户姓名或邮箱...",
+      "filterByRole": "按角色筛选",
+      "allRoles": "全部角色",
+      "name": "姓名",
+      "email": "邮箱",
+      "role": "角色",
+      "subscription": "订阅",
+      "status": "状态",
+      "createdAt": "注册日期",
+      "actions": "操作",
+      "changeRole": "修改角色",
+      "active": "活跃",
+      "inactive": "未激活",
+      "roles": {
+        "FREE_USER": "免费用户",
+        "PAID_USER": "付费用户",
+        "VIP_MEMBER": "VIP会员",
+        "ADMIN": "管理员"
+      }
+    },
+    "content": {
+      "title": "内容管理",
+      "blogPosts": "博客文章",
+      "testimonials": "用户评价",
+      "blog": {
+        "postTitle": "标题",
+        "author": "作者",
+        "status": "状态",
+        "date": "日期",
+        "actions": "操作",
+        "draft": "草稿",
+        "published": "已发布",
+        "edit": "编辑",
+        "delete": "删除",
+        "publish": "发布"
+      },
+      "testimonial": {
+        "user": "用户",
+        "content": "内容",
+        "rating": "评分",
+        "status": "状态",
+        "actions": "操作",
+        "pending": "待审核",
+        "approved": "已通过",
+        "rejected": "已拒绝",
+        "approve": "通过",
+        "reject": "拒绝"
+      }
+    },
+    "orders": {
+      "title": "订单管理",
+      "searchPlaceholder": "搜索订单号...",
+      "filterByStatus": "按状态筛选",
+      "allStatuses": "全部状态",
+      "orderNumber": "订单号",
+      "user": "用户",
+      "product": "产品",
+      "amount": "金额",
+      "status": "状态",
+      "date": "日期",
+      "actions": "操作",
+      "refund": "退款",
+      "viewDetails": "查看详情",
+      "statuses": {
+        "PAID": "已支付",
+        "PENDING": "待支付",
+        "EXPIRED": "已过期",
+        "REFUNDED": "已退款",
+        "FAILED": "支付失败"
+      }
+    }
+  }
+}

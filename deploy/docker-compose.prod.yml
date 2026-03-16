@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: winai-app
+    ports:
+      - '3000:3000'
+    env_file:
+      - ../.env
+    environment:
+      - DATABASE_URL=postgresql://winai:winai_secure_2024@postgres:5432/winai
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+      - NODE_OPTIONS=--max-old-space-size=256
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 350M
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: winai-db
+    environment:
+      POSTGRES_USER: winai
+      POSTGRES_PASSWORD: winai_secure_2024
+      POSTGRES_DB: winai
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command: >
+      postgres
+        -c shared_buffers=64MB
+        -c effective_cache_size=128MB
+        -c work_mem=2MB
+        -c maintenance_work_mem=32MB
+        -c max_connections=20
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U winai']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+
+  redis:
+    image: redis:7-alpine
+    container_name: winai-redis
+    ports:
+      - '127.0.0.1:6379:6379'
+    command: redis-server --maxmemory 50mb --maxmemory-policy allkeys-lru --save ""
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 60M
+
+volumes:
+  pgdata:
+  redisdata:

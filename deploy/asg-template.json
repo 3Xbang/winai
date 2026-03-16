@@ -1,0 +1,112 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "China-Thailand Legal Expert - Auto Scaling Group",
+  "Parameters": {
+    "InstanceType": {
+      "Type": "String",
+      "Default": "t3.medium",
+      "AllowedValues": ["t3.small", "t3.medium", "t3.large"]
+    },
+    "AmiId": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+    },
+    "VpcId": { "Type": "AWS::EC2::VPC::Id" },
+    "SubnetIds": { "Type": "List<AWS::EC2::Subnet::Id>" }
+  },
+  "Resources": {
+    "LaunchTemplate": {
+      "Type": "AWS::EC2::LaunchTemplate",
+      "Properties": {
+        "LaunchTemplateName": "legal-expert-lt",
+        "LaunchTemplateData": {
+          "InstanceType": { "Ref": "InstanceType" },
+          "ImageId": { "Ref": "AmiId" },
+          "IamInstanceProfile": { "Name": "legal-expert-ec2-role" },
+          "UserData": { "Fn::Base64": { "Fn::Sub": "#!/bin/bash\ncurl -s https://raw.githubusercontent.com/your-org/legal-expert/main/deploy/ec2-user-data.sh | bash" } },
+          "TagSpecifications": [
+            {
+              "ResourceType": "instance",
+              "Tags": [
+                { "Key": "Name", "Value": "legal-expert" },
+                { "Key": "Environment", "Value": "production" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AutoScalingGroupName": "legal-expert-asg",
+        "LaunchTemplate": {
+          "LaunchTemplateId": { "Ref": "LaunchTemplate" },
+          "Version": "$Latest"
+        },
+        "MinSize": "1",
+        "MaxSize": "4",
+        "DesiredCapacity": "1",
+        "VPCZoneIdentifier": { "Ref": "SubnetIds" },
+        "HealthCheckType": "ELB",
+        "HealthCheckGracePeriod": 300,
+        "Tags": [
+          { "Key": "Environment", "Value": "production", "PropagateAtLaunch": true }
+        ]
+      }
+    },
+    "ScaleUpPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AutoScalingGroupName": { "Ref": "AutoScalingGroup" },
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingConfiguration": {
+          "PredefinedMetricSpecification": { "PredefinedMetricType": "ASGAverageCPUUtilization" },
+          "TargetValue": 70
+        }
+      }
+    },
+    "HighCPUAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmName": "legal-expert-high-cpu",
+        "MetricName": "CPUUtilization",
+        "Namespace": "AWS/EC2",
+        "Statistic": "Average",
+        "Period": 300,
+        "EvaluationPeriods": 2,
+        "Threshold": 85,
+        "ComparisonOperator": "GreaterThanThreshold",
+        "Dimensions": [
+          { "Name": "AutoScalingGroupName", "Value": { "Ref": "AutoScalingGroup" } }
+        ]
+      }
+    },
+    "HighMemoryAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmName": "legal-expert-high-memory",
+        "MetricName": "mem_used_percent",
+        "Namespace": "LegalExpert",
+        "Statistic": "Average",
+        "Period": 300,
+        "EvaluationPeriods": 2,
+        "Threshold": 85,
+        "ComparisonOperator": "GreaterThanThreshold"
+      }
+    },
+    "HighErrorRateAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmName": "legal-expert-high-error-rate",
+        "MetricName": "5XXError",
+        "Namespace": "AWS/ApplicationELB",
+        "Statistic": "Sum",
+        "Period": 300,
+        "EvaluationPeriods": 1,
+        "Threshold": 10,
+        "ComparisonOperator": "GreaterThanThreshold"
+      }
+    }
+  }
+}

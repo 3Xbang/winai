@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* WINAI Brand Colors */
+  --winai-gold: #D4A843;
+  --winai-gold-light: #E8C96A;
+  --winai-gold-dark: #B8922E;
+  --winai-navy: #1A1F3D;
+  --winai-navy-light: #2A3158;
+  --winai-navy-dark: #0F1229;
+  --winai-slate: #64748B;
+  --winai-bg: #FAFBFD;
+  --winai-card: #FFFFFF;
+  --winai-border: #E2E8F0;
+
+  --foreground-rgb: 26, 31, 61;
+  --background-start-rgb: 250, 251, 253;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* WINAI Gradient Utilities */
+.winai-gradient {
+  background: linear-gradient(135deg, var(--winai-navy) 0%, var(--winai-navy-light) 50%, #3B4578 100%);
+}
+
+.winai-gradient-gold {
+  background: linear-gradient(135deg, var(--winai-gold-dark) 0%, var(--winai-gold) 50%, var(--winai-gold-light) 100%);
+}
+
+.winai-text-gradient {
+  background: linear-gradient(135deg, var(--winai-gold) 0%, var(--winai-gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism card */
+.winai-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth transitions */
+.winai-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover lift effect */
+.winai-hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.winai-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(26, 31, 61, 0.12);
+}
+
+/* Subtle pulse for CTA */
+@keyframes winai-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(212, 168, 67, 0); }
+}
+.winai-pulse {
+  animation: winai-pulse 2.5s infinite;
+}
+
+/* Ant Design overrides for WINAI theme */
+.ant-menu-horizontal > .ant-menu-item-selected {
+  color: var(--winai-navy) !important;
+  border-bottom-color: var(--winai-gold) !important;
+}
+.ant-menu-horizontal > .ant-menu-item:hover {
+  color: var(--winai-gold-dark) !important;
+}
