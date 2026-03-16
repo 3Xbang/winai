@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 COPY prisma ./prisma/
-RUN npm ci --ignore-scripts
+RUN npm install --ignore-scripts
 RUN npx prisma generate
 
 # ─── Stage 2: Build ──────────────────────────────────────────
