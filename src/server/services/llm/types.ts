@@ -18,13 +18,13 @@ export interface LLMOptions {
   /** Response format — use 'json_object' for structured JSON output */
   responseFormat?: 'text' | 'json_object';
   /** Which provider to use explicitly */
-  provider?: 'openai' | 'anthropic' | 'glm';
+  provider?: 'glm';
 }
 
 export interface LLMResponse {
   content: string;
   model: string;
-  provider: 'openai' | 'anthropic' | 'glm' | 'fallback';
+  provider: 'glm' | 'fallback';
   usage?: {
     promptTokens: number;
     completionTokens: number;
@@ -37,7 +37,7 @@ export interface LLMStreamChunk {
   content: string;
   done: boolean;
   model?: string;
-  provider?: 'openai' | 'anthropic' | 'glm' | 'fallback';
+  provider?: 'glm' | 'fallback';
 }
 
 export interface PromptTemplateData {

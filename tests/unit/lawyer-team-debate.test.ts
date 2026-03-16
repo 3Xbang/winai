@@ -39,7 +39,7 @@ function mockLLMResponse(role: string, round: number) {
   if (round > 1) {
     base.rebuttal = `${role} 对上一轮论点的反驳...`;
   }
-  return { content: JSON.stringify(base), model: 'gpt-4', provider: 'openai' };
+  return { content: JSON.stringify(base), model: 'glm-4-flash-250414', provider: 'glm' };
 }
 
 // ─── Tests ──────────────────────────────────────────────────
@@ -122,8 +122,8 @@ describe('Debate Engine', () => {
   it('handles LLM returning non-JSON gracefully', async () => {
     mockChat.mockResolvedValue({
       content: '这是一段纯文本论点，不是JSON格式',
-      model: 'gpt-4',
-      provider: 'openai',
+      model: 'glm-4-flash-250414',
+      provider: 'glm',
     });
 
     const result = await startDebate(sampleCase, 1);

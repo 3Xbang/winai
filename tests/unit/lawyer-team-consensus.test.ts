@@ -66,8 +66,8 @@ describe('Consensus Report', () => {
   it('generates report with all required fields', async () => {
     mockChat.mockResolvedValue({
       content: JSON.stringify(sampleConsensusJSON),
-      model: 'gpt-4',
-      provider: 'openai',
+      model: 'glm-4-flash-250414',
+      provider: 'glm',
     });
 
     const report = await generateConsensusReport(sampleRounds);
@@ -82,8 +82,8 @@ describe('Consensus Report', () => {
   it('roleViewpoints contain all 4 roles with non-empty coreArguments', async () => {
     mockChat.mockResolvedValue({
       content: JSON.stringify(sampleConsensusJSON),
-      model: 'gpt-4',
-      provider: 'openai',
+      model: 'glm-4-flash-250414',
+      provider: 'glm',
     });
 
     const report = await generateConsensusReport(sampleRounds);
@@ -113,8 +113,8 @@ describe('Consensus Report', () => {
   it('handles malformed JSON gracefully', async () => {
     mockChat.mockResolvedValue({
       content: 'not valid json',
-      model: 'gpt-4',
-      provider: 'openai',
+      model: 'glm-4-flash-250414',
+      provider: 'glm',
     });
 
     const report = await generateConsensusReport(sampleRounds);
@@ -128,8 +128,8 @@ describe('Role Consultation', () => {
   it('returns analysis from specified role', async () => {
     mockChat.mockResolvedValue({
       content: '从原告律师角度分析，本案证据充分...',
-      model: 'gpt-4',
-      provider: 'openai',
+      model: 'glm-4-flash-250414',
+      provider: 'glm',
     });
 
     const result = await consultRole('PLAINTIFF_LAWYER', sampleCase);
@@ -144,7 +144,7 @@ describe('Role Consultation', () => {
   });
 
   it('uses correct system prompt for each role', async () => {
-    mockChat.mockResolvedValue({ content: '分析结果', model: 'gpt-4', provider: 'openai' });
+    mockChat.mockResolvedValue({ content: '分析结果', model: 'glm-4-flash-250414', provider: 'glm' });
 
     await consultRole('JUDGE', sampleCase);
 
