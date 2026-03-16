@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/navigation';
 import { type Locale, locales } from '@/i18n/routing';
-import { useTransition } from 'react';
+import { useTransition, useState, useEffect } from 'react';
 
 const localeLabels: Record<Locale, string> = {
   zh: '中文',
@@ -17,6 +17,11 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const effectivePending = mounted ? isPending : false;
 
   function handleLocaleChange(newLocale: Locale) {
     if (newLocale === locale) return;
@@ -31,13 +36,13 @@ export default function LanguageSwitcher() {
         <button
           key={loc}
           onClick={() => handleLocaleChange(loc)}
-          disabled={isPending}
+          disabled={effectivePending}
           aria-current={loc === locale ? 'true' : undefined}
           className={`px-2 py-1 text-sm rounded transition-colors ${
             loc === locale
               ? 'bg-blue-600 text-white font-medium'
               : 'text-gray-600 hover:bg-gray-100'
-          } ${isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+          } ${effectivePending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
         >
           {localeLabels[loc]}
         </button>

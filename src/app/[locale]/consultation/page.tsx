@@ -151,7 +151,7 @@ export default function ConsultationPage() {
   }, [isLoadingHistory, hasMoreHistory, historyPage]);
 
   const handleSend = useCallback(
-    (text: string) => {
+    async (text: string) => {
       const userMsg: ChatMessage = {
         id: `user-${Date.now()}`,
         role: 'user',
@@ -163,49 +163,56 @@ export default function ConsultationPage() {
       setIsLoading(true);
       setProcessingPhase('analyzing');
 
-      // Simulate phased processing
       const phaseTimer1 = setTimeout(() => setProcessingPhase('searching'), 500);
       const phaseTimer2 = setTimeout(() => setProcessingPhase('generating'), 1000);
 
-      // Mock assistant response with delay
-      const responseTimer = setTimeout(() => {
-        const isLegalQuery = text.includes('公司') || text.includes('合同') || text.includes('签证') || text.length > 10;
-        const showIRAC = text.includes('公司') || text.includes('股权') || text.includes('注册');
-        const showRisk = text.includes('刑事') || text.includes('犯罪') || text.includes('criminal');
+      try {
+        // Build conversation history for context
+        const history = messages
+          .filter((m) => m.role === 'user' || m.role === 'assistant')
+          .slice(-10)
+          .map((m) => ({ role: m.role, content: m.content }));
 
-        const responseContent = isLegalQuery
-          ? '根据您的咨询内容，我已进行了初步的法律分析。以下是基于IRAC方法论的结构化分析结果：\n\n该问题涉及中泰两国法律的交叉适用，建议您重点关注以下几个方面的法律风险。'
-          : '感谢您的提问。请您提供更多具体信息，例如：\n\n1. 涉及的具体法律领域（公司法、合同法、劳动法等）\n2. 相关的国家/地区\n3. 具体的事实情况\n\n这将帮助我为您提供更精准的法律分析。';
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, history }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'AI 服务异常');
+        }
 
         const assistantMsg: ChatMessage = {
           id: `assistant-${Date.now()}`,
           role: 'assistant',
-          content: responseContent,
+          content: data.content || '抱歉，未能生成回复。',
           timestamp: new Date(),
           isStreaming: true,
-          iracAnalysis: showIRAC ? MOCK_IRAC : undefined,
-          riskWarnings: showRisk
-            ? [{ level: 'high' as const, message: '本案涉及刑事法律领域，AI分析仅供参考，强烈建议聘请专业刑事律师处理。' }]
-            : undefined,
-          intentTags: isLegalQuery ? ['公司法', '跨境投资'] : undefined,
-          followUpSuggestions: isLegalQuery
-            ? ['股权结构如何调整？', '需要哪些审批手续？', '有哪些税务影响？']
-            : ['请描述您的法律问题', '需要合同审查吗？'],
           detectedLanguage: 'zh',
         };
 
         setMessages((prev) => [...prev, assistantMsg]);
         setStreamingMessageId(assistantMsg.id);
-        setIsLoading(false);
-      }, 1500);
-
-      return () => {
+      } catch (error) {
+        const errorMsg: ChatMessage = {
+          id: `error-${Date.now()}`,
+          role: 'assistant',
+          content: `抱歉，AI 服务暂时无法响应：${error instanceof Error ? error.message : '未知错误'}。请稍后重试。`,
+          timestamp: new Date(),
+          isStreaming: false,
+        };
+        setMessages((prev) => [...prev, errorMsg]);
+      } finally {
         clearTimeout(phaseTimer1);
         clearTimeout(phaseTimer2);
-        clearTimeout(responseTimer);
-      };
+        setIsLoading(false);
+        setProcessingPhase('idle');
+      }
     },
-    []
+    [messages]
   );
 
   return (

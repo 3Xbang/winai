@@ -14,8 +14,9 @@ const antdLocaleMap: Record<string, AntdLocale> = {
   en: enUS,
 };
 
-export default function AntdProvider({ children }: { children: React.ReactNode }) {
-  const locale = useLocale();
+export default function AntdProvider({ children, locale: localeProp }: { children: React.ReactNode; locale?: string }) {
+  const hookLocale = useLocale();
+  const locale = localeProp || hookLocale;
   const antdLocale = antdLocaleMap[locale] || enUS;
 
   return (

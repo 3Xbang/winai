@@ -2,6 +2,7 @@
 
 import { Avatar } from 'antd';
 import { UserOutlined, RobotOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
 
 export interface ChatMessage {
   id: string;
@@ -63,6 +64,8 @@ function formatContent(content: string) {
 
 export default function MessageBubble({ message, typingText }: MessageBubbleProps) {
   const isUser = message.role === 'user';
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const displayContent = typingText ?? message.content;
   const showTypingIndicator = message.isStreaming && !typingText;
 
@@ -90,8 +93,8 @@ export default function MessageBubble({ message, typingText }: MessageBubbleProp
             <div className="whitespace-pre-wrap">{formatContent(displayContent)}</div>
           )}
         </div>
-        <span className={`text-xs text-gray-400 mt-1 ${isUser ? 'text-right' : 'text-left'}`}>
-          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        <span className={`text-xs text-gray-400 mt-1 ${isUser ? 'text-right' : 'text-left'}`} suppressHydrationWarning>
+          {mounted ? message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
         </span>
       </div>
     </div>

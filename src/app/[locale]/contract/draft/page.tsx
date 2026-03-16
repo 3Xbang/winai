@@ -52,34 +52,21 @@ export default function ContractDraftPage() {
     setResult(null);
 
     try {
-      // In production, this would call tRPC: contract.draft.mutate(...)
-      // Mock: simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await fetch('/api/contract/draft', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
 
-      const mockResult = `【${values.contractType === 'EMPLOYMENT' ? '劳动合同' : '合同'}】
+      const data = await res.json();
 
-甲方：${values.partyAName}
-乙方：${values.partyBName}
+      if (!res.ok) {
+        throw new Error(data.error || '合同生成失败');
+      }
 
-第一条 合同目的
-本合同由甲乙双方本着平等自愿、协商一致的原则签订。
-
-第二条 权利义务
-（根据合同类型自动生成具体条款）
-
-第三条 适用法律
-本合同适用${values.governingLaw}。
-
-第四条 争议解决
-${values.disputeResolution}
-
-${values.specialClauses ? `第五条 特殊条款\n${values.specialClauses}` : ''}
-
-免责声明：本合同由AI系统生成，仅供参考，不构成正式法律意见。建议在签署前咨询专业律师。`;
-
-      setResult(mockResult);
-    } catch {
-      message.error(tCommon('error'));
+      setResult(data.content);
+    } catch (err) {
+      message.error(err instanceof Error ? err.message : tCommon('error'));
     } finally {
       setLoading(false);
     }

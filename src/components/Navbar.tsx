@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Layout, Menu, Button, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -24,8 +24,14 @@ export default function Navbar() {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const selectedKey = NAV_ITEMS.find((item) => item.key === pathname)?.key || '/';
+  useEffect(() => setMounted(true), []);
+
+  const selectedKey = mounted
+    ? NAV_ITEMS.find((item) => item.key === pathname)?.key || '/'
+    : '';
+  const selectedKeys = mounted ? [selectedKey] : [];
 
   const menuItems = NAV_ITEMS.map((item) => ({
     key: item.key,
@@ -51,7 +57,7 @@ export default function Navbar() {
       <div className="hidden lg:flex flex-1 items-center justify-between min-w-0">
         <Menu
           mode="horizontal"
-          selectedKeys={[selectedKey]}
+          selectedKeys={selectedKeys}
           items={menuItems}
           className="flex-1 border-none min-w-0"
           style={{ lineHeight: '62px' }}
@@ -87,7 +93,7 @@ export default function Navbar() {
       >
         <Menu
           mode="vertical"
-          selectedKeys={[selectedKey]}
+          selectedKeys={selectedKeys}
           items={menuItems}
           onClick={() => setDrawerOpen(false)}
           className="border-none"

@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Avatar, Button, Dropdown, type MenuProps } from 'antd';
 import { UserOutlined, LogoutOutlined, ProfileOutlined } from '@ant-design/icons';
 import { Link } from '@/i18n/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Mock auth state for now - will be replaced with next-auth session later
 function useMockAuth() {
@@ -15,7 +15,14 @@ function useMockAuth() {
 
 export default function UserAvatar() {
   const t = useTranslations('nav');
+  const [mounted, setMounted] = useState(false);
   const { isAuthenticated, user } = useMockAuth();
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return <div className="flex items-center gap-2" style={{ width: 120, height: 32 }} />;
+  }
 
   if (!isAuthenticated) {
     return (

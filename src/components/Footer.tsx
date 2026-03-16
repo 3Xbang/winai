@@ -38,7 +38,7 @@ export default function Footer() {
         <p className="text-xs text-gray-500 mb-1">
           {t('disclaimer')}
         </p>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-500" suppressHydrationWarning>
           {t('copyright', { year: String(year) })}
         </p>
       </div>
