@@ -277,7 +277,21 @@
       "partyAddress": "ที่อยู่",
       "keyTerms": "เงื่อนไขสำคัญ",
       "governingLaw": "กฎหมายที่ใช้บังคับ",
+      "selectGoverningLaw": "เลือกกฎหมายที่ใช้บังคับ",
+      "governingLawOptions": {
+        "CN_LAW": "กฎหมายสาธารณรัฐประชาชนจีน",
+        "TH_LAW": "กฎหมายราชอาณาจักรไทย",
+        "DUAL_LAW": "กฎหมายจีนและไทย (ใช้บังคับคู่)"
+      },
       "disputeResolution": "การระงับข้อพิพาท",
+      "selectDisputeResolution": "เลือกวิธีการระงับข้อพิพาท",
+      "disputeResolutionOptions": {
+        "NEGOTIATION": "เจรจาไกล่เกลี่ย",
+        "CIETAC_ARBITRATION": "อนุญาโตตุลาการ CIETAC (จีน)",
+        "TAI_ARBITRATION": "สถาบันอนุญาโตตุลาการไทย",
+        "CN_COURT": "ฟ้องร้องต่อศาลจีน",
+        "TH_COURT": "ฟ้องร้องต่อศาลไทย"
+      },
       "language": "ภาษาสัญญา",
       "specialClauses": "ข้อกำหนดพิเศษ",
       "generate": "สร้างสัญญา",

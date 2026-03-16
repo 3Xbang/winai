@@ -21,6 +21,8 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const CONTRACT_TYPES = ['EMPLOYMENT', 'SALE', 'SERVICE', 'LEASE', 'PARTNERSHIP', 'OTHER'] as const;
+const GOVERNING_LAW_OPTIONS = ['CN_LAW', 'TH_LAW', 'DUAL_LAW'] as const;
+const DISPUTE_RESOLUTION_OPTIONS = ['NEGOTIATION', 'CIETAC_ARBITRATION', 'TAI_ARBITRATION', 'CN_COURT', 'TH_COURT'] as const;
 const LANGUAGES = ['zh', 'en', 'th'] as const;
 
 interface DraftFormValues {
@@ -184,14 +186,34 @@ export default function ContractDraftPage() {
                 label={t('governingLaw')}
                 rules={[{ required: true }]}
               >
-                <Input data-testid="governing-law" />
+                <Select
+                  placeholder={t('selectGoverningLaw')}
+                  size="large"
+                  data-testid="governing-law"
+                >
+                  {GOVERNING_LAW_OPTIONS.map((key) => (
+                    <Option key={key} value={key}>
+                      {t(`governingLawOptions.${key}`)}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
               <Form.Item
                 name="disputeResolution"
                 label={t('disputeResolution')}
                 rules={[{ required: true }]}
               >
-                <Input data-testid="dispute-resolution" />
+                <Select
+                  placeholder={t('selectDisputeResolution')}
+                  size="large"
+                  data-testid="dispute-resolution"
+                >
+                  {DISPUTE_RESOLUTION_OPTIONS.map((key) => (
+                    <Option key={key} value={key}>
+                      {t(`disputeResolutionOptions.${key}`)}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
             </div>
 

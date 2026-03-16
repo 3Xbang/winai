@@ -277,7 +277,21 @@
       "partyAddress": "Address",
       "keyTerms": "Key Terms",
       "governingLaw": "Governing Law",
+      "selectGoverningLaw": "Select governing law",
+      "governingLawOptions": {
+        "CN_LAW": "Laws of the People's Republic of China",
+        "TH_LAW": "Laws of the Kingdom of Thailand",
+        "DUAL_LAW": "Chinese and Thai Law (Dual Application)"
+      },
       "disputeResolution": "Dispute Resolution",
+      "selectDisputeResolution": "Select dispute resolution method",
+      "disputeResolutionOptions": {
+        "NEGOTIATION": "Amicable Negotiation",
+        "CIETAC_ARBITRATION": "CIETAC Arbitration (China)",
+        "TAI_ARBITRATION": "Thailand Arbitration Institute",
+        "CN_COURT": "Litigation in Chinese Court",
+        "TH_COURT": "Litigation in Thai Court"
+      },
       "language": "Contract Language",
       "specialClauses": "Special Clauses",
       "generate": "Generate Contract",

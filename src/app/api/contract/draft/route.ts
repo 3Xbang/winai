@@ -34,10 +34,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Determine jurisdiction from governing law input
-    const isChina = governingLaw?.includes('中国') || governingLaw?.includes('China');
-    const isThailand = governingLaw?.includes('泰国') || governingLaw?.includes('Thai');
-    const jurisdiction = isChina && isThailand ? 'DUAL' : isThailand ? 'THAILAND' : 'CHINA';
+    // Map governing law key to readable text and jurisdiction
+    const governingLawMap: Record<string, { text: string; jurisdiction: 'CHINA' | 'THAILAND' | 'DUAL' }> = {
+      CN_LAW: { text: '中华人民共和国法律', jurisdiction: 'CHINA' },
+      TH_LAW: { text: '泰王国法律', jurisdiction: 'THAILAND' },
+      DUAL_LAW: { text: '中国法律与泰国法律（双重适用）', jurisdiction: 'DUAL' },
+    };
+
+    const disputeResolutionMap: Record<string, string> = {
+      NEGOTIATION: '友好协商解决',
+      CIETAC_ARBITRATION: '提交中国国际经济贸易仲裁委员会仲裁',
+      TAI_ARBITRATION: '提交泰国仲裁院仲裁',
+      CN_COURT: '向中国有管辖权的人民法院提起诉讼',
+      TH_COURT: '向泰国有管辖权的法院提起诉讼',
+    };
+
+    const lawInfo = governingLawMap[governingLaw] || { text: governingLaw || '中华人民共和国法律', jurisdiction: 'CHINA' as const };
+    const resolvedDisputeResolution = disputeResolutionMap[disputeResolution] || disputeResolution || '协商解决，协商不成提交仲裁';
+    const jurisdiction = lawInfo.jurisdiction;
 
     const draftRequest: ContractDraftRequest = {
       contractType: contractType as ContractDraftRequest['contractType'],
@@ -56,8 +70,8 @@ export async function POST(req: NextRequest) {
         },
       ],
       keyTerms: {
-        governingLaw: governingLaw || '中华人民共和国法律',
-        disputeResolution: disputeResolution || '协商解决，协商不成提交仲裁',
+        governingLaw: lawInfo.text,
+        disputeResolution: resolvedDisputeResolution,
         ...(specialClauses ? { specialClauses } : {}),
       },
       languages: languages || ['zh'],

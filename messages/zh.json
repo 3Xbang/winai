@@ -277,7 +277,21 @@
       "partyAddress": "地址",
       "keyTerms": "关键条款",
       "governingLaw": "适用法律",
+      "selectGoverningLaw": "请选择适用法律",
+      "governingLawOptions": {
+        "CN_LAW": "中华人民共和国法律",
+        "TH_LAW": "泰王国法律",
+        "DUAL_LAW": "中国法律与泰国法律（双重适用）"
+      },
       "disputeResolution": "争议解决方式",
+      "selectDisputeResolution": "请选择争议解决方式",
+      "disputeResolutionOptions": {
+        "NEGOTIATION": "友好协商解决",
+        "CIETAC_ARBITRATION": "提交中国国际经济贸易仲裁委员会仲裁",
+        "TAI_ARBITRATION": "提交泰国仲裁院仲裁",
+        "CN_COURT": "向中国有管辖权的人民法院提起诉讼",
+        "TH_COURT": "向泰国有管辖权的法院提起诉讼"
+      },
       "language": "合同语言",
       "specialClauses": "特殊条款",
       "generate": "生成合同",
