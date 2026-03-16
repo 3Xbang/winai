@@ -19,7 +19,7 @@ const CITATION_PATTERN = /《[^》]+》第?\d+条?|第\d+条/g;
 
 export function extractCitations(content: string): string[] {
   const matches = content.match(CITATION_PATTERN);
-  return matches ? [...new Set(matches)] : [];
+  return matches ? Array.from(new Set(matches)) : [];
 }
 
 // ─── Public API ─────────────────────────────────────────────
