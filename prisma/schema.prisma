@@ -511,3 +511,179 @@ model PromptTemplate {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
+
+// ==================== 模拟法庭 ====================
+
+enum CourtPhase {
+  OPENING
+  EVIDENCE
+  DEBATE
+  CLOSING
+  VERDICT
+}
+
+enum MockCourtStatus {
+  ACTIVE
+  COMPLETED
+  DELETED
+}
+
+enum UserCourtRole {
+  PLAINTIFF_LAWYER
+  DEFENDANT_LAWYER
+}
+
+enum AICourtRole {
+  JUDGE
+  OPPOSING_COUNSEL
+  WITNESS
+}
+
+enum CaseType {
+  CONTRACT_DISPUTE
+  TORT
+  LABOR_DISPUTE
+  IP_DISPUTE
+  CROSS_BORDER_TRADE
+  OTHER
+}
+
+enum CourtJurisdiction {
+  CHINA
+  THAILAND
+  ARBITRATION
+}
+
+enum DifficultyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum EvidenceType {
+  DOCUMENTARY
+  PHYSICAL
+  TESTIMONY
+  EXPERT_OPINION
+  ELECTRONIC
+}
+
+enum EvidenceAdmission {
+  PENDING
+  ADMITTED
+  PARTIALLY_ADMITTED
+  REJECTED
+}
+
+enum ObjectionType {
+  IRRELEVANT
+  HEARSAY
+  LEADING_QUESTION
+  NON_RESPONSIVE
+  OTHER
+}
+
+enum ObjectionRuling {
+  SUSTAINED
+  OVERRULED
+  PENDING
+}
+
+model MockCourtSession {
+  id              String            @id @default(cuid())
+  userId          String
+  status          MockCourtStatus   @default(ACTIVE)
+  currentPhase    CourtPhase        @default(OPENING)
+
+  // Case Config
+  caseType        CaseType
+  caseDescription String            @db.Text
+  jurisdiction    CourtJurisdiction
+  userRole        UserCourtRole
+  difficulty      DifficultyLevel
+  supplementary   Json?             // 案件类型补充字段
+
+  // 来源
+  importedFromSessionId String?     // 从案件分析导入时的源会话 ID
+
+  // 评估报告
+  reportGenerated Boolean           @default(false)
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?         // 软删除
+
+  messages        CourtMessage[]
+  evidenceItems   CourtEvidence[]
+  objections      CourtObjection[]
+  report          CourtPerformanceReport?
+
+  @@index([userId, status])
+  @@index([userId, createdAt])
+}
+
+model CourtMessage {
+  id          String        @id @default(cuid())
+  sessionId   String
+  phase       CourtPhase
+  senderRole  String        // 'USER' | 'JUDGE' | 'OPPOSING_COUNSEL' | 'WITNESS' | 'SYSTEM'
+  content     String        @db.Text
+  metadata    Json?
+  createdAt   DateTime      @default(now())
+
+  session     MockCourtSession @relation(fields: [sessionId], references: [id])
+
+  @@index([sessionId, createdAt])
+}
+
+model CourtEvidence {
+  id              String            @id @default(cuid())
+  sessionId       String
+  name            String
+  evidenceType    EvidenceType
+  description     String            @db.Text
+  proofPurpose    String            @db.Text
+  submittedBy     String            // 'USER' | 'OPPOSING_COUNSEL'
+  admission       EvidenceAdmission @default(PENDING)
+  admissionReason String?           @db.Text
+  createdAt       DateTime          @default(now())
+
+  session         MockCourtSession  @relation(fields: [sessionId], references: [id])
+
+  @@index([sessionId])
+}
+
+model CourtObjection {
+  id               String          @id @default(cuid())
+  sessionId        String
+  objectionType    ObjectionType
+  raisedBy         String          // 'USER' | 'OPPOSING_COUNSEL'
+  reason           String?         @db.Text
+  ruling           ObjectionRuling @default(PENDING)
+  rulingReason     String?         @db.Text
+  relatedMessageId String?
+  createdAt        DateTime        @default(now())
+
+  session          MockCourtSession @relation(fields: [sessionId], references: [id])
+
+  @@index([sessionId])
+}
+
+model CourtPerformanceReport {
+  id                  String   @id @default(cuid())
+  sessionId           String   @unique
+  legalArgumentScore  Int
+  evidenceUseScore    Int
+  procedureScore      Int
+  adaptabilityScore   Int
+  expressionScore     Int
+  overallScore        Float
+  overallComment      String   @db.Text
+  dimensionDetails    Json
+  improvements        Json
+  legalCitations      Json
+  verdictSummary      String   @db.Text
+  createdAt           DateTime @default(now())
+
+  session             MockCourtSession @relation(fields: [sessionId], references: [id])
+}

@@ -929,5 +929,203 @@
         "FAILED": "ล้มเหลว"
       }
     }
+  },
+  "mockCourt": {
+    "title": "ศาลจำลอง",
+    "subtitle": "การฝึกจำลองการพิจารณาคดีด้วย AI",
+    "description": "ฝึกทักษะการว่าความในศาลเสมือนจริงที่ขับเคลื่อนด้วย AI เพื่อพัฒนาความสามารถในการปฏิบัติงานในศาล",
+    "createSession": "สร้างการพิจารณาคดีจำลอง",
+    "startSimulation": "เริ่มจำลอง",
+    "submitEvidence": "ยื่นพยานหลักฐาน",
+    "raiseObjection": "คัดค้าน",
+    "exportRecord": "ส่งออกบันทึก",
+    "sendMessage": "ส่ง",
+    "respondToObjection": "ตอบข้อคัดค้าน",
+    "viewCourtroom": "ห้องพิจารณาคดี",
+    "viewReport": "ดูรายงาน",
+    "viewHistory": "ดูประวัติ",
+    "backToList": "กลับไปรายการ",
+    "continueSession": "ดำเนินการพิจารณาต่อ",
+    "deleteSession": "ลบเซสชัน",
+    "importFromAnalysis": "นำเข้าจากการวิเคราะห์คดี",
+    "selectCaseAnalysis": "เลือกการวิเคราะห์คดี",
+    "importSuccess": "นำเข้าข้อมูลคดีสำเร็จ",
+    "loadingAnalyses": "กำลังโหลดรายการวิเคราะห์คดี...",
+    "noTitle": "ไม่มีชื่อ",
+    "messagePlaceholder": "กรอกคำแถลงของคุณ...",
+    "phases": {
+      "OPENING": "คำแถลงเปิดคดี",
+      "EVIDENCE": "การสืบพยานหลักฐาน",
+      "DEBATE": "การแถลงการณ์ด้วยวาจา",
+      "CLOSING": "คำแถลงปิดคดี",
+      "VERDICT": "คำพิพากษา"
+    },
+    "caseTypes": {
+      "CONTRACT_DISPUTE": "ข้อพิพาทสัญญา",
+      "TORT": "ละเมิด",
+      "LABOR_DISPUTE": "ข้อพิพาทแรงงาน",
+      "IP_DISPUTE": "ข้อพิพาททรัพย์สินทางปัญญา",
+      "CROSS_BORDER_TRADE": "ข้อพิพาทการค้าข้ามพรมแดน",
+      "OTHER": "อื่นๆ"
+    },
+    "jurisdictions": {
+      "CHINA": "ศาลจีน",
+      "THAILAND": "ศาลไทย",
+      "ARBITRATION": "อนุญาโตตุลาการ"
+    },
+    "difficultyLevels": {
+      "BEGINNER": "เริ่มต้น",
+      "INTERMEDIATE": "ปานกลาง",
+      "ADVANCED": "ขั้นสูง"
+    },
+    "userRoles": {
+      "PLAINTIFF_LAWYER": "ทนายโจทก์",
+      "DEFENDANT_LAWYER": "ทนายจำเลย"
+    },
+    "aiRoles": {
+      "JUDGE": "ผู้พิพากษา",
+      "OPPOSING_COUNSEL": "ทนายฝ่ายตรงข้าม",
+      "WITNESS": "พยาน",
+      "SYSTEM": "ระบบ"
+    },
+    "evidenceTypes": {
+      "DOCUMENTARY": "พยานเอกสาร",
+      "PHYSICAL": "พยานวัตถุ",
+      "TESTIMONY": "พยานบุคคล",
+      "EXPERT_OPINION": "ความเห็นผู้เชี่ยวชาญ",
+      "ELECTRONIC": "พยานหลักฐานอิเล็กทรอนิกส์"
+    },
+    "evidenceAdmission": {
+      "PENDING": "รอพิจารณา",
+      "ADMITTED": "รับฟัง",
+      "PARTIALLY_ADMITTED": "รับฟังบางส่วน",
+      "REJECTED": "ไม่รับฟัง"
+    },
+    "objectionTypes": {
+      "IRRELEVANT": "ไม่เกี่ยวข้องกับคดี",
+      "HEARSAY": "พยานบอกเล่า",
+      "LEADING_QUESTION": "คำถามนำ",
+      "NON_RESPONSIVE": "ไม่ตอบคำถาม",
+      "OTHER": "อื่นๆ"
+    },
+    "objectionRulings": {
+      "SUSTAINED": "คัดค้านรับฟัง",
+      "OVERRULED": "คัดค้านยกเลิก",
+      "PENDING": "รอวินิจฉัย"
+    },
+    "scoreDimensions": {
+      "LEGAL_ARGUMENT": "คุณภาพการให้เหตุผลทางกฎหมาย",
+      "EVIDENCE_USE": "ความสามารถในการใช้พยานหลักฐาน",
+      "PROCEDURE": "การปฏิบัติตามกระบวนการ",
+      "ADAPTABILITY": "ความสามารถในการปรับตัว",
+      "EXPRESSION": "การแสดงออกทางภาษา"
+    },
+    "form": {
+      "caseType": "ประเภทคดี",
+      "selectCaseType": "เลือกประเภทคดี",
+      "caseDescription": "รายละเอียดคดี",
+      "caseDescriptionPlaceholder": "อธิบายข้อเท็จจริงของคดีโดยละเอียด (50-5000 ตัวอักษร)...",
+      "jurisdiction": "เขตอำนาจศาล",
+      "selectJurisdiction": "เลือกเขตอำนาจศาล",
+      "userRole": "บทบาทของคุณ",
+      "selectUserRole": "เลือกบทบาทของคุณ",
+      "difficulty": "ระดับความยาก",
+      "selectDifficulty": "เลือกระดับความยาก",
+      "evidenceName": "ชื่อพยานหลักฐาน",
+      "evidenceNamePlaceholder": "กรอกชื่อพยานหลักฐาน",
+      "evidenceType": "ประเภทพยานหลักฐาน",
+      "selectEvidenceType": "เลือกประเภทพยานหลักฐาน",
+      "evidenceDescription": "รายละเอียดพยานหลักฐาน",
+      "evidenceDescriptionPlaceholder": "อธิบายพยานหลักฐาน...",
+      "proofPurpose": "วัตถุประสงค์ในการพิสูจน์",
+      "proofPurposePlaceholder": "อธิบายวัตถุประสงค์ของพยานหลักฐานนี้...",
+      "objectionType": "ประเภทข้อคัดค้าน",
+      "selectObjectionType": "เลือกประเภทข้อคัดค้าน",
+      "objectionReason": "เหตุผลในการคัดค้าน",
+      "objectionReasonPlaceholder": "อธิบายเหตุผลในการคัดค้าน (ไม่บังคับ)...",
+      "supplementary": {
+        "contractAmount": "มูลค่าสัญญา",
+        "contractAmountPlaceholder": "กรอกมูลค่าสัญญา",
+        "breachParty": "ฝ่ายผิดสัญญา",
+        "breachPartyPlaceholder": "กรอกฝ่ายผิดสัญญา",
+        "laborRelationType": "ประเภทความสัมพันธ์แรงงาน",
+        "laborRelationTypePlaceholder": "กรอกประเภทความสัมพันธ์แรงงาน",
+        "disputeFocus": "ประเด็นข้อพิพาท",
+        "disputeFocusPlaceholder": "กรอกประเด็นข้อพิพาท"
+      }
+    },
+    "validation": {
+      "caseTypeRequired": "กรุณาเลือกประเภทคดี",
+      "caseDescriptionRequired": "กรุณากรอกรายละเอียดคดี",
+      "caseDescriptionMinLength": "รายละเอียดคดีต้องมีอย่างน้อย 50 ตัวอักษร",
+      "caseDescriptionMaxLength": "รายละเอียดคดีต้องไม่เกิน 5000 ตัวอักษร",
+      "jurisdictionRequired": "กรุณาเลือกเขตอำนาจศาล",
+      "userRoleRequired": "กรุณาเลือกบทบาทของคุณ",
+      "difficultyRequired": "กรุณาเลือกระดับความยาก",
+      "evidenceNameRequired": "กรุณากรอกชื่อพยานหลักฐาน",
+      "evidenceTypeRequired": "กรุณาเลือกประเภทพยานหลักฐาน",
+      "evidenceDescriptionRequired": "กรุณากรอกรายละเอียดพยานหลักฐาน",
+      "proofPurposeRequired": "กรุณากรอกวัตถุประสงค์ในการพิสูจน์",
+      "objectionTypeRequired": "กรุณาเลือกประเภทข้อคัดค้าน"
+    },
+    "status": {
+      "ACTIVE": "กำลังดำเนินการ",
+      "COMPLETED": "เสร็จสิ้น",
+      "DELETED": "ถูกลบ"
+    },
+    "empty": {
+      "noSessions": "ยังไม่มีเซสชันศาลจำลอง",
+      "noSessionsHint": "คลิก \"สร้างการพิจารณาคดีจำลอง\" เพื่อเริ่มการจำลองศาลครั้งแรกของคุณ",
+      "noMessages": "การพิจารณาคดียังไม่เริ่มต้น",
+      "noEvidence": "ยังไม่มีพยานหลักฐานที่ยื่น",
+      "noCaseAnalyses": "ไม่พบบันทึกการวิเคราะห์คดี",
+      "noCaseAnalysesHint": "กรุณาใช้ฟีเจอร์วิเคราะห์คดีก่อน หรือกรอกข้อมูลคดีด้วยตนเอง"
+    },
+    "loading": {
+      "creatingSession": "กำลังสร้างเซสชันศาลจำลอง...",
+      "loadingSession": "กำลังโหลดข้อมูลการพิจารณาคดี...",
+      "aiThinking": "AI กำลังคิด...",
+      "generatingReport": "กำลังสร้างรายงานประเมินผล...",
+      "exportingPDF": "กำลังส่งออก PDF..."
+    },
+    "report": {
+      "title": "รายงานประเมินผลการปฏิบัติงานในศาล",
+      "overallScore": "คะแนนรวม",
+      "dimensionScores": "คะแนนรายมิติ",
+      "detailedFeedback": "ข้อเสนอแนะโดยละเอียด",
+      "strengths": "จุดแข็ง",
+      "weaknesses": "จุดอ่อน",
+      "improvements": "ข้อเสนอแนะในการปรับปรุง",
+      "legalCitations": "การอ้างอิงกฎหมาย",
+      "citationAccurate": "อ้างอิงถูกต้อง",
+      "citationInaccurate": "อ้างอิงไม่ถูกต้อง",
+      "verdictSummary": "สรุปคำพิพากษา"
+    },
+    "history": {
+      "title": "ประวัติศาลจำลอง",
+      "sessionDate": "วันที่พิจารณาคดี",
+      "caseTypeBadge": "ประเภทคดี",
+      "jurisdictionBadge": "เขตอำนาจศาล",
+      "difficultyBadge": "ระดับความยาก",
+      "statusBadge": "สถานะ",
+      "empty": "ยังไม่มีเซสชันศาลจำลอง",
+      "deleteConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบเซสชันนี้?",
+      "deleteSuccess": "ลบเซสชันสำเร็จ"
+    },
+    "quota": {
+      "limitReached": "ถึงขีดจำกัดศาลจำลองประจำเดือนแล้ว",
+      "upgradeHint": "อัปเกรดสมาชิกเพื่อรับเซสชันจำลองเพิ่มเติม",
+      "remainingCount": "เหลือในเดือนนี้: {count}",
+      "difficultyLocked": "ระดับความยากนี้ต้องอัปเกรดสมาชิก"
+    },
+    "errors": {
+      "sessionNotFound": "ไม่พบเซสชันหรือถูกลบแล้ว",
+      "sessionAccessDenied": "คุณไม่มีสิทธิ์เข้าถึงเซสชันนี้",
+      "phaseActionNotAllowed": "ไม่อนุญาตให้ดำเนินการนี้ในขั้นตอนการพิจารณาคดีปัจจุบัน",
+      "objectionPending": "กรุณาตอบข้อคัดค้านที่รอดำเนินการก่อน",
+      "aiServiceUnavailable": "บริการ AI ไม่พร้อมใช้งานชั่วคราว กรุณาลองอีกครั้งในภายหลัง",
+      "createFailed": "สร้างเซสชันศาลจำลองล้มเหลว กรุณาลองอีกครั้ง",
+      "exportFailed": "ส่งออก PDF ล้มเหลว กรุณาลองอีกครั้ง"
+    }
   }
 }

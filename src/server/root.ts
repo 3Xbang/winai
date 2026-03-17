@@ -12,6 +12,7 @@ import { subscriptionRouter } from './routers/subscription';
 import { paymentRouter } from './routers/payment';
 import { sessionRouter } from './routers/session';
 import { adminRouter } from './routers/admin';
+import { mockCourtRouter } from './routers/mockCourt';
 import {
   conversationRouter,
   riskRouter,
@@ -44,6 +45,8 @@ export const appRouter = createTRPCRouter({
   qa: qaRouter,
   personalization: personalizationRouter,
   quality: qualityRouter,
+  // Mock Court module router
+  mockCourt: mockCourtRouter,
 });
 
 export type AppRouter = typeof appRouter;

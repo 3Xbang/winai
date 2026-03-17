@@ -24,11 +24,25 @@ ssh -i $KEY $SERVER "grep -q 'GLM_MODEL' $REMOTE_DIR/.env || echo 'GLM_MODEL=\"g
 echo ">>> 构建并重启容器..."
 ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker compose -f deploy/docker-compose.prod.yml up -d --build"
 
-# 4. 等待启动
+# 4. 等待数据库就绪
+echo ">>> 等待数据库就绪..."
+ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker compose -f deploy/docker-compose.prod.yml exec -T postgres sh -c 'until pg_isready -U winai; do sleep 1; done'"
+
+# 5. 同步数据库 Schema（Prisma db push）
+echo ">>> 同步数据库 Schema..."
+ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker run --rm \
+  --network container:winai-db \
+  -v $REMOTE_DIR/prisma:/app/prisma \
+  -w /app \
+  -e DATABASE_URL=postgresql://winai:winai_secure_2024@localhost:5432/winai \
+  node:20-alpine \
+  sh -c 'npm install prisma@latest --no-save && npx prisma db push --skip-generate --accept-data-loss'"
+
+# 6. 等待应用启动
 echo ">>> 等待服务启动..."
 sleep 15
 
-# 5. 检查状态
+# 7. 检查状态
 echo ">>> 检查容器状态..."
 ssh -i $KEY $SERVER "sudo docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
 

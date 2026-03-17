@@ -929,5 +929,203 @@
         "FAILED": "Failed"
       }
     }
+  },
+  "mockCourt": {
+    "title": "Mock Court",
+    "subtitle": "AI-Powered Virtual Court Simulation Training",
+    "description": "Practice legal argumentation skills in an AI virtual courtroom to enhance trial practice abilities",
+    "createSession": "Create Mock Trial",
+    "startSimulation": "Start Simulation",
+    "submitEvidence": "Submit Evidence",
+    "raiseObjection": "Raise Objection",
+    "exportRecord": "Export Record",
+    "sendMessage": "Send",
+    "respondToObjection": "Respond to Objection",
+    "viewCourtroom": "Courtroom",
+    "viewReport": "View Report",
+    "viewHistory": "View History",
+    "backToList": "Back to List",
+    "continueSession": "Continue Trial",
+    "deleteSession": "Delete Session",
+    "importFromAnalysis": "Import from Case Analysis",
+    "selectCaseAnalysis": "Select Case Analysis",
+    "importSuccess": "Case information imported successfully",
+    "loadingAnalyses": "Loading case analyses...",
+    "noTitle": "Untitled",
+    "messagePlaceholder": "Enter your court statement...",
+    "phases": {
+      "OPENING": "Opening Statement",
+      "EVIDENCE": "Evidence Examination",
+      "DEBATE": "Court Debate",
+      "CLOSING": "Closing Statement",
+      "VERDICT": "Verdict"
+    },
+    "caseTypes": {
+      "CONTRACT_DISPUTE": "Contract Dispute",
+      "TORT": "Tort",
+      "LABOR_DISPUTE": "Labor Dispute",
+      "IP_DISPUTE": "Intellectual Property Dispute",
+      "CROSS_BORDER_TRADE": "Cross-Border Trade Dispute",
+      "OTHER": "Other"
+    },
+    "jurisdictions": {
+      "CHINA": "Chinese Court",
+      "THAILAND": "Thai Court",
+      "ARBITRATION": "Arbitration Tribunal"
+    },
+    "difficultyLevels": {
+      "BEGINNER": "Beginner",
+      "INTERMEDIATE": "Intermediate",
+      "ADVANCED": "Advanced"
+    },
+    "userRoles": {
+      "PLAINTIFF_LAWYER": "Plaintiff Lawyer",
+      "DEFENDANT_LAWYER": "Defendant Lawyer"
+    },
+    "aiRoles": {
+      "JUDGE": "Judge",
+      "OPPOSING_COUNSEL": "Opposing Counsel",
+      "WITNESS": "Witness",
+      "SYSTEM": "System"
+    },
+    "evidenceTypes": {
+      "DOCUMENTARY": "Documentary Evidence",
+      "PHYSICAL": "Physical Evidence",
+      "TESTIMONY": "Testimony",
+      "EXPERT_OPINION": "Expert Opinion",
+      "ELECTRONIC": "Electronic Evidence"
+    },
+    "evidenceAdmission": {
+      "PENDING": "Pending",
+      "ADMITTED": "Admitted",
+      "PARTIALLY_ADMITTED": "Partially Admitted",
+      "REJECTED": "Rejected"
+    },
+    "objectionTypes": {
+      "IRRELEVANT": "Irrelevant",
+      "HEARSAY": "Hearsay",
+      "LEADING_QUESTION": "Leading Question",
+      "NON_RESPONSIVE": "Non-Responsive",
+      "OTHER": "Other"
+    },
+    "objectionRulings": {
+      "SUSTAINED": "Sustained",
+      "OVERRULED": "Overruled",
+      "PENDING": "Pending"
+    },
+    "scoreDimensions": {
+      "LEGAL_ARGUMENT": "Legal Argumentation",
+      "EVIDENCE_USE": "Evidence Utilization",
+      "PROCEDURE": "Procedural Compliance",
+      "ADAPTABILITY": "Adaptability",
+      "EXPRESSION": "Expression"
+    },
+    "form": {
+      "caseType": "Case Type",
+      "selectCaseType": "Select case type",
+      "caseDescription": "Case Description",
+      "caseDescriptionPlaceholder": "Describe the case facts in detail (50-5000 characters)...",
+      "jurisdiction": "Jurisdiction",
+      "selectJurisdiction": "Select jurisdiction",
+      "userRole": "Your Role",
+      "selectUserRole": "Select your role",
+      "difficulty": "Difficulty Level",
+      "selectDifficulty": "Select difficulty level",
+      "evidenceName": "Evidence Name",
+      "evidenceNamePlaceholder": "Enter evidence name",
+      "evidenceType": "Evidence Type",
+      "selectEvidenceType": "Select evidence type",
+      "evidenceDescription": "Evidence Description",
+      "evidenceDescriptionPlaceholder": "Describe the evidence...",
+      "proofPurpose": "Proof Purpose",
+      "proofPurposePlaceholder": "Explain the purpose of this evidence...",
+      "objectionType": "Objection Type",
+      "selectObjectionType": "Select objection type",
+      "objectionReason": "Objection Reason",
+      "objectionReasonPlaceholder": "Explain the reason for objection (optional)...",
+      "supplementary": {
+        "contractAmount": "Contract Amount",
+        "contractAmountPlaceholder": "Enter contract amount",
+        "breachParty": "Breaching Party",
+        "breachPartyPlaceholder": "Enter breaching party",
+        "laborRelationType": "Labor Relation Type",
+        "laborRelationTypePlaceholder": "Enter labor relation type",
+        "disputeFocus": "Dispute Focus",
+        "disputeFocusPlaceholder": "Enter dispute focus"
+      }
+    },
+    "validation": {
+      "caseTypeRequired": "Please select a case type",
+      "caseDescriptionRequired": "Please enter a case description",
+      "caseDescriptionMinLength": "Case description must be at least 50 characters",
+      "caseDescriptionMaxLength": "Case description cannot exceed 5000 characters",
+      "jurisdictionRequired": "Please select a jurisdiction",
+      "userRoleRequired": "Please select your role",
+      "difficultyRequired": "Please select a difficulty level",
+      "evidenceNameRequired": "Please enter evidence name",
+      "evidenceTypeRequired": "Please select evidence type",
+      "evidenceDescriptionRequired": "Please enter evidence description",
+      "proofPurposeRequired": "Please enter proof purpose",
+      "objectionTypeRequired": "Please select objection type"
+    },
+    "status": {
+      "ACTIVE": "In Progress",
+      "COMPLETED": "Completed",
+      "DELETED": "Deleted"
+    },
+    "empty": {
+      "noSessions": "No mock court sessions yet",
+      "noSessionsHint": "Click \"Create Mock Trial\" to start your first court simulation",
+      "noMessages": "The trial has not started yet",
+      "noEvidence": "No evidence submitted yet",
+      "noCaseAnalyses": "No case analysis records found",
+      "noCaseAnalysesHint": "Please use the case analysis feature first, or fill in case information manually"
+    },
+    "loading": {
+      "creatingSession": "Creating mock court session...",
+      "loadingSession": "Loading trial data...",
+      "aiThinking": "AI is thinking...",
+      "generatingReport": "Generating evaluation report...",
+      "exportingPDF": "Exporting PDF..."
+    },
+    "report": {
+      "title": "Trial Performance Evaluation Report",
+      "overallScore": "Overall Score",
+      "dimensionScores": "Dimension Scores",
+      "detailedFeedback": "Detailed Feedback",
+      "strengths": "Strengths",
+      "weaknesses": "Weaknesses",
+      "improvements": "Improvement Suggestions",
+      "legalCitations": "Legal Citations",
+      "citationAccurate": "Accurate Citation",
+      "citationInaccurate": "Inaccurate Citation",
+      "verdictSummary": "Verdict Summary"
+    },
+    "history": {
+      "title": "Mock Court History",
+      "sessionDate": "Trial Date",
+      "caseTypeBadge": "Case Type",
+      "jurisdictionBadge": "Jurisdiction",
+      "difficultyBadge": "Difficulty",
+      "statusBadge": "Status",
+      "empty": "No mock court sessions yet",
+      "deleteConfirm": "Are you sure you want to delete this session?",
+      "deleteSuccess": "Session deleted successfully"
+    },
+    "quota": {
+      "limitReached": "Monthly mock court limit reached",
+      "upgradeHint": "Upgrade your subscription for more simulation sessions",
+      "remainingCount": "Remaining this month: {count}",
+      "difficultyLocked": "This difficulty level requires a subscription upgrade"
+    },
+    "errors": {
+      "sessionNotFound": "Session not found or has been deleted",
+      "sessionAccessDenied": "You do not have access to this session",
+      "phaseActionNotAllowed": "This action is not allowed in the current trial phase",
+      "objectionPending": "Please respond to the pending objection first",
+      "aiServiceUnavailable": "AI service is temporarily unavailable. Please try again later",
+      "createFailed": "Failed to create mock court session. Please try again",
+      "exportFailed": "Failed to export PDF. Please try again"
+    }
   }
 }

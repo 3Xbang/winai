@@ -929,5 +929,203 @@
         "FAILED": "支付失败"
       }
     }
+  },
+  "mockCourt": {
+    "title": "模拟法庭",
+    "subtitle": "AI 驱动的虚拟庭审模拟训练",
+    "description": "在 AI 虚拟法庭中练习法律论辩技巧，提升庭审实务能力",
+    "createSession": "创建模拟庭审",
+    "startSimulation": "开始模拟",
+    "submitEvidence": "提交证据",
+    "raiseObjection": "提出异议",
+    "exportRecord": "导出记录",
+    "sendMessage": "发送",
+    "respondToObjection": "回应异议",
+    "viewCourtroom": "庭审现场",
+    "viewReport": "查看报告",
+    "viewHistory": "查看历史",
+    "backToList": "返回列表",
+    "continueSession": "继续庭审",
+    "deleteSession": "删除会话",
+    "importFromAnalysis": "从案件分析导入",
+    "selectCaseAnalysis": "选择案件分析",
+    "importSuccess": "案件信息导入成功",
+    "loadingAnalyses": "正在加载案件分析列表...",
+    "noTitle": "无标题",
+    "messagePlaceholder": "请输入您的庭审发言...",
+    "phases": {
+      "OPENING": "开庭陈述",
+      "EVIDENCE": "举证质证",
+      "DEBATE": "法庭辩论",
+      "CLOSING": "最后陈述",
+      "VERDICT": "判决"
+    },
+    "caseTypes": {
+      "CONTRACT_DISPUTE": "合同纠纷",
+      "TORT": "侵权纠纷",
+      "LABOR_DISPUTE": "劳动争议",
+      "IP_DISPUTE": "知识产权纠纷",
+      "CROSS_BORDER_TRADE": "跨境贸易纠纷",
+      "OTHER": "其他"
+    },
+    "jurisdictions": {
+      "CHINA": "中国法院",
+      "THAILAND": "泰国法院",
+      "ARBITRATION": "仲裁庭"
+    },
+    "difficultyLevels": {
+      "BEGINNER": "初级",
+      "INTERMEDIATE": "中级",
+      "ADVANCED": "高级"
+    },
+    "userRoles": {
+      "PLAINTIFF_LAWYER": "原告律师",
+      "DEFENDANT_LAWYER": "被告律师"
+    },
+    "aiRoles": {
+      "JUDGE": "法官",
+      "OPPOSING_COUNSEL": "对方律师",
+      "WITNESS": "证人",
+      "SYSTEM": "系统"
+    },
+    "evidenceTypes": {
+      "DOCUMENTARY": "书证",
+      "PHYSICAL": "物证",
+      "TESTIMONY": "证人证言",
+      "EXPERT_OPINION": "鉴定意见",
+      "ELECTRONIC": "电子数据"
+    },
+    "evidenceAdmission": {
+      "PENDING": "待审",
+      "ADMITTED": "采纳",
+      "PARTIALLY_ADMITTED": "部分采纳",
+      "REJECTED": "不予采纳"
+    },
+    "objectionTypes": {
+      "IRRELEVANT": "与案件无关",
+      "HEARSAY": "传闻证据",
+      "LEADING_QUESTION": "引导性提问",
+      "NON_RESPONSIVE": "未回答问题",
+      "OTHER": "其他"
+    },
+    "objectionRulings": {
+      "SUSTAINED": "异议成立",
+      "OVERRULED": "异议驳回",
+      "PENDING": "待裁定"
+    },
+    "scoreDimensions": {
+      "LEGAL_ARGUMENT": "法律论证质量",
+      "EVIDENCE_USE": "证据运用能力",
+      "PROCEDURE": "程序规范性",
+      "ADAPTABILITY": "应变能力",
+      "EXPRESSION": "语言表达"
+    },
+    "form": {
+      "caseType": "案件类型",
+      "selectCaseType": "请选择案件类型",
+      "caseDescription": "案情描述",
+      "caseDescriptionPlaceholder": "请详细描述案件事实经过（50-5000字）...",
+      "jurisdiction": "管辖区",
+      "selectJurisdiction": "请选择管辖区",
+      "userRole": "您的角色",
+      "selectUserRole": "请选择您的角色",
+      "difficulty": "难度等级",
+      "selectDifficulty": "请选择难度等级",
+      "evidenceName": "证据名称",
+      "evidenceNamePlaceholder": "请输入证据名称",
+      "evidenceType": "证据类型",
+      "selectEvidenceType": "请选择证据类型",
+      "evidenceDescription": "证据描述",
+      "evidenceDescriptionPlaceholder": "请描述证据内容...",
+      "proofPurpose": "证明目的",
+      "proofPurposePlaceholder": "请说明该证据的证明目的...",
+      "objectionType": "异议类型",
+      "selectObjectionType": "请选择异议类型",
+      "objectionReason": "异议理由",
+      "objectionReasonPlaceholder": "请说明异议理由（可选）...",
+      "supplementary": {
+        "contractAmount": "合同金额",
+        "contractAmountPlaceholder": "请输入合同金额",
+        "breachParty": "违约方",
+        "breachPartyPlaceholder": "请输入违约方",
+        "laborRelationType": "劳动关系类型",
+        "laborRelationTypePlaceholder": "请输入劳动关系类型",
+        "disputeFocus": "争议焦点",
+        "disputeFocusPlaceholder": "请输入争议焦点"
+      }
+    },
+    "validation": {
+      "caseTypeRequired": "请选择案件类型",
+      "caseDescriptionRequired": "请输入案情描述",
+      "caseDescriptionMinLength": "案情描述至少需要50个字符",
+      "caseDescriptionMaxLength": "案情描述不能超过5000个字符",
+      "jurisdictionRequired": "请选择管辖区",
+      "userRoleRequired": "请选择您的角色",
+      "difficultyRequired": "请选择难度等级",
+      "evidenceNameRequired": "请输入证据名称",
+      "evidenceTypeRequired": "请选择证据类型",
+      "evidenceDescriptionRequired": "请输入证据描述",
+      "proofPurposeRequired": "请输入证明目的",
+      "objectionTypeRequired": "请选择异议类型"
+    },
+    "status": {
+      "ACTIVE": "进行中",
+      "COMPLETED": "已完成",
+      "DELETED": "已删除"
+    },
+    "empty": {
+      "noSessions": "暂无模拟法庭记录",
+      "noSessionsHint": "点击「创建模拟庭审」开始您的第一次庭审模拟",
+      "noMessages": "庭审尚未开始",
+      "noEvidence": "暂无提交的证据",
+      "noCaseAnalyses": "暂无案件分析记录",
+      "noCaseAnalysesHint": "请先使用案件分析功能，或手动填写案情信息"
+    },
+    "loading": {
+      "creatingSession": "正在创建模拟法庭会话...",
+      "loadingSession": "正在加载庭审数据...",
+      "aiThinking": "AI 正在思考中...",
+      "generatingReport": "正在生成评估报告...",
+      "exportingPDF": "正在导出 PDF..."
+    },
+    "report": {
+      "title": "庭审表现评估报告",
+      "overallScore": "总体评分",
+      "dimensionScores": "各维度评分",
+      "detailedFeedback": "详细评价",
+      "strengths": "优点",
+      "weaknesses": "不足",
+      "improvements": "改进建议",
+      "legalCitations": "法律条文引用",
+      "citationAccurate": "引用准确",
+      "citationInaccurate": "引用不准确",
+      "verdictSummary": "判决摘要"
+    },
+    "history": {
+      "title": "模拟法庭历史",
+      "sessionDate": "庭审日期",
+      "caseTypeBadge": "案件类型",
+      "jurisdictionBadge": "管辖区",
+      "difficultyBadge": "难度",
+      "statusBadge": "状态",
+      "empty": "暂无模拟法庭记录",
+      "deleteConfirm": "确定要删除此庭审记录吗？",
+      "deleteSuccess": "删除成功"
+    },
+    "quota": {
+      "limitReached": "本月模拟法庭次数已达上限",
+      "upgradeHint": "升级订阅以获取更多模拟次数",
+      "remainingCount": "本月剩余次数：{count}",
+      "difficultyLocked": "该难度等级需要升级订阅才能使用"
+    },
+    "errors": {
+      "sessionNotFound": "会话不存在或已被删除",
+      "sessionAccessDenied": "您无权访问此会话",
+      "phaseActionNotAllowed": "当前庭审阶段不允许此操作",
+      "objectionPending": "请先回应待处理的异议",
+      "aiServiceUnavailable": "AI 服务暂不可用，请稍后重试",
+      "createFailed": "创建模拟法庭失败，请重试",
+      "exportFailed": "导出 PDF 失败，请重试"
+    }
   }
 }
