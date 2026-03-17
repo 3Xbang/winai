@@ -55,9 +55,12 @@ export class CourtAIService {
 
     // Fill placeholders
     const caseConfigStr = [
-      `案件类型: ${config.caseType}`,
-      `案情描述: ${config.caseDescription}`,
-      `管辖区: ${config.jurisdiction}`,
+      `案件类型 (Case Type): ${config.caseType}`,
+      `管辖区 (Jurisdiction): ${config.jurisdiction}`,
+      `难度等级 (Difficulty): ${config.difficulty}`,
+      ``,
+      `案情描述 (Case Description):`,
+      config.caseDescription,
     ].join('\n');
 
     return buildPrompt(prompt, {
