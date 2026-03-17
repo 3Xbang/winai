@@ -298,7 +298,129 @@
       "generating": "กำลังสร้างสัญญา...",
       "result": "ผลลัพธ์",
       "copyText": "คัดลอกข้อความ",
-      "copied": "คัดลอกแล้ว"
+      "copied": "คัดลอกแล้ว",
+      "iAm": "ฉันเป็น",
+      "iAmPlaceholder": "เลือกฝ่ายที่คุณเป็นตัวแทน",
+      "addParty": "เพิ่มคู่สัญญา",
+      "removeParty": "ลบ",
+      "maxPartiesReached": "เพิ่มคู่สัญญาได้สูงสุด 10 ฝ่าย",
+      "partyLabel": "คู่สัญญา {index}",
+      "desiredOutcomes": "ผลลัพธ์ที่ต้องการ",
+      "outcomes": {
+        "EMPLOYMENT": {
+          "salary": {
+            "label": "เงินเดือน/ค่าตอบแทนที่ต้องการ",
+            "placeholder": "เช่น 50,000 บาท/เดือน"
+          },
+          "probationPeriod": {
+            "label": "ระยะเวลาทดลองงาน",
+            "placeholder": "เช่น 3 เดือน"
+          },
+          "terminationConditions": {
+            "label": "เงื่อนไขการเลิกสัญญา",
+            "placeholder": "อธิบายเงื่อนไขการเลิกสัญญาที่คุณต้องการ"
+          },
+          "nonCompeteScope": {
+            "label": "ขอบเขตข้อห้ามการแข่งขัน",
+            "placeholder": "อธิบายขอบเขตและระยะเวลาของข้อห้ามการแข่งขัน"
+          }
+        },
+        "SALE": {
+          "itemDescription": {
+            "label": "รายละเอียดสินค้า",
+            "placeholder": "อธิบายสินค้าที่ซื้อขาย"
+          },
+          "priceAndPayment": {
+            "label": "ราคาและเงื่อนไขการชำระเงิน",
+            "placeholder": "เช่น รวม 100,000 หยวน แบ่งชำระ 2 งวด"
+          },
+          "deliveryConditions": {
+            "label": "เงื่อนไขการส่งมอบ",
+            "placeholder": "เช่น ส่งมอบภายใน 30 วันหลังลงนาม"
+          },
+          "warrantyTerms": {
+            "label": "เงื่อนไขการรับประกัน/คืนสินค้า",
+            "placeholder": "อธิบายระยะเวลารับประกันและเงื่อนไขการคืนสินค้า"
+          },
+          "breachPenalty": {
+            "label": "ค่าปรับผิดสัญญา",
+            "placeholder": "เช่น 10% ของมูลค่าสัญญา"
+          }
+        },
+        "SERVICE": {
+          "serviceScope": {
+            "label": "ขอบเขตบริการ",
+            "placeholder": "อธิบายรายละเอียดและขอบเขตของบริการ"
+          },
+          "servicePeriod": {
+            "label": "ระยะเวลาบริการ",
+            "placeholder": "เช่น 1 มกราคม 2567 ถึง 31 ธันวาคม 2567"
+          },
+          "paymentSchedule": {
+            "label": "กำหนดการชำระเงิน",
+            "placeholder": "เช่น ชำระรายเดือน ภายในวันที่ 15"
+          },
+          "qualityStandards": {
+            "label": "มาตรฐานคุณภาพ",
+            "placeholder": "อธิบายข้อกำหนดคุณภาพบริการและเกณฑ์การตรวจรับ"
+          },
+          "breachPenalty": {
+            "label": "ค่าปรับผิดสัญญา",
+            "placeholder": "เช่น 10% ของมูลค่าสัญญา"
+          }
+        },
+        "LEASE": {
+          "propertyDescription": {
+            "label": "รายละเอียดทรัพย์สิน",
+            "placeholder": "อธิบายที่อยู่และรายละเอียดพื้นฐานของทรัพย์สินที่เช่า"
+          },
+          "leaseDuration": {
+            "label": "ระยะเวลาเช่า",
+            "placeholder": "เช่น 1 ปี เริ่มตั้งแต่ 1 มกราคม 2567"
+          },
+          "monthlyRent": {
+            "label": "ค่าเช่ารายเดือน",
+            "placeholder": "เช่น 15,000 บาท/เดือน"
+          },
+          "depositAmount": {
+            "label": "จำนวนเงินมัดจำ",
+            "placeholder": "เช่น ค่าเช่า 2 เดือน"
+          },
+          "earlyTerminationPenalty": {
+            "label": "ค่าปรับยกเลิกก่อนกำหนด",
+            "placeholder": "เช่น ริบเงินมัดจำ 1 เดือน"
+          }
+        },
+        "PARTNERSHIP": {
+          "capitalContribution": {
+            "label": "เงินลงทุน",
+            "placeholder": "เช่น ฝ่าย ก ลงทุน 60% ฝ่าย ข ลงทุน 40%"
+          },
+          "profitSharingRatio": {
+            "label": "สัดส่วนแบ่งกำไร",
+            "placeholder": "เช่น แบ่งตามสัดส่วนเงินลงทุน"
+          },
+          "decisionMakingAuthority": {
+            "label": "อำนาจการตัดสินใจ",
+            "placeholder": "อธิบายอำนาจการจัดการและตัดสินใจของแต่ละฝ่าย"
+          },
+          "exitConditions": {
+            "label": "เงื่อนไขการถอนตัว",
+            "placeholder": "อธิบายเงื่อนไขและขั้นตอนการถอนตัวของหุ้นส่วน"
+          }
+        },
+        "OTHER": {
+          "freeTextOutcome": {
+            "label": "อธิบายผลลัพธ์ที่ต้องการ",
+            "placeholder": "อธิบายด้วยคำพูดของคุณเองว่าต้องการให้สัญญาบรรลุผลอะไร"
+          }
+        }
+      },
+      "validation": {
+        "userPartyRequired": "กรุณาเลือกฝ่ายที่คุณเป็นตัวแทน",
+        "outcomeRequired": "จำเป็นต้องกรอก",
+        "positiveNumber": "กรุณากรอกตัวเลขที่เป็นบวก"
+      }
     },
     "review": {
       "title": "ตรวจสอบสัญญาด้วย AI",

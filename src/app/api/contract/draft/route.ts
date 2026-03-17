@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getContractAnalyzer } from '@/server/services/legal/contract';
 import { getLLMGateway } from '@/server/services/llm';
 import type { ContractDraftRequest } from '@/server/services/legal/contract';
+import { validatePartiesCount } from '@/lib/contract-validation';
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,8 +23,42 @@ export async function POST(req: NextRequest) {
       specialClauses,
     } = body;
 
-    if (!contractType || !partyAName || !partyBName) {
+    if (!contractType) {
       return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
+    }
+
+    // Build parties array: prefer new `parties` format, fall back to old partyA/partyB fields
+    let parties: Array<{ name: string; role: string; nationality?: string; address?: string }>;
+
+    if (Array.isArray(body.parties)) {
+      parties = body.parties;
+    } else {
+      // Backward compatibility: convert old format to parties array
+      if (!partyAName || !partyBName) {
+        return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
+      }
+      parties = [
+        {
+          name: partyAName,
+          role: partyARole || '甲方',
+          nationality: partyANationality,
+          address: partyAAddress,
+        },
+        {
+          name: partyBName,
+          role: partyBRole || '乙方',
+          nationality: partyBNationality,
+          address: partyBAddress,
+        },
+      ];
+    }
+
+    // Validate parties count
+    if (!validatePartiesCount(parties)) {
+      return NextResponse.json(
+        { error: '参与方数量必须在2到10之间' },
+        { status: 400 },
+      );
     }
 
     const gateway = getLLMGateway();
@@ -53,22 +88,21 @@ export async function POST(req: NextRequest) {
     const resolvedDisputeResolution = disputeResolutionMap[disputeResolution] || disputeResolution || '协商解决，协商不成提交仲裁';
     const jurisdiction = lawInfo.jurisdiction;
 
+    // Default userPartyIndex to 0 if undefined or out of range
+    const rawUserPartyIndex = body.userPartyIndex;
+    const userPartyIndex =
+      typeof rawUserPartyIndex === 'number' &&
+      Number.isInteger(rawUserPartyIndex) &&
+      rawUserPartyIndex >= 0 &&
+      rawUserPartyIndex < parties.length
+        ? rawUserPartyIndex
+        : 0;
+
+    const desiredOutcomes: Record<string, string> | undefined = body.desiredOutcomes;
+
     const draftRequest: ContractDraftRequest = {
       contractType: contractType as ContractDraftRequest['contractType'],
-      parties: [
-        {
-          name: partyAName,
-          role: partyARole || '甲方',
-          nationality: partyANationality,
-          address: partyAAddress,
-        },
-        {
-          name: partyBName,
-          role: partyBRole || '乙方',
-          nationality: partyBNationality,
-          address: partyBAddress,
-        },
-      ],
+      parties,
       keyTerms: {
         governingLaw: lawInfo.text,
         disputeResolution: resolvedDisputeResolution,
@@ -78,9 +112,9 @@ export async function POST(req: NextRequest) {
       jurisdiction: {
         jurisdiction,
         confidence: 0.9,
-        applicableLaws: [],
-        reasoning: '',
       },
+      userPartyIndex,
+      desiredOutcomes,
     };
 
     const analyzer = getContractAnalyzer();

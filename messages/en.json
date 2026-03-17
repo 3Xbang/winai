@@ -298,7 +298,129 @@
       "generating": "Generating contract...",
       "result": "Generated Result",
       "copyText": "Copy Text",
-      "copied": "Copied"
+      "copied": "Copied",
+      "iAm": "I am",
+      "iAmPlaceholder": "Select the party you represent",
+      "addParty": "Add Party",
+      "removeParty": "Remove",
+      "maxPartiesReached": "Maximum of 10 parties reached",
+      "partyLabel": "Party {index}",
+      "desiredOutcomes": "Desired Outcomes",
+      "outcomes": {
+        "EMPLOYMENT": {
+          "salary": {
+            "label": "Desired Salary/Compensation",
+            "placeholder": "e.g., 50,000 THB/month"
+          },
+          "probationPeriod": {
+            "label": "Probation Period",
+            "placeholder": "e.g., 3 months"
+          },
+          "terminationConditions": {
+            "label": "Termination Conditions",
+            "placeholder": "Describe your desired contract termination conditions"
+          },
+          "nonCompeteScope": {
+            "label": "Non-Compete Scope",
+            "placeholder": "Describe the scope and duration of non-compete restrictions"
+          }
+        },
+        "SALE": {
+          "itemDescription": {
+            "label": "Item Description",
+            "placeholder": "Describe the item(s) being sold"
+          },
+          "priceAndPayment": {
+            "label": "Price and Payment Terms",
+            "placeholder": "e.g., Total 100,000 CNY, paid in two installments"
+          },
+          "deliveryConditions": {
+            "label": "Delivery Conditions",
+            "placeholder": "e.g., Deliver within 30 days of signing"
+          },
+          "warrantyTerms": {
+            "label": "Warranty/Return Terms",
+            "placeholder": "Describe warranty period and return conditions"
+          },
+          "breachPenalty": {
+            "label": "Breach Penalty",
+            "placeholder": "e.g., 10% of contract value"
+          }
+        },
+        "SERVICE": {
+          "serviceScope": {
+            "label": "Service Scope",
+            "placeholder": "Describe the specific services and scope"
+          },
+          "servicePeriod": {
+            "label": "Service Period",
+            "placeholder": "e.g., January 1, 2024 to December 31, 2024"
+          },
+          "paymentSchedule": {
+            "label": "Payment Schedule",
+            "placeholder": "e.g., Monthly payment, due by the 15th"
+          },
+          "qualityStandards": {
+            "label": "Quality Standards",
+            "placeholder": "Describe service quality requirements and acceptance criteria"
+          },
+          "breachPenalty": {
+            "label": "Breach Penalty",
+            "placeholder": "e.g., 10% of contract value"
+          }
+        },
+        "LEASE": {
+          "propertyDescription": {
+            "label": "Property Description",
+            "placeholder": "Describe the property address and basic details"
+          },
+          "leaseDuration": {
+            "label": "Lease Duration",
+            "placeholder": "e.g., 1 year, starting January 1, 2024"
+          },
+          "monthlyRent": {
+            "label": "Monthly Rent",
+            "placeholder": "e.g., 15,000 THB/month"
+          },
+          "depositAmount": {
+            "label": "Deposit Amount",
+            "placeholder": "e.g., 2 months' rent"
+          },
+          "earlyTerminationPenalty": {
+            "label": "Early Termination Penalty",
+            "placeholder": "e.g., Forfeit 1 month's deposit"
+          }
+        },
+        "PARTNERSHIP": {
+          "capitalContribution": {
+            "label": "Capital Contribution",
+            "placeholder": "e.g., Party A contributes 60%, Party B contributes 40%"
+          },
+          "profitSharingRatio": {
+            "label": "Profit Sharing Ratio",
+            "placeholder": "e.g., Distributed according to capital contribution ratio"
+          },
+          "decisionMakingAuthority": {
+            "label": "Decision-Making Authority",
+            "placeholder": "Describe each party's management and decision-making authority"
+          },
+          "exitConditions": {
+            "label": "Exit Conditions",
+            "placeholder": "Describe the conditions and process for partner exit"
+          }
+        },
+        "OTHER": {
+          "freeTextOutcome": {
+            "label": "Desired Outcome Description",
+            "placeholder": "Describe in your own words what you want the contract to achieve"
+          }
+        }
+      },
+      "validation": {
+        "userPartyRequired": "Please select the party you represent",
+        "outcomeRequired": "This field is required",
+        "positiveNumber": "Please enter a valid positive number"
+      }
     },
     "review": {
       "title": "AI Contract Review",

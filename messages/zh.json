@@ -298,7 +298,129 @@
       "generating": "正在生成合同...",
       "result": "生成结果",
       "copyText": "复制文本",
-      "copied": "已复制"
+      "copied": "已复制",
+      "iAm": "我是",
+      "iAmPlaceholder": "请选择您代表的当事方",
+      "addParty": "添加当事方",
+      "removeParty": "移除",
+      "maxPartiesReached": "最多支持 10 个当事方",
+      "partyLabel": "当事方 {index}",
+      "desiredOutcomes": "期望结果",
+      "outcomes": {
+        "EMPLOYMENT": {
+          "salary": {
+            "label": "期望薪资/报酬",
+            "placeholder": "例如：月薪 50,000 泰铢"
+          },
+          "probationPeriod": {
+            "label": "试用期",
+            "placeholder": "例如：3 个月"
+          },
+          "terminationConditions": {
+            "label": "解除条件",
+            "placeholder": "请描述您期望的合同解除条件"
+          },
+          "nonCompeteScope": {
+            "label": "竞业限制范围",
+            "placeholder": "请描述竞业限制的范围和期限"
+          }
+        },
+        "SALE": {
+          "itemDescription": {
+            "label": "商品描述",
+            "placeholder": "请描述买卖标的物"
+          },
+          "priceAndPayment": {
+            "label": "价格与付款方式",
+            "placeholder": "例如：总价 100,000 元，分两期支付"
+          },
+          "deliveryConditions": {
+            "label": "交付条件",
+            "placeholder": "例如：签约后 30 天内交付"
+          },
+          "warrantyTerms": {
+            "label": "保修/退换条款",
+            "placeholder": "请描述保修期限和退换货条件"
+          },
+          "breachPenalty": {
+            "label": "违约金",
+            "placeholder": "例如：合同金额的 10%"
+          }
+        },
+        "SERVICE": {
+          "serviceScope": {
+            "label": "服务范围",
+            "placeholder": "请描述服务的具体内容和范围"
+          },
+          "servicePeriod": {
+            "label": "服务期限",
+            "placeholder": "例如：2024年1月1日至2024年12月31日"
+          },
+          "paymentSchedule": {
+            "label": "付款安排",
+            "placeholder": "例如：按月支付，每月 15 日前"
+          },
+          "qualityStandards": {
+            "label": "质量标准",
+            "placeholder": "请描述服务质量要求和验收标准"
+          },
+          "breachPenalty": {
+            "label": "违约金",
+            "placeholder": "例如：合同金额的 10%"
+          }
+        },
+        "LEASE": {
+          "propertyDescription": {
+            "label": "房产描述",
+            "placeholder": "请描述租赁物业的地址和基本情况"
+          },
+          "leaseDuration": {
+            "label": "租赁期限",
+            "placeholder": "例如：1 年，自 2024年1月1日起"
+          },
+          "monthlyRent": {
+            "label": "月租金",
+            "placeholder": "例如：15,000 泰铢/月"
+          },
+          "depositAmount": {
+            "label": "押金金额",
+            "placeholder": "例如：2 个月租金"
+          },
+          "earlyTerminationPenalty": {
+            "label": "提前终止违约金",
+            "placeholder": "例如：扣除 1 个月押金"
+          }
+        },
+        "PARTNERSHIP": {
+          "capitalContribution": {
+            "label": "出资额",
+            "placeholder": "例如：甲方出资 60%，乙方出资 40%"
+          },
+          "profitSharingRatio": {
+            "label": "利润分配比例",
+            "placeholder": "例如：按出资比例分配"
+          },
+          "decisionMakingAuthority": {
+            "label": "决策权限",
+            "placeholder": "请描述各方的管理和决策权限"
+          },
+          "exitConditions": {
+            "label": "退出条件",
+            "placeholder": "请描述合伙人退出的条件和流程"
+          }
+        },
+        "OTHER": {
+          "freeTextOutcome": {
+            "label": "期望结果描述",
+            "placeholder": "请用自己的话描述您希望合同达成的结果"
+          }
+        }
+      },
+      "validation": {
+        "userPartyRequired": "请选择您代表的当事方",
+        "outcomeRequired": "此项为必填",
+        "positiveNumber": "请输入有效的正数"
+      }
     },
     "review": {
       "title": "AI 合同审查",
