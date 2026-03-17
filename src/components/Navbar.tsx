@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { key: '/contract', labelKey: 'contract' },
   { key: '/case-analysis', labelKey: 'caseAnalysis' },
   { key: '/visa', labelKey: 'visa' },
+  { key: '/mock-court', labelKey: 'mockCourt' },
   { key: '/history', labelKey: 'history' },
   { key: '/pricing', labelKey: 'pricing' },
 ] as const;
