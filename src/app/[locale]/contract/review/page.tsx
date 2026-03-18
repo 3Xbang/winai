@@ -5,6 +5,7 @@ import {
   Card,
   Button,
   Input,
+  Select,
   Tabs,
   Tag,
   Typography,
@@ -121,6 +122,8 @@ export default function ContractReviewPage() {
   const t = useTranslations('contract.review');
   const tCommon = useTranslations('common');
   const [contractText, setContractText] = useState('');
+  const [clientRole, setClientRole] = useState<'PARTY_A' | 'PARTY_B' | 'OTHER'>('PARTY_A');
+  const [clientName, setClientName] = useState('');
   const [loading, setLoading] = useState(false);
   const [reviewResult, setReviewResult] = useState<ReviewResult | null>(null);
   const [inputTab, setInputTab] = useState('paste');
@@ -135,7 +138,7 @@ export default function ContractReviewPage() {
       const res = await fetch('/api/contract/review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contractText }),
+        body: JSON.stringify({ contractText, clientRole, clientName }),
       });
 
       if (!res.ok) {
@@ -178,6 +181,36 @@ export default function ContractReviewPage() {
 
         {/* Input Section */}
         <Card className="mb-6">
+          {/* 委托人信息 */}
+          <div className="mb-4 pb-4 border-b border-gray-100">
+            <div className="text-sm font-medium text-gray-700 mb-3">委托人信息（AI 将站在委托人角度审查合同）</div>
+            <div className="flex gap-3 flex-wrap">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-500 shrink-0">委托人是：</span>
+                <Select
+                  value={clientRole}
+                  onChange={(v) => setClientRole(v)}
+                  style={{ width: 120 }}
+                  options={[
+                    { value: 'PARTY_A', label: '甲方' },
+                    { value: 'PARTY_B', label: '乙方' },
+                    { value: 'OTHER', label: '其他方' },
+                  ]}
+                  data-testid="client-role-select"
+                />
+              </div>
+              <div className="flex items-center gap-2 flex-1 min-w-[200px]">
+                <span className="text-sm text-gray-500 shrink-0">委托人名称：</span>
+                <Input
+                  value={clientName}
+                  onChange={(e) => setClientName(e.target.value)}
+                  placeholder="选填，如：张三 / ABC公司"
+                  style={{ flex: 1 }}
+                  data-testid="client-name-input"
+                />
+              </div>
+            </div>
+          </div>
           <Tabs
             activeKey={inputTab}
             onChange={setInputTab}
