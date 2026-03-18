@@ -14,6 +14,25 @@ export interface EvidenceInput {
   mimeType: string;
   description?: string;
   caseContext?: string;
+  // 图片/视频类证据可传入 base64 内容
+  fileBase64?: string;
+}
+
+// 模型选择策略：
+// - 证据分类（法律推理）→ glm-4.1v-thinking-flash（深度思考，推理更准确）
+// - 图片/视频类证据 → glm-4.6v-flash（多模态，支持图片+文档）
+// - 会见摘要生成（文本摘要）→ glm-4-flash-250414（速度优先）
+const MODELS = {
+  evidenceClassify: 'glm-4.1v-thinking-flash',
+  evidenceMultimodal: 'glm-4.6v-flash',
+  visitSummary: 'glm-4-flash-250414',
+} as const;
+
+const IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp'];
+const VIDEO_MIME_TYPES = ['video/mp4', 'video/avi', 'video/mov', 'video/mkv'];
+
+function isMultimodalEvidence(mimeType: string): boolean {
+  return IMAGE_MIME_TYPES.includes(mimeType) || VIDEO_MIME_TYPES.includes(mimeType);
 }
 
 const gateway = new LLMGateway();
@@ -21,9 +40,14 @@ const gateway = new LLMGateway();
 export const aiService = {
   /**
    * 对证据进行 AI 分类
+   * - 图片/视频类证据：使用 glm-4.6v-flash（多模态）
+   * - 文本/文档类证据：使用 glm-4.1v-thinking-flash（深度法律推理）
    */
   async classifyEvidence(evidence: EvidenceInput): Promise<ClassificationResult> {
-    const prompt = `你是一位专业的法律证据分析师。请对以下证据进行分析和分类。
+    const useMultimodal = isMultimodalEvidence(evidence.mimeType) && !!evidence.fileBase64;
+    const model = useMultimodal ? MODELS.evidenceMultimodal : MODELS.evidenceClassify;
+
+    const textPrompt = `你是一位专业的法律证据分析师。请对以下证据进行分析和分类。
 
 证据信息：
 - 文件名：${evidence.fileName}
@@ -47,10 +71,28 @@ category 说明：
 
 只返回 JSON，不要其他内容。`;
 
-    const response = await gateway.chat(
-      [{ role: 'user', content: prompt }],
-      { provider: 'glm', temperature: 0.1, maxTokens: 1000 },
-    );
+    // 多模态消息（图片证据）
+    const messages = useMultimodal
+      ? [
+          {
+            role: 'user' as const,
+            content: [
+              {
+                type: 'image_url' as const,
+                image_url: { url: `data:${evidence.mimeType};base64,${evidence.fileBase64}` },
+              },
+              { type: 'text' as const, text: textPrompt },
+            ] as unknown as string,
+          },
+        ]
+      : [{ role: 'user' as const, content: textPrompt }];
+
+    const response = await gateway.chat(messages, {
+      provider: 'glm',
+      model,
+      temperature: 0.1,
+      maxTokens: 1000,
+    });
 
     try {
       const jsonMatch = response.content.match(/\{[\s\S]*\}/);
@@ -58,7 +100,6 @@ category 说明：
 
       const result = JSON.parse(jsonMatch[0]) as ClassificationResult;
 
-      // 确保 category 是合法枚举值
       const validCategories = ['VALID', 'INVALID', 'NEEDS_SUPPLEMENT'] as const;
       if (!validCategories.includes(result.category)) {
         result.category = 'NEEDS_SUPPLEMENT';
@@ -71,7 +112,6 @@ category 说明：
 
       return result;
     } catch {
-      // AI 解析失败时返回默认值
       return {
         category: 'NEEDS_SUPPLEMENT',
         proofPurpose: '待人工审核',
@@ -84,6 +124,7 @@ category 说明：
 
   /**
    * 生成会见前摘要（基于案件时间线和历史会见记录）
+   * 使用 glm-4-flash-250414（速度优先，摘要生成无需深度推理）
    */
   async generateVisitSummary(caseId: string, lawyerId: string): Promise<string> {
     const [case_, visitRecords] = await Promise.all([
@@ -103,17 +144,18 @@ category 说明：
     if (!case_) return '案件信息不存在';
 
     const timelineText = case_.timeline
-      .map((e) => `[${e.occurredAt.toLocaleDateString('zh-CN')}] ${e.description}`)
+      .map((e: { occurredAt: Date; description: string }) => `[${e.occurredAt.toLocaleDateString('zh-CN')}] ${e.description}`)
       .join('\n');
 
-    const visitText = visitRecords.length > 0
-      ? visitRecords
-          .map(
-            (v) =>
-              `[${v.visitedAt.toLocaleDateString('zh-CN')}] 结果：${v.outcome} | 下一步：${v.nextSteps}`,
-          )
-          .join('\n')
-      : '暂无历史会见记录';
+    const visitText =
+      visitRecords.length > 0
+        ? visitRecords
+            .map(
+              (v: { visitedAt: Date; outcome: string; nextSteps: string }) =>
+                `[${v.visitedAt.toLocaleDateString('zh-CN')}] 结果：${v.outcome} | 下一步：${v.nextSteps}`,
+            )
+            .join('\n')
+        : '暂无历史会见记录';
 
     const prompt = `你是一位律师助理，请为律师生成一份简洁的会见前摘要，帮助律师快速回顾案件进展。
 
@@ -136,12 +178,13 @@ ${visitText}
 
 直接输出摘要内容，不要标题和格式符号。`;
 
-    const response = await gateway.chat(
-      [{ role: 'user', content: prompt }],
-      { provider: 'glm', temperature: 0.3, maxTokens: 800 },
-    );
+    const response = await gateway.chat([{ role: 'user', content: prompt }], {
+      provider: 'glm',
+      model: MODELS.visitSummary,
+      temperature: 0.3,
+      maxTokens: 800,
+    });
 
-    // 确保不超过 500 字
     const summary = response.content.trim();
     return summary.length > 500 ? summary.slice(0, 497) + '...' : summary;
   },
