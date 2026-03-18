@@ -29,6 +29,36 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 /** Page size for historical message loading */
 const HISTORY_PAGE_SIZE = 20;
 
+const SESSION_KEY = 'winai_chat_messages';
+
+function serializeMessages(msgs: ChatMessage[]): string {
+  return JSON.stringify(msgs.map((m) => ({ ...m, timestamp: m.timestamp.toISOString() })));
+}
+
+function deserializeMessages(raw: string): ChatMessage[] {
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed.map((m: ChatMessage & { timestamp: string }) => ({
+      ...m,
+      timestamp: new Date(m.timestamp),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+function loadSavedMessages(): ChatMessage[] {
+  if (typeof window === 'undefined') return INITIAL_MESSAGES;
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (raw) {
+      const msgs = deserializeMessages(raw);
+      if (msgs.length > 0) return msgs;
+    }
+  } catch {}
+  return INITIAL_MESSAGES;
+}
+
 function useStreamingText(text: string, isActive: boolean, speed = 5) {
   const [displayed, setDisplayed] = useState('');
   const [isDone, setIsDone] = useState(false);
@@ -62,7 +92,7 @@ function useStreamingText(text: string, isActive: boolean, speed = 5) {
 
 export default function ConsultationPage() {
   const t = useTranslations('consultation');
-  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => loadSavedMessages());
   const [isLoading, setIsLoading] = useState(false);
   const [processingPhase, setProcessingPhase] = useState<ProcessingPhase>('idle');
   const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null);
@@ -82,6 +112,14 @@ export default function ConsultationPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, streamedText]);
+
+  // Persist messages to sessionStorage
+  useEffect(() => {
+    if (messages === INITIAL_MESSAGES) return;
+    try {
+      sessionStorage.setItem(SESSION_KEY, serializeMessages(messages));
+    } catch {}
+  }, [messages]);
 
   // When streaming finishes, clear streaming state
   useEffect(() => {
