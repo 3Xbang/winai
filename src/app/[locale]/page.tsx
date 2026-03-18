@@ -1,125 +1,96 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-
-const FEATURES = [
-  { icon: '💬', titleKey: 'consultation', descKey: 'consultationDesc', href: '/consultation' },
-  { icon: '📄', titleKey: 'contract', descKey: 'contractDesc', href: '/contract' },
-  { icon: '⚖️', titleKey: 'caseAnalysis', descKey: 'caseAnalysisDesc', href: '/case-analysis' },
-  { icon: '🛂', titleKey: 'visa', descKey: 'visaDesc', href: '/visa' },
-  { icon: '📊', titleKey: 'evidence', descKey: 'evidenceDesc', href: '/evidence' },
-  { icon: '🔍', titleKey: 'caseSearch', descKey: 'caseSearchDesc', href: '/consultation' },
-] as const;
+import Image from 'next/image';
 
 export default function Home() {
-  const t = useTranslations();
-  const tHome = useTranslations('home');
+  const t = useTranslations('home');
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative winai-gradient overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-white/20 blur-3xl" />
-          <div className="absolute bottom-10 right-20 w-96 h-96 rounded-full blur-3xl" style={{ background: 'var(--winai-gold)' }} />
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-36 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            {tHome('badge')}
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-            {tHome('heroTitle')}
-            <br />
-            <span className="winai-text-gradient">{tHome('heroHighlight')}</span>
-          </h1>
-
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-            {tHome('heroDescription')}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/consultation"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-base font-semibold winai-gradient-gold text-white shadow-lg hover:shadow-xl winai-transition winai-pulse"
-            >
-              {tHome('ctaPrimary')}
-            </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-base font-semibold bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 winai-transition"
-            >
-              {tHome('ctaSecondary')}
-            </Link>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center gap-8 mt-14 text-white/60 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🇨🇳</span>
-              <span>{tHome('trustChina')}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🇹🇭</span>
-              <span>{tHome('trustThailand')}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🤖</span>
-              <span>{tHome('trustAI')}</span>
-            </div>
-          </div>
-        </div>
+      {/* Hero Section - Orange */}
+      <section className="bg-[#E8500A] py-10 px-4 text-center">
+        <p className="text-white font-bold text-xl tracking-widest mb-3">Winaii</p>
+        <h1 className="text-white text-2xl sm:text-3xl font-bold mb-2">
+          {t('heroTitle')}
+        </h1>
+        <p className="text-white/80 text-sm mb-6">{t('heroDescription')}</p>
+        <Link
+          href="/consultation"
+          className="inline-block px-6 py-2.5 border border-white text-white text-sm rounded hover:bg-white hover:text-[#E8500A] transition-colors"
+        >
+          {t('ctaPrimary')}
+        </Link>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6" style={{ background: 'var(--winai-bg)' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: 'var(--winai-navy)' }}>
-              {tHome('featuresTitle')}
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              {tHome('featuresSubtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {FEATURES.map((f) => (
-              <Link
-                key={f.titleKey}
-                href={f.href}
-                className="group block p-6 rounded-2xl bg-white border border-gray-100 shadow-sm winai-hover-lift"
-              >
-                <div className="text-3xl mb-4">{f.icon}</div>
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-[var(--winai-gold-dark)] winai-transition" style={{ color: 'var(--winai-navy)' }}>
-                  {tHome(f.titleKey)}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {tHome(f.descKey)}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
+      {/* Hero Image Banner */}
+      <section className="relative w-full h-64 sm:h-80 lg:h-96 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80"
+          alt="Professional team"
+          fill
+          className="object-cover object-center"
+          priority
+        />
       </section>
 
-      {/* CTA Section */}
-      <section className="winai-gradient py-16 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            {tHome('ctaTitle')}
+      {/* About Us Section */}
+      <section className="py-14 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-center text-2xl font-bold text-[#E8500A] mb-10">
+            {t('aboutTitle')}
           </h2>
-          <p className="text-gray-300 text-lg mb-8">
-            {tHome('ctaDescription')}
-          </p>
-          <Link
-            href="/consultation"
-            className="inline-flex items-center justify-center px-10 py-4 rounded-xl text-lg font-semibold winai-gradient-gold text-white shadow-lg hover:shadow-xl winai-transition"
-          >
-            {tHome('ctaButton')}
-          </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            {/* Mission */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-28 h-28 rounded-full overflow-hidden relative">
+                <Image
+                  src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=300&q=80"
+                  alt="Our Mission"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <h3 className="font-semibold text-gray-800">{t('missionTitle')}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{t('missionDesc')}</p>
+            </div>
+            {/* Team */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-28 h-28 rounded-full overflow-hidden relative">
+                <Image
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=300&q=80"
+                  alt="Our Team"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <h3 className="font-semibold text-gray-800">{t('teamTitle')}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{t('teamDesc')}</p>
+            </div>
+            {/* Service */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-28 h-28 rounded-full overflow-hidden relative">
+                <Image
+                  src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=300&q=80"
+                  alt="Our Service"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <h3 className="font-semibold text-gray-800">{t('serviceTitle')}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{t('serviceDesc')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Marquee Banner */}
+      <section className="bg-[#E8500A] py-3 overflow-hidden">
+        <div className="flex whitespace-nowrap animate-marquee">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span key={i} className="text-white text-sm font-medium mx-8">
+              {t('marqueText')}
+            </span>
+          ))}
         </div>
       </section>
     </div>

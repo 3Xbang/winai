@@ -659,7 +659,15 @@
     "caseSearchDesc": "RAG-powered intelligent case search to quickly find relevant precedents and legal provisions",
     "ctaTitle": "Start Your Smart Legal Journey",
     "ctaDescription": "Sign up for free AI legal consultation and let WINAI be your cross-border legal advisor",
-    "ctaButton": "Get Started Free"
+    "ctaButton": "Get Started Free",
+    "aboutTitle": "About Us",
+    "missionTitle": "Our Mission",
+    "missionDesc": "Winaii is committed to providing superior solutions for business clients, helping them stand out in global competition and manage risks effectively.",
+    "teamTitle": "Our Team",
+    "teamDesc": "Our team consists of experienced professionals with diverse expertise. We collaborate to provide the best solutions and services for our clients.",
+    "serviceTitle": "Our Services",
+    "serviceDesc": "Winaii offers a range of professional services including market analysis, strategic consulting, and digital transformation to help clients achieve sustainable growth.",
+    "marqueText": "Welcome visitors and publish promotions"
   },
   "seo": {
     "topics": {

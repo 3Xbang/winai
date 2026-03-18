@@ -16,16 +16,23 @@ else
   echo "Swap already exists."
 fi
 
-# Install nginx
-echo ">>> Installing nginx..."
-sudo dnf install -y -q nginx
+# Install nginx and certbot
+echo ">>> Installing nginx and certbot..."
+sudo dnf install -y -q nginx certbot python3-certbot-nginx
 sudo systemctl enable nginx
+
+# Create certbot webroot directory
+sudo mkdir -p /var/www/certbot
 
 # Copy nginx config
 echo ">>> Configuring nginx..."
 sudo cp /opt/winai/deploy/nginx-prod.conf /etc/nginx/nginx.conf
 sudo nginx -t
 sudo systemctl restart nginx
+
+# Setup SSL auto-renewal cron
+echo ">>> Setting up SSL auto-renewal..."
+(crontab -l 2>/dev/null; echo "0 3 * * * certbot renew --quiet --post-hook 'systemctl reload nginx'") | crontab -
 
 # Create .env if not exists
 if [ ! -f /opt/winai/.env ]; then
@@ -35,8 +42,8 @@ if [ ! -f /opt/winai/.env ]; then
   sed -i 's|DATABASE_URL=.*|DATABASE_URL="postgresql://winai:winai_secure_2024@postgres:5432/winai"|' /opt/winai/.env
   sed -i 's|REDIS_URL=.*|REDIS_URL="redis://redis:6379"|' /opt/winai/.env
   sed -i 's|NODE_ENV=.*|NODE_ENV="production"|' /opt/winai/.env
-  sed -i 's|APP_URL=.*|APP_URL="http://3.90.235.195"|' /opt/winai/.env
-  sed -i 's|NEXTAUTH_URL=.*|NEXTAUTH_URL="http://3.90.235.195"|' /opt/winai/.env
+  sed -i 's|APP_URL=.*|APP_URL="https://winaii.com"|' /opt/winai/.env
+  sed -i 's|NEXTAUTH_URL=.*|NEXTAUTH_URL="https://winaii.com"|' /opt/winai/.env
   # Generate a random NEXTAUTH_SECRET
   RANDOM_SECRET=$(openssl rand -base64 32)
   sed -i "s|NEXTAUTH_SECRET=.*|NEXTAUTH_SECRET=\"${RANDOM_SECRET}\"|" /opt/winai/.env
@@ -63,9 +70,10 @@ sudo docker exec winai-app npx prisma migrate deploy 2>/dev/null || \
 
 echo ""
 echo "=== WINAI Deployment Complete ==="
-echo "App: http://3.90.235.195"
+echo "App: https://winaii.com"
 echo ""
 echo "Next steps:"
 echo "  1. Edit /opt/winai/.env to add real API keys (LLM, payment, etc.)"
 echo "  2. Restart: cd /opt/winai && sudo docker-compose -f deploy/docker-compose.prod.yml restart app"
-echo "  3. (Optional) Add domain + SSL with certbot"
+echo "  3. Run SSL setup: sudo certbot certonly --webroot -w /var/www/certbot -d winaii.com -d www.winaii.com"
+echo "  4. Reload nginx: sudo systemctl reload nginx"
