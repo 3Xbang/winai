@@ -86,14 +86,16 @@ model User {
   updatedAt           DateTime  @updatedAt
   deletedAt           DateTime?
 
-  enterprise   Enterprise?
-  accounts     SocialAccount[]
-  subscription Subscription?
-  sessions     ConsultationSession[]
-  orders       Order[]
-  bookmarks    Bookmark[]
-  referralCode ReferralCode?
-  auditLogs    AuditLog[]
+  enterprise        Enterprise?
+  accounts          SocialAccount[]
+  subscription      Subscription?
+  sessions          ConsultationSession[]
+  orders            Order[]
+  bookmarks         Bookmark[]
+  referralCode      ReferralCode?
+  auditLogs         AuditLog[]
+  lawyerWorkspace   LawyerWorkspace?      @relation("LawyerWorkspace")
+  clientCases       Case[]                @relation("ClientCases")
 }
 
 model Enterprise {
@@ -686,4 +688,343 @@ model CourtPerformanceReport {
   createdAt           DateTime @default(now())
 
   session             MockCourtSession @relation(fields: [sessionId], references: [id])
+}
+
+
+// ==================== 律师工作空间 ====================
+
+enum LawyerPlanTier {
+  BASIC        // 基础版 5GB
+  PROFESSIONAL // 专业版 50GB
+  FIRM         // 事务所版 500GB
+}
+
+enum WorkspaceStatus {
+  ACTIVE
+  READONLY     // 订阅到期
+  SUSPENDED
+}
+
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+  ARCHIVED
+}
+
+enum EvidenceCategory {
+  VALID
+  INVALID
+  NEEDS_SUPPLEMENT
+  PENDING_CLASSIFICATION  // AI 待处理
+}
+
+enum EvidenceStrength {
+  STRONG
+  MEDIUM
+  WEAK
+}
+
+enum DeadlineType {
+  STATUTE_OF_LIMITATIONS  // 诉讼时效
+  COURT_DATE              // 开庭日期
+  APPEAL_DEADLINE         // 上诉截止
+  OTHER
+}
+
+enum FeeVisibility {
+  INTERNAL_ONLY
+  CLIENT_VISIBLE
+}
+
+enum ChannelMessageType {
+  TEXT
+  FILE
+  STAGE_UPDATE
+  SYSTEM
+}
+
+enum AuditAction {
+  VIEW
+  DOWNLOAD
+  DELETE
+  UPLOAD
+  VERSION_RESTORE
+}
+
+enum NotificationType {
+  DEADLINE_7DAY
+  DEADLINE_1DAY
+  DEADLINE_OVERDUE
+  CHANNEL_MESSAGE
+  STAGE_UPDATE
+  EVIDENCE_CLASSIFIED
+}
+
+// 律师工作空间
+model LawyerWorkspace {
+  id                  String          @id @default(cuid())
+  lawyerId            String          @unique  // 关联 User.id
+  planTier            LawyerPlanTier  @default(BASIC)
+  status              WorkspaceStatus @default(ACTIVE)
+  storageQuotaGB      Int             @default(5)   // 套餐基础配额（GB）
+  storageAddOnGB      Int             @default(0)   // 额外购买配额（GB）
+  storageUsedBytes    BigInt          @default(0)
+  s3BasePath          String          // workspaces/{lawyerId}/
+  subscriptionEndDate DateTime?
+  firmId              String?         // 律所 ID（事务所版）
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  lawyer             User               @relation("LawyerWorkspace", fields: [lawyerId], references: [id])
+  cases              Case[]
+  lawyerSubscription LawyerSubscription?
+
+  @@index([lawyerId])
+}
+
+// 律师专属订阅（区别于平台通用 Subscription）
+model LawyerSubscription {
+  id          String          @id @default(cuid())
+  workspaceId String          @unique
+  planTier    LawyerPlanTier
+  startDate   DateTime        @default(now())
+  endDate     DateTime
+  autoRenew   Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  workspace   LawyerWorkspace @relation(fields: [workspaceId], references: [id])
+  addOns      StorageAddOn[]
+}
+
+// 存储扩充包
+model StorageAddOn {
+  id             String             @id @default(cuid())
+  subscriptionId String
+  addedGB        Int
+  purchasedAt    DateTime           @default(now())
+
+  subscription   LawyerSubscription @relation(fields: [subscriptionId], references: [id])
+}
+
+// 案件
+model Case {
+  id            String     @id @default(cuid())
+  workspaceId   String
+  caseNumber    String     // 案件编号
+  title         String
+  caseType      String     // 案由
+  status        CaseStatus @default(OPEN)
+  clientId      String?    // 关联 User.id（客户）
+  clientName    String     // 当事人姓名（可能非平台用户）
+  opposingParty String?    // 对立方信息
+  filedAt       DateTime   // 立案日期
+  closedAt      DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  workspace    LawyerWorkspace     @relation(fields: [workspaceId], references: [id])
+  client       User?               @relation("ClientCases", fields: [clientId], references: [id])
+  timeline     CaseTimelineEvent[]
+  evidences    Evidence[]
+  visitRecords VisitRecord[]
+  channel      Channel?
+  deadlines    Deadline[]
+  feeRecords   FeeRecord[]
+  documents    CaseDocument[]
+
+  @@index([workspaceId, status])
+  @@index([clientId])
+}
+
+// 案件时间线事件
+model CaseTimelineEvent {
+  id          String   @id @default(cuid())
+  caseId      String
+  eventType   String   // 'CASE_CREATED' | 'STATUS_CHANGED' | 'EVIDENCE_ADDED' | 'VISIT_RECORDED' | ...
+  description String   @db.Text
+  operatorId  String   // 操作人 User.id
+  metadata    Json?
+  occurredAt  DateTime @default(now())
+
+  case        Case     @relation(fields: [caseId], references: [id])
+
+  @@index([caseId, occurredAt])
+}
+
+// 证据
+model Evidence {
+  id           String           @id @default(cuid())
+  caseId       String
+  fileName     String
+  fileSize     BigInt
+  mimeType     String
+  s3Key        String           // workspaces/{lawyerId}/cases/{caseId}/evidence/{fileId}/...
+  category     EvidenceCategory @default(PENDING_CLASSIFICATION)
+  proofPurpose String?          @db.Text
+  legalBasis   String[]
+  strength     EvidenceStrength?
+  similarCase  String?          @db.Text
+  classifiedAt DateTime?
+  classifyError String?
+  uploadedBy   String           // User.id
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  case      Case                @relation(fields: [caseId], references: [id])
+  auditLogs WorkspaceAuditLog[]
+
+  @@index([caseId, category])
+}
+
+// 会见记录
+model VisitRecord {
+  id        String   @id @default(cuid())
+  caseId    String
+  lawyerId  String
+  visitedAt DateTime
+  summary   String?  @db.Text  // AI 生成的会见前摘要（快照）
+  outcome   String   @db.Text  // 处理结果
+  nextSteps String   @db.Text  // 下一步策略
+  createdAt DateTime @default(now())
+
+  case      Case     @relation(fields: [caseId], references: [id])
+
+  @@index([caseId, visitedAt])
+}
+
+// 沟通频道
+model Channel {
+  id        String    @id @default(cuid())
+  caseId    String    @unique
+  createdAt DateTime  @default(now())
+
+  case     Case             @relation(fields: [caseId], references: [id])
+  messages ChannelMessage[]
+}
+
+// 频道消息
+model ChannelMessage {
+  id          String             @id @default(cuid())
+  channelId   String
+  senderId    String             // User.id
+  messageType ChannelMessageType @default(TEXT)
+  content     String             @db.Text
+  s3Key       String?            // 附件
+  metadata    Json?
+  createdAt   DateTime           @default(now())
+
+  channel     Channel            @relation(fields: [channelId], references: [id])
+
+  @@index([channelId, createdAt])
+}
+
+// 期限
+model Deadline {
+  id           String       @id @default(cuid())
+  caseId       String
+  deadlineType DeadlineType
+  title        String
+  dueDate      DateTime
+  isHandled    Boolean      @default(false)
+  handledAt    DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  case          Case           @relation(fields: [caseId], references: [id])
+  notifications Notification[]
+
+  @@index([caseId, dueDate])
+  @@index([dueDate, isHandled])
+}
+
+// 费用记录
+model FeeRecord {
+  id          String        @id @default(cuid())
+  caseId      String
+  lawyerId    String
+  description String        @db.Text
+  hours       Decimal       @db.Decimal(6, 2)
+  amount      Decimal       @db.Decimal(10, 2)
+  currency    String        @default("CNY")
+  workDate    DateTime      @db.Date
+  visibility  FeeVisibility @default(INTERNAL_ONLY)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  case        Case          @relation(fields: [caseId], references: [id])
+
+  @@index([caseId, workDate])
+}
+
+// 案件文件（支持版本管理）
+model CaseDocument {
+  id               String    @id @default(cuid())
+  caseId           String
+  title            String
+  currentVersionId String?   // 当前有效版本
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  case     Case                  @relation(fields: [caseId], references: [id])
+  versions CaseDocumentVersion[]
+
+  @@index([caseId])
+}
+
+// 案件文件版本
+model CaseDocumentVersion {
+  id            String   @id @default(cuid())
+  documentId    String
+  versionNumber Int
+  s3Key         String
+  fileSize      BigInt
+  uploadedBy    String   // User.id
+  notes         String?  @db.Text
+  isActive      Boolean  @default(false)  // 当前有效版本标记
+  createdAt     DateTime @default(now())
+
+  document  CaseDocument        @relation(fields: [documentId], references: [id])
+  auditLogs WorkspaceAuditLog[]
+
+  @@unique([documentId, versionNumber])
+  @@index([documentId])
+}
+
+// 工作空间专属审计日志（独立于平台 AuditLog）
+model WorkspaceAuditLog {
+  id                String      @id @default(cuid())
+  workspaceId       String
+  operatorId        String      // User.id
+  action            AuditAction
+  resourceType      String      // 'EVIDENCE' | 'DOCUMENT_VERSION'
+  evidenceId        String?
+  documentVersionId String?
+  s3Key             String?
+  ipAddress         String?
+  createdAt         DateTime    @default(now())
+
+  evidence   Evidence?            @relation(fields: [evidenceId], references: [id])
+  docVersion CaseDocumentVersion? @relation(fields: [documentVersionId], references: [id])
+
+  @@index([workspaceId, createdAt])
+  @@index([operatorId, createdAt])
+}
+
+// 站内通知
+model Notification {
+  id         String           @id @default(cuid())
+  userId     String           // 接收人 User.id
+  type       NotificationType
+  title      String
+  body       String           @db.Text
+  isRead     Boolean          @default(false)
+  relatedId  String?          // caseId / deadlineId / channelId
+  deadlineId String?
+  createdAt  DateTime         @default(now())
+
+  deadline   Deadline?        @relation(fields: [deadlineId], references: [id])
+
+  @@index([userId, isRead, createdAt])
 }

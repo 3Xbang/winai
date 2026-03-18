@@ -9,6 +9,7 @@ import {
   resetPassword,
   checkAccountLock,
 } from '@/server/services/auth/registration';
+import { workspaceService } from '@/server/services/workspace/workspaceService';
 
 const passwordSchema = z
   .string()
@@ -35,7 +36,10 @@ export const authRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      return registerWithEmail(input.email, input.code, input.password, input.name);
+      const user = await registerWithEmail(input.email, input.code, input.password, input.name);
+      // 自动初始化律师工作空间（静默失败）
+      workspaceService.initWorkspace(user.id).catch(() => {});
+      return user;
     }),
 
   // Send phone verification code for registration
@@ -57,7 +61,10 @@ export const authRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      return registerWithPhone(input.phone, input.code, input.password, input.name);
+      const user = await registerWithPhone(input.phone, input.code, input.password, input.name);
+      // 自动初始化律师工作空间（静默失败）
+      workspaceService.initWorkspace(user.id).catch(() => {});
+      return user;
     }),
 
   // Send password reset code

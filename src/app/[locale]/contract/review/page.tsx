@@ -112,7 +112,22 @@ function RiskItemCard({ item, t }: { item: RiskItem; t: (key: string) => string 
         <Typography.Text strong className="text-blue-600">
           {t('suggestion')}:
         </Typography.Text>
-        <p className="text-sm mt-1">{item.suggestedRevision}</p>
+        {/* 解析"建议修改为：「...」"格式，突出显示具体条款 */}
+        {item.suggestedRevision.includes('建议修改为') ? (
+          <div className="mt-1">
+            <p className="text-sm text-gray-700">
+              {item.suggestedRevision.split(/建议修改为[：:]/)[0]}
+            </p>
+            <div className="mt-2 bg-green-50 border border-green-200 rounded p-3">
+              <div className="text-xs text-green-700 font-medium mb-1">📝 建议修改为：</div>
+              <p className="text-sm text-green-800 leading-relaxed">
+                {item.suggestedRevision.split(/建议修改为[：:]/)[1]?.replace(/^[「『]|[」』]$/g, '') ?? ''}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <p className="text-sm mt-1">{item.suggestedRevision}</p>
+        )}
       </div>
     </div>
   );

@@ -24,15 +24,19 @@ ssh -i $KEY $SERVER "grep -q 'GLM_MODEL' $REMOTE_DIR/.env || echo 'GLM_MODEL=\"g
 echo ">>> 同步 nginx 配置..."
 ssh -i $KEY $SERVER "sudo cp $REMOTE_DIR/deploy/nginx-prod.conf /opt/winai-nginx/nginx.conf && sudo docker restart winai-nginx"
 
-# 4. 重新构建并启动
+# 4. 清理 Docker build cache（释放空间）
+echo ">>> 清理 Docker build cache..."
+ssh -i $KEY $SERVER "sudo docker builder prune -af"
+
+# 5. 重新构建并启动
 echo ">>> 构建并重启容器..."
 ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker compose -f deploy/docker-compose.prod.yml up -d --build"
 
-# 5. 等待数据库就绪
+# 6. 等待数据库就绪
 echo ">>> 等待数据库就绪..."
 ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker compose -f deploy/docker-compose.prod.yml exec -T postgres sh -c 'until pg_isready -U winai; do sleep 1; done'"
 
-# 6. 同步数据库 Schema（Prisma db push）
+# 7. 同步数据库 Schema（Prisma db push）
 echo ">>> 同步数据库 Schema..."
 ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker run --rm \
   --network container:winai-db \
@@ -42,11 +46,11 @@ ssh -i $KEY $SERVER "cd $REMOTE_DIR && sudo docker run --rm \
   node:20-alpine \
   sh -c 'npm install prisma@latest --no-save && npx prisma db push --skip-generate --accept-data-loss'"
 
-# 7. 等待应用启动
+# 8. 等待应用启动
 echo ">>> 等待服务启动..."
 sleep 15
 
-# 8. 检查状态
+# 9. 检查状态
 echo ">>> 检查容器状态..."
 ssh -i $KEY $SERVER "sudo docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
 

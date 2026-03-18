@@ -13,6 +13,14 @@ import { paymentRouter } from './routers/payment';
 import { sessionRouter } from './routers/session';
 import { adminRouter } from './routers/admin';
 import { mockCourtRouter } from './routers/mockCourt';
+import { workspaceRouter } from './routers/workspace';
+import { workspaceCaseRouter } from './routers/workspaceCase';
+import { workspaceEvidenceRouter } from './routers/workspaceEvidence';
+import { workspaceVisitRouter } from './routers/workspaceVisit';
+import { workspaceChannelRouter } from './routers/workspaceChannel';
+import { workspaceDeadlineRouter, workspaceNotificationRouter } from './routers/workspaceDeadline';
+import { workspaceFeeRouter } from './routers/workspaceFee';
+import { workspaceDocumentRouter } from './routers/workspaceDocument';
 import {
   conversationRouter,
   riskRouter,
@@ -47,6 +55,16 @@ export const appRouter = createTRPCRouter({
   quality: qualityRouter,
   // Mock Court module router
   mockCourt: mockCourtRouter,
+  // Lawyer Workspace module
+  workspace: workspaceRouter,
+  workspaceCase: workspaceCaseRouter,
+  workspaceEvidence: workspaceEvidenceRouter,
+  workspaceVisit: workspaceVisitRouter,
+  workspaceChannel: workspaceChannelRouter,
+  workspaceDeadline: workspaceDeadlineRouter,
+  workspaceNotification: workspaceNotificationRouter,
+  workspaceFee: workspaceFeeRouter,
+  workspaceDocument: workspaceDocumentRouter,
 });
 
 export type AppRouter = typeof appRouter;
