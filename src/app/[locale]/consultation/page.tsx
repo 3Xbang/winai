@@ -10,13 +10,6 @@ import IRACDisplay from '@/components/chat/IRACDisplay';
 import { RiskWarningAlert, DisclaimerBanner, LawyerAdviceNotice } from '@/components/chat/RiskWarning';
 import TypingStatus, { type ProcessingPhase } from '@/components/chat/TypingStatus';
 
-const MOCK_IRAC = {
-  issue: '本案的核心争议焦点在于：中国公民在泰国设立公司时，外资持股比例是否违反了泰国《外国人经商法》的限制规定。',
-  rule: '根据泰国《外国人经商法》（Foreign Business Act B.E. 2542）第8条规定，外国人不得从事附表一至附表三所列的受限业务。《外国人经商法》第4条将"外国人"定义为持有超过49%股份的法人实体。\n\n同时，根据中国《公司法》第23条，设立有限责任公司应当具备法定条件。',
-  analysis: '根据用户提供的事实，拟设立的公司中方持股60%，超过了泰国法律规定的49%外资持股上限。这意味着该公司将被视为"外国法人"，受到《外国人经商法》的业务限制。\n\n需要评估拟从事的业务是否属于受限业务清单，如属于，则需要申请外国人经商许可证（Foreign Business License）或通过BOI投资促进获得豁免。',
-  conclusion: '建议调整股权结构至外资49%以内，或申请BOI投资促进以获得外资持股豁免。如选择调整股权结构，需确保泰方股东为真实投资者，避免代持安排被认定为违法。',
-};
-
 const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: '1',
@@ -26,9 +19,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   },
 ];
 
-/** Page size for historical message loading */
 const HISTORY_PAGE_SIZE = 20;
-
 const SESSION_KEY = 'winai_chat_messages';
 
 function serializeMessages(msgs: ChatMessage[]): string {
@@ -59,96 +50,27 @@ function loadSavedMessages(): ChatMessage[] {
   return INITIAL_MESSAGES;
 }
 
-function useStreamingText(text: string, isActive: boolean, speed = 5) {
-  const [displayed, setDisplayed] = useState('');
-  const [isDone, setIsDone] = useState(false);
-
-  useEffect(() => {
-    if (!isActive) {
-      setDisplayed('');
-      setIsDone(false);
-      return;
-    }
-
-    let index = 0;
-    setDisplayed('');
-    setIsDone(false);
-
-    const timer = setInterval(() => {
-      if (index < text.length) {
-        setDisplayed(text.slice(0, index + 1));
-        index++;
-      } else {
-        setIsDone(true);
-        clearInterval(timer);
-      }
-    }, speed);
-
-    return () => clearInterval(timer);
-  }, [text, isActive, speed]);
-
-  return { displayed, isDone };
-}
-
 export default function ConsultationPage() {
   const t = useTranslations('consultation');
   const [messages, setMessages] = useState<ChatMessage[]>(() => loadSavedMessages());
   const [isLoading, setIsLoading] = useState(false);
   const [processingPhase, setProcessingPhase] = useState<ProcessingPhase>('idle');
-  const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null);
-  const [hasMoreHistory, setHasMoreHistory] = useState(false);
-  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
-  const [historyPage, setHistoryPage] = useState(0);
+  const [hasMoreHistory] = useState(false);
+  const [isLoadingHistory] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-
-  const currentStreamingMsg = messages.find((m) => m.id === streamingMessageId);
-  const { displayed: streamedText, isDone: streamingDone } = useStreamingText(
-    currentStreamingMsg?.content ?? '',
-    !!streamingMessageId
-  );
 
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, streamedText]);
+  }, [messages]);
 
   // Persist messages to sessionStorage
   useEffect(() => {
-    if (messages === INITIAL_MESSAGES) return;
     try {
       sessionStorage.setItem(SESSION_KEY, serializeMessages(messages));
     } catch {}
   }, [messages]);
-
-  // When streaming finishes, clear streaming state
-  useEffect(() => {
-    if (streamingDone && streamingMessageId) {
-      setStreamingMessageId(null);
-      setProcessingPhase('idle');
-    }
-  }, [streamingDone, streamingMessageId]);
-
-  // Scroll-to-top detection for loading history
-  useEffect(() => {
-    const container = messagesContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      if (container.scrollTop <= 100 && hasMoreHistory && !isLoadingHistory) {
-        loadHistory();
-      }
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasMoreHistory, isLoadingHistory]);
-
-  const loadHistory = useCallback(async () => {
-    // No mock history - real history is loaded via session router per user
-    setHasMoreHistory(false);
-  }, []);
 
   const handleSend = useCallback(
     async (text: string) => {
@@ -167,7 +89,6 @@ export default function ConsultationPage() {
       const phaseTimer2 = setTimeout(() => setProcessingPhase('generating'), 1000);
 
       try {
-        // Build conversation history for context
         const history = messages
           .filter((m) => m.role === 'user' || m.role === 'assistant')
           .slice(-10)
@@ -190,19 +111,16 @@ export default function ConsultationPage() {
           role: 'assistant',
           content: data.content || '抱歉，未能生成回复。',
           timestamp: new Date(),
-          isStreaming: false,
           detectedLanguage: 'zh',
         };
 
         setMessages((prev) => [...prev, assistantMsg]);
-        setStreamingMessageId(null);
       } catch (error) {
         const errorMsg: ChatMessage = {
           id: `error-${Date.now()}`,
           role: 'assistant',
           content: `抱歉，AI 服务暂时无法响应：${error instanceof Error ? error.message : '未知错误'}。请稍后重试。`,
           timestamp: new Date(),
-          isStreaming: false,
         };
         setMessages((prev) => [...prev, errorMsg]);
       } finally {
@@ -224,7 +142,6 @@ export default function ConsultationPage() {
         </Typography.Title>
       </div>
 
-      {/* Disclaimer banner */}
       <DisclaimerBanner />
 
       {/* Messages area */}
@@ -233,7 +150,6 @@ export default function ConsultationPage() {
         className="flex-1 overflow-y-auto px-4 py-4 bg-gray-50"
         data-testid="message-list"
       >
-        {/* History loading indicator */}
         {isLoadingHistory && (
           <div className="flex justify-center py-3" data-testid="history-loading">
             <Spin indicator={<LoadingOutlined spin />} size="small" />
@@ -249,18 +165,13 @@ export default function ConsultationPage() {
 
         {messages.map((msg) => (
           <div key={msg.id}>
-            <MessageBubble
-              message={msg}
-              typingText={msg.id === streamingMessageId ? streamedText : undefined}
-            />
-            {/* Show IRAC after streaming completes or if not streaming */}
-            {msg.iracAnalysis && msg.id !== streamingMessageId && (
+            <MessageBubble message={msg} />
+            {msg.iracAnalysis && (
               <div className="ml-12 mr-4">
                 <IRACDisplay data={msg.iracAnalysis} />
               </div>
             )}
-            {/* Intent classification tags */}
-            {msg.intentTags && msg.intentTags.length > 0 && msg.id !== streamingMessageId && (
+            {msg.intentTags && msg.intentTags.length > 0 && (
               <div className="ml-12 mr-4 mb-2 flex gap-1 flex-wrap">
                 {msg.intentTags.map((tag) => (
                   <span key={tag} className="inline-block px-2 py-0.5 text-xs bg-blue-50 text-blue-600 rounded-full border border-blue-200">
@@ -274,14 +185,13 @@ export default function ConsultationPage() {
                 )}
               </div>
             )}
-            {/* Follow-up suggestions */}
-            {msg.followUpSuggestions && msg.followUpSuggestions.length > 0 && msg.id !== streamingMessageId && (
+            {msg.followUpSuggestions && msg.followUpSuggestions.length > 0 && (
               <div className="ml-12 mr-4 mb-3 flex gap-2 flex-wrap">
                 {msg.followUpSuggestions.map((suggestion) => (
                   <button
                     key={suggestion}
                     onClick={() => handleSend(suggestion)}
-                    disabled={isLoading || !!streamingMessageId}
+                    disabled={isLoading}
                     className="px-3 py-1.5 text-xs bg-white border border-gray-300 rounded-full hover:bg-gray-50 hover:border-blue-400 transition-colors disabled:opacity-50"
                   >
                     {suggestion}
@@ -289,16 +199,14 @@ export default function ConsultationPage() {
                 ))}
               </div>
             )}
-            {/* Show risk warnings */}
-            {msg.riskWarnings && msg.id !== streamingMessageId && (
+            {msg.riskWarnings && (
               <div className="ml-12 mr-4">
                 {msg.riskWarnings.map((warning, i) => (
                   <RiskWarningAlert key={i} level={warning.level} message={warning.message} />
                 ))}
               </div>
             )}
-            {/* Show lawyer advice for criminal cases */}
-            {msg.riskWarnings?.some((w) => w.level === 'high') && msg.id !== streamingMessageId && (
+            {msg.riskWarnings?.some((w) => w.level === 'high') && (
               <div className="ml-12 mr-4">
                 <LawyerAdviceNotice />
               </div>
@@ -306,10 +214,8 @@ export default function ConsultationPage() {
           </div>
         ))}
 
-        {/* Processing status indicator */}
         <TypingStatus phase={processingPhase} visible={isLoading} />
 
-        {/* Legacy loading indicator fallback */}
         {isLoading && processingPhase === 'idle' && (
           <div className="flex items-center gap-2 text-gray-400 ml-12 mb-4" data-testid="loading-indicator">
             <Spin indicator={<LoadingOutlined spin />} size="small" />
@@ -320,8 +226,7 @@ export default function ConsultationPage() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input area */}
-      <ChatInput onSend={handleSend} disabled={isLoading || !!streamingMessageId} />
+      <ChatInput onSend={handleSend} disabled={isLoading} />
     </div>
   );
 }
