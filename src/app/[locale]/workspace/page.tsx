@@ -95,6 +95,7 @@ export default function WorkspaceDashboard() {
     unreadCount: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [today, setToday] = useState('');
 
   const loadDashboard = useCallback(async () => {
     setLoading(true);
@@ -124,6 +125,12 @@ export default function WorkspaceDashboard() {
   }, []);
 
   useEffect(() => {
+    setToday(new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+    }));
     loadDashboard();
   }, [loadDashboard]);
 
@@ -138,14 +145,7 @@ export default function WorkspaceDashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-800">律师工作台</h1>
-            <p className="text-gray-500 mt-1">
-              {new Date().toLocaleDateString('zh-CN', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long',
-              })}
-            </p>
+            <p className="text-gray-500 mt-1">{today}</p>
           </div>
           <div className="flex gap-3">
             <Badge count={data.unreadCount} size="small">

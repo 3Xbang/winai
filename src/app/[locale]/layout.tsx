@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import AntdProvider from '@/components/AntdProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 
 type Props = {
   children: React.ReactNode;
@@ -22,13 +23,15 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <AntdProvider locale={locale}>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-      </AntdProvider>
+      <SessionProviderWrapper>
+        <AntdProvider locale={locale}>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </AntdProvider>
+      </SessionProviderWrapper>
     </NextIntlClientProvider>
   );
 }
