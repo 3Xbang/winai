@@ -242,110 +242,26 @@ export default function VisaPage() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<VisaRecommendation[] | null>(null);
 
-  const handleAnalyze = async () => {
+  const handleAnalyze = async (values: VisaFormValues) => {
     setLoading(true);
     setResults(null);
 
     try {
-      // In production, this would call tRPC: visa.recommend.mutate(...)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await fetch('/api/visa/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
 
-      const mockResults: VisaRecommendation[] = [
-        {
-          visaType: 'Non-Immigrant B (Business)',
-          matchScore: 92,
-          requirements: [
-            '有效护照（有效期6个月以上）',
-            '泰国公司出具的邀请函',
-            '工作许可证申请材料',
-            '公司注册文件（营业执照、股东名册等）',
-            '最近6个月银行流水',
-          ],
-          documents: [
-            '护照原件及复印件',
-            '2寸白底照片4张',
-            '泰国公司邀请函原件',
-            '公司营业执照副本',
-            '劳动合同',
-            '学历证明公证件',
-          ],
-          process: [
-            { step: 1, description: '准备申请材料并进行公证认证', estimatedDuration: '1-2周' },
-            { step: 2, description: '向泰国驻华使领馆提交签证申请', estimatedDuration: '3-5个工作日' },
-            { step: 3, description: '等待签证审批', estimatedDuration: '5-10个工作日' },
-            { step: 4, description: '入境泰国后90天内申请工作许可证', estimatedDuration: '2-4周' },
-          ],
-          estimatedCost: {
-            amount: '15,000-25,000',
-            currency: 'THB',
-            breakdown: {
-              '签证申请费': '2,000 THB',
-              '工作许可证费': '3,000 THB',
-              '材料公证费': '5,000-10,000 THB',
-              '代办服务费': '5,000-10,000 THB',
-            },
-          },
-          commonRejectionReasons: [
-            '公司注册资本不足（外资公司需200万泰铢以上）',
-            '泰籍员工与外籍员工比例不符合4:1要求',
-            '申请材料不完整或信息不一致',
-            '公司经营状况不佳或无实际业务',
-          ],
-          avoidanceAdvice: [
-            '确保公司注册资本满足最低要求',
-            '提前确认泰籍员工雇佣比例合规',
-            '所有材料提前进行公证和双认证',
-            '准备充分的公司经营证明文件',
-          ],
-          processingTime: '2-6周',
-        },
-        {
-          visaType: 'Thailand Elite Visa',
-          matchScore: 78,
-          requirements: [
-            '有效护照（有效期12个月以上）',
-            '无犯罪记录证明',
-            '会员费支付能力证明',
-            '通过泰国精英签证背景审查',
-          ],
-          documents: [
-            '护照原件及复印件',
-            '无犯罪记录证明（公证件）',
-            '银行存款证明',
-            '申请表',
-          ],
-          process: [
-            { step: 1, description: '在线提交精英签证申请', estimatedDuration: '1天' },
-            { step: 2, description: '支付会员费', estimatedDuration: '1-3天' },
-            { step: 3, description: '背景审查和审批', estimatedDuration: '2-4周' },
-            { step: 4, description: '获批后入境激活会员资格', estimatedDuration: '1天' },
-          ],
-          estimatedCost: {
-            amount: '600,000-2,000,000',
-            currency: 'THB',
-            breakdown: {
-              '5年会员费': '600,000 THB',
-              '10年会员费': '1,000,000 THB',
-              '20年会员费': '2,000,000 THB',
-            },
-          },
-          commonRejectionReasons: [
-            '有犯罪记录',
-            '被泰国列入黑名单',
-            '资金来源无法证明',
-          ],
-          avoidanceAdvice: [
-            '提前办理无犯罪记录证明',
-            '确保资金来源合法且可追溯',
-            '如有泰国签证违规历史，提前咨询',
-          ],
-          processingTime: '3-8周',
-        },
-      ];
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || '推荐失败');
+      }
 
-      setResults(mockResults);
-    } catch {
-      message.error(tCommon('error'));
+      const data = await res.json();
+      setResults(data);
+    } catch (err) {
+      message.error(err instanceof Error ? err.message : tCommon('error'));
     } finally {
       setLoading(false);
     }

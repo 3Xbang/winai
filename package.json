@@ -41,6 +41,7 @@
     "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.35",
+    "mammoth": "^1.8.0",
     "sharp": "^0.33.5",
     "next-auth": "^4.24.11",
     "next-intl": "^4.1.0",

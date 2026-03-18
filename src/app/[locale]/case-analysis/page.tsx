@@ -169,100 +169,21 @@ export default function CaseAnalysisPage() {
     setResult(null);
 
     try {
-      // In production, this would call tRPC: case.analyze.mutate(...)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await fetch('/api/case-analysis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
 
-      const mockResult: CaseAnalysisResult = {
-        timeline: [
-          {
-            date: '2024-01-15',
-            event: '双方签订合作协议',
-            legalSignificance: '合同关系成立，确定双方权利义务',
-          },
-          {
-            date: '2024-03-20',
-            event: '被告未按约定支付第二期款项',
-            legalSignificance: '构成违约行为，触发违约责任条款',
-          },
-          {
-            date: '2024-05-10',
-            event: '原告发送催款函',
-            legalSignificance: '证明原告已履行催告义务',
-          },
-        ],
-        issues: [
-          {
-            issue: '被告是否构成合同违约',
-            legalBasis: [
-              {
-                lawName: '《中华人民共和国民法典》',
-                articleNumber: '第577条',
-                description: '当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担违约责任',
-              },
-            ],
-            analysis: '根据合同约定，被告应在2024年3月15日前支付第二期款项，但至今未支付，构成违约。',
-          },
-        ],
-        strategies: {
-          plaintiff: {
-            perspective: 'PLAINTIFF',
-            keyArguments: [
-              '合同约定明确，被告付款义务清晰',
-              '原告已完全履行合同义务',
-              '催款函证明原告已尽催告义务',
-            ],
-            legalBasis: [
-              { lawName: '《民法典》', articleNumber: '第577条', description: '违约责任' },
-            ],
-            riskAssessment: '原告证据充分，胜诉可能性较高',
-          },
-          defendant: {
-            perspective: 'DEFENDANT',
-            keyArguments: [
-              '原告交付的服务存在质量问题',
-              '被告行使不安抗辩权',
-            ],
-            legalBasis: [
-              { lawName: '《民法典》', articleNumber: '第527条', description: '不安抗辩权' },
-            ],
-            riskAssessment: '被告抗辩理由需要充分的证据支持',
-          },
-          judge: {
-            perspective: 'JUDGE',
-            keyArguments: [
-              '审查合同条款的明确性',
-              '审查双方履约情况',
-              '审查违约金约定是否合理',
-            ],
-            legalBasis: [
-              { lawName: '《民法典》', articleNumber: '第585条', description: '违约金调整' },
-            ],
-            riskAssessment: '法院将重点审查合同履行情况和违约金合理性',
-            likelyRuling: '倾向支持原告的违约主张，但可能调整违约金数额',
-            keyConsiderations: ['合同履行比例', '实际损失与违约金的关系'],
-          },
-          overall: {
-            recommendation: '建议原告积极主张违约责任，同时准备好应对被告可能的质量抗辩',
-            riskLevel: 'MEDIUM',
-            nextSteps: [
-              '收集并固定合同履行证据',
-              '准备质量合格的证明材料',
-              '考虑是否接受调解',
-            ],
-          },
-        },
-        strengthScore: {
-          overall: 72,
-          evidenceSufficiency: 78,
-          legalBasisStrength: 85,
-          similarCaseTrends: 65,
-          proceduralCompliance: 60,
-        },
-      };
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || '分析失败');
+      }
 
-      setResult(mockResult);
-    } catch {
-      message.error(tCommon('error'));
+      const data = await res.json();
+      setResult(data);
+    } catch (err) {
+      message.error(err instanceof Error ? err.message : tCommon('error'));
     } finally {
       setLoading(false);
     }
