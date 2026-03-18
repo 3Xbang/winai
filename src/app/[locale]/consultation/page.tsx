@@ -20,39 +20,10 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 ];
 
 const HISTORY_PAGE_SIZE = 20;
-const SESSION_KEY = 'winai_chat_messages';
-
-function serializeMessages(msgs: ChatMessage[]): string {
-  return JSON.stringify(msgs.map((m) => ({ ...m, timestamp: m.timestamp.toISOString() })));
-}
-
-function deserializeMessages(raw: string): ChatMessage[] {
-  try {
-    const parsed = JSON.parse(raw);
-    return parsed.map((m: ChatMessage & { timestamp: string }) => ({
-      ...m,
-      timestamp: new Date(m.timestamp),
-    }));
-  } catch {
-    return [];
-  }
-}
-
-function loadSavedMessages(): ChatMessage[] {
-  if (typeof window === 'undefined') return INITIAL_MESSAGES;
-  try {
-    const raw = sessionStorage.getItem(SESSION_KEY);
-    if (raw) {
-      const msgs = deserializeMessages(raw);
-      if (msgs.length > 0) return msgs;
-    }
-  } catch {}
-  return INITIAL_MESSAGES;
-}
 
 export default function ConsultationPage() {
   const t = useTranslations('consultation');
-  const [messages, setMessages] = useState<ChatMessage[]>(() => loadSavedMessages());
+  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [isLoading, setIsLoading] = useState(false);
   const [processingPhase, setProcessingPhase] = useState<ProcessingPhase>('idle');
   const [hasMoreHistory] = useState(false);
@@ -63,13 +34,6 @@ export default function ConsultationPage() {
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // Persist messages to sessionStorage
-  useEffect(() => {
-    try {
-      sessionStorage.setItem(SESSION_KEY, serializeMessages(messages));
-    } catch {}
   }, [messages]);
 
   const handleSend = useCallback(
