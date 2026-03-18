@@ -94,10 +94,20 @@ export async function POST(req: NextRequest) {
       { provider: 'glm', temperature: 0.3, maxTokens: 4096 },
     );
 
-    const jsonMatch = response.content.trim().match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('AI 返回格式异常');
+    let content = response.content.trim();
+    content = content.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '');
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      console.error('AI raw response:', content.slice(0, 500));
+      throw new Error('AI 返回格式异常');
+    }
 
-    const result = JSON.parse(jsonMatch[0]);
+    let result;
+    try {
+      result = JSON.parse(jsonMatch[0]);
+    } catch {
+      throw new Error('AI 返回格式异常');
+    }
     return NextResponse.json(result);
   } catch (error) {
     console.error('Case analysis error:', error);

@@ -61,11 +61,20 @@ export async function POST(req: NextRequest) {
       { provider: 'glm', temperature: 0.3, maxTokens: 3000 },
     );
 
-    const content = response.content.trim();
+    let content = response.content.trim();
+    content = content.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '');
     const jsonMatch = content.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) throw new Error('AI 返回格式异常');
+    if (!jsonMatch) {
+      console.error('AI raw response:', content.slice(0, 500));
+      throw new Error('AI 返回格式异常');
+    }
 
-    const results = JSON.parse(jsonMatch[0]);
+    let results;
+    try {
+      results = JSON.parse(jsonMatch[0]);
+    } catch {
+      throw new Error('AI 返回格式异常');
+    }
     return NextResponse.json(results);
   } catch (error) {
     console.error('Visa recommend error:', error);
