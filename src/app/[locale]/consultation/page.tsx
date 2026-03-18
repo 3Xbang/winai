@@ -66,7 +66,7 @@ export default function ConsultationPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [processingPhase, setProcessingPhase] = useState<ProcessingPhase>('idle');
   const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null);
-  const [hasMoreHistory, setHasMoreHistory] = useState(true);
+  const [hasMoreHistory, setHasMoreHistory] = useState(false);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [historyPage, setHistoryPage] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -108,47 +108,9 @@ export default function ConsultationPage() {
   }, [hasMoreHistory, isLoadingHistory]);
 
   const loadHistory = useCallback(async () => {
-    if (isLoadingHistory || !hasMoreHistory) return;
-
-    const container = messagesContainerRef.current;
-    const prevScrollHeight = container?.scrollHeight ?? 0;
-
-    setIsLoadingHistory(true);
-
-    // Simulate fetching historical messages from API
-    // In production, this would call tRPC: session.getMessages({ sessionId, page, limit })
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    const nextPage = historyPage + 1;
-
-    // Mock: after 2 pages, no more history
-    if (nextPage >= 2) {
-      setHasMoreHistory(false);
-      setIsLoadingHistory(false);
-      return;
-    }
-
-    const olderMessages: ChatMessage[] = Array.from({ length: HISTORY_PAGE_SIZE }, (_, i) => ({
-      id: `history-${nextPage}-${i}`,
-      role: (i % 2 === 0 ? 'user' : 'assistant') as 'user' | 'assistant',
-      content: i % 2 === 0
-        ? `历史咨询问题 ${nextPage * HISTORY_PAGE_SIZE + i + 1}`
-        : `这是对历史问题 ${nextPage * HISTORY_PAGE_SIZE + i} 的法律分析回复。`,
-      timestamp: new Date(Date.now() - (nextPage * HISTORY_PAGE_SIZE + i + 1) * 3600000),
-    }));
-
-    setMessages((prev) => [...olderMessages.reverse(), ...prev]);
-    setHistoryPage(nextPage);
-    setIsLoadingHistory(false);
-
-    // Restore scroll position after prepending messages
-    requestAnimationFrame(() => {
-      if (container) {
-        const newScrollHeight = container.scrollHeight;
-        container.scrollTop = newScrollHeight - prevScrollHeight;
-      }
-    });
-  }, [isLoadingHistory, hasMoreHistory, historyPage]);
+    // No mock history - real history is loaded via session router per user
+    setHasMoreHistory(false);
+  }, []);
 
   const handleSend = useCallback(
     async (text: string) => {
