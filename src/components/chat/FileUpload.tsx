@@ -42,6 +42,8 @@ export interface UploadedFileInfo {
   uid: string;
   percent?: number;
   errorMessage?: string;
+  content?: string; // base64 content from /api/upload response
+  type?: string;
 }
 
 interface FileUploadProps {
@@ -119,6 +121,8 @@ export default function FileUpload({
             status: 'success',
             uid: file.uid,
             percent: 100,
+            content: file.response?.content,
+            type: file.response?.type ?? file.type,
           };
           onFileUploaded?.(successFile);
           return prev.map((f) => (f.uid === file.uid ? successFile : f));
