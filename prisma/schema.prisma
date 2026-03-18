@@ -2,14 +2,12 @@
 // PostgreSQL + pgvector
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
-  extensions = [pgvector(map: "vector")]
 }
 
 // ==================== 枚举类型 ====================
@@ -345,26 +343,12 @@ model LawDocument {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  embeddings VectorEmbedding[]
-
   @@index([jurisdiction, lawType])
   @@index([effectiveDate])
 }
 
-model VectorEmbedding {
-  id           String                      @id @default(cuid())
-  documentId   String
-  chunkIndex   Int
-  chunkContent String                      @db.Text
-  embedding    Unsupported("vector(1536)")
-  namespace    String                      @default("global")
-  metadata     Json?
-  createdAt    DateTime                    @default(now())
-
-  document LawDocument @relation(fields: [documentId], references: [id])
-
-  @@index([namespace])
-}
+// VectorEmbedding model removed - requires pgvector extension
+// model VectorEmbedding { ... }
 
 // ==================== 文书生成与版本管理 ====================
 
