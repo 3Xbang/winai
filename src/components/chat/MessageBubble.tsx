@@ -66,8 +66,8 @@ export default function MessageBubble({ message, typingText }: MessageBubbleProp
   const isUser = message.role === 'user';
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const displayContent = typingText ?? message.content;
-  const showTypingIndicator = message.isStreaming && !typingText;
+  const displayContent = (typingText !== undefined && typingText !== null) ? typingText : message.content;
+  const showTypingIndicator = message.isStreaming && !typingText && !message.content;
 
   return (
     <div

@@ -29,7 +29,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 /** Page size for historical message loading */
 const HISTORY_PAGE_SIZE = 20;
 
-function useStreamingText(text: string, isActive: boolean, speed = 30) {
+function useStreamingText(text: string, isActive: boolean, speed = 5) {
   const [displayed, setDisplayed] = useState('');
   const [isDone, setIsDone] = useState(false);
 
@@ -152,12 +152,12 @@ export default function ConsultationPage() {
           role: 'assistant',
           content: data.content || '抱歉，未能生成回复。',
           timestamp: new Date(),
-          isStreaming: true,
+          isStreaming: false,
           detectedLanguage: 'zh',
         };
 
         setMessages((prev) => [...prev, assistantMsg]);
-        setStreamingMessageId(assistantMsg.id);
+        setStreamingMessageId(null);
       } catch (error) {
         const errorMsg: ChatMessage = {
           id: `error-${Date.now()}`,
