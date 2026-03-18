@@ -132,57 +132,21 @@ export default function ContractReviewPage() {
     setReviewResult(null);
 
     try {
-      // In production, this would call tRPC: contract.review.mutate(...)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const res = await fetch('/api/contract/review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contractText }),
+      });
 
-      const mockResult: ReviewResult = {
-        overallRiskLevel: 'HIGH',
-        reviewReport:
-          '本合同整体风险等级为高。主要风险集中在违约责任条款缺失和争议解决条款不明确。建议在签署前进行修改并咨询专业律师。',
-        risks: [
-          {
-            clauseIndex: 1,
-            clauseText: '甲方有权随时终止本合同，无需提前通知乙方。',
-            riskLevel: 'HIGH',
-            riskDescription: '单方面无条件终止权严重损害乙方权益，可能被认定为不公平条款。',
-            legalBasis: [
-              {
-                lawName: '《中华人民共和国民法典》',
-                articleNumber: '第563条',
-                description: '合同解除需符合法定条件或约定条件',
-              },
-            ],
-            suggestedRevision: '甲方终止本合同应提前30日书面通知乙方，并支付相应违约金。',
-          },
-          {
-            clauseIndex: 3,
-            clauseText: '本合同未约定争议解决方式。',
-            riskLevel: 'MEDIUM',
-            riskDescription: '缺少争议解决条款可能导致纠纷时管辖权不明确。',
-            legalBasis: [
-              {
-                lawName: '《中华人民共和国民事诉讼法》',
-                articleNumber: '第35条',
-                description: '合同纠纷管辖权规定',
-              },
-            ],
-            suggestedRevision:
-              '因本合同引起的争议，双方应友好协商解决；协商不成的，提交北京仲裁委员会仲裁。',
-          },
-          {
-            clauseIndex: 5,
-            clauseText: '保密期限为合同终止后1年。',
-            riskLevel: 'LOW',
-            riskDescription: '保密期限较短，建议根据行业惯例适当延长。',
-            legalBasis: [],
-            suggestedRevision: '保密期限为合同终止后3年，涉及商业秘密的条款永久有效。',
-          },
-        ],
-      };
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || '审查失败');
+      }
 
-      setReviewResult(mockResult);
-    } catch {
-      message.error(tCommon('error'));
+      const data = await res.json();
+      setReviewResult(data);
+    } catch (err) {
+      message.error(err instanceof Error ? err.message : tCommon('error'));
     } finally {
       setLoading(false);
     }
@@ -236,9 +200,23 @@ export default function ContractReviewPage() {
                 label: t('uploadFile'),
                 children: (
                   <FileUpload
-                    onFileUploaded={(file) => {
-                      // In production, would extract text from uploaded file
-                      setContractText(`[已上传文件: ${file.name}]`);
+                    onFileUploaded={async (file) => {
+                      // file.content is base64, decode to text for docx/pdf
+                      try {
+                        const res = await fetch('/api/upload/extract', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ name: file.name, content: (file as any).content }),
+                        });
+                        if (res.ok) {
+                          const { text } = await res.json();
+                          setContractText(text);
+                        } else {
+                          setContractText(`[已上传文件: ${file.name}，请切换到"粘贴文本"手动粘贴内容]`);
+                        }
+                      } catch {
+                        setContractText(`[已上传文件: ${file.name}]`);
+                      }
                     }}
                   />
                 ),
