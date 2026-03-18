@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY prisma ./prisma/
 RUN npm install --ignore-scripts
+RUN npm install sharp --ignore-scripts
 RUN npx prisma generate
 
 # ─── Stage 2: Build ──────────────────────────────────────────
@@ -37,6 +38,10 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/messages ./messages
 COPY --from=deps /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=deps /app/node_modules/sharp ./node_modules/sharp
+
+# Fix cache directory permissions
+RUN mkdir -p .next/cache && chown -R nextjs:nodejs .next
 
 USER nextjs
 
