@@ -9,30 +9,61 @@ import {
   PhoneOutlined,
   WechatOutlined,
 } from '@ant-design/icons';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
+import { signIn } from 'next-auth/react';
 
 export default function LoginPage() {
   const t = useTranslations('auth');
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('email');
   const [loading, setLoading] = useState(false);
 
-  const handleEmailLogin = (values: { email: string; password: string }) => {
+  const handleEmailLogin = async (values: { email: string; password: string }) => {
     setLoading(true);
-    console.log('Email login:', values);
-    message.info('Login submitted (placeholder)');
-    setLoading(false);
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
+
+      if (result?.error) {
+        message.error('邮箱或密码错误，请重试');
+      } else {
+        message.success('登录成功');
+        router.push('/');
+      }
+    } catch {
+      message.error('登录失败，请稍后重试');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handlePhoneLogin = (values: { phone: string; code: string }) => {
+  const handlePhoneLogin = async (values: { phone: string; code: string }) => {
     setLoading(true);
-    console.log('Phone login:', values);
-    message.info('Login submitted (placeholder)');
-    setLoading(false);
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        phone: values.phone,
+        code: values.code,
+      });
+
+      if (result?.error) {
+        message.error('手机号或验证码错误，请重试');
+      } else {
+        message.success('登录成功');
+        router.push('/');
+      }
+    } catch {
+      message.error('登录失败，请稍后重试');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSendCode = () => {
-    console.log('Send verification code (placeholder)');
-    message.info('Verification code sent (placeholder)');
+    message.info('验证码功能暂未开放，请使用邮箱登录');
   };
 
   const tabItems = [
@@ -151,10 +182,7 @@ export default function LoginPage() {
             block
             size="large"
             className="!bg-[#07c160] !text-white !border-[#07c160] hover:!opacity-90"
-            onClick={() => {
-              console.log('WeChat login (placeholder)');
-              message.info('WeChat login (placeholder)');
-            }}
+            onClick={() => message.info('微信登录暂未开放')}
           >
             {t('wechatLogin')}
           </Button>
@@ -162,10 +190,7 @@ export default function LoginPage() {
             block
             size="large"
             className="!bg-[#06c755] !text-white !border-[#06c755] hover:!opacity-90"
-            onClick={() => {
-              console.log('Line login (placeholder)');
-              message.info('Line login (placeholder)');
-            }}
+            onClick={() => message.info('Line 登录暂未开放')}
           >
             {t('lineLogin')}
           </Button>
