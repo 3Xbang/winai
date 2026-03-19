@@ -8,6 +8,7 @@ import LineProvider from '@/lib/auth-providers/line';
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
+    maxAge: 8 * 60 * 60, // 8 hours — session expires after 8h of inactivity
   },
   providers: [
     CredentialsProvider({
