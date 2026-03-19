@@ -205,4 +205,49 @@ export const workspaceCaseRouter = createTRPCRouter({
       const ws = await workspaceService.getWorkspace(ctx.userId);
       return checkConflict(ws.id, input.opposingParty);
     }),
+
+  /**
+   * AI 智能推荐案由（根据案件描述）
+   */
+  suggestCaseType: protectedProcedure
+    .input(z.object({ description: z.string().min(5) }))
+    .mutation(async ({ input }) => {
+      const { getLLMGateway } = await import('../services/llm/gateway');
+      const gateway = getLLMGateway();
+
+      const prompt = `你是一位中国法律专家。根据以下案件描述，判断案件类别和具体案由。
+
+案件描述：${input.description}
+
+请从以下选项中选择最匹配的：
+
+案件类别（category）：
+- civil（民事）
+- criminal（刑事）
+- family（家事）
+- administrative（行政）
+- crossborder（涉外/跨境）
+
+具体案由（caseType），根据类别选择：
+- civil: 合同纠纷、侵权纠纷、劳动争议、知识产权、房产纠纷、债权债务、公司股权、其他民事
+- criminal: 刑事辩护、刑事附带民事、取保候审、申诉再审、其他刑事
+- family: 离婚纠纷、财产分割、子女抚养、继承纠纷、收养纠纷、其他家事
+- administrative: 行政诉讼、行政复议、行政赔偿、其他行政
+- crossborder: 中泰跨境合同、外籍人员劳动、签证移民、跨境投资、国际贸易、其他涉外
+
+只返回 JSON，格式：{"category": "...", "caseType": "..."}`;
+
+      const response = await gateway.chat(
+        [{ role: 'user', content: prompt }],
+        { provider: 'glm', model: 'glm-4-flash-250414', temperature: 0.1, maxTokens: 100 },
+      );
+
+      try {
+        const match = response.content.match(/\{[\s\S]*\}/);
+        if (!match) return { category: 'civil', caseType: '其他民事' };
+        return JSON.parse(match[0]) as { category: string; caseType: string };
+      } catch {
+        return { category: 'civil', caseType: '其他民事' };
+      }
+    }),
 });
