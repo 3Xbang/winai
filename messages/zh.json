@@ -1137,5 +1137,83 @@
       "createFailed": "创建模拟法庭失败，请重试",
       "exportFailed": "导出 PDF 失败，请重试"
     }
+  },
+  "workspace": {
+    "newCase": "新建案件",
+    "backToCases": "返回案件列表",
+    "caseDescription": "案件描述",
+    "caseDescriptionHint": "AI 可根据描述自动推荐案由",
+    "aiSuggest": "AI 智能推荐案由",
+    "caseCategory": "案件类别",
+    "caseCategoryPlaceholder": "选择案件类别",
+    "caseType": "具体案由",
+    "caseTypePlaceholder": "选择具体案由",
+    "caseTypePlaceholderDisabled": "请先选择案件类别",
+    "caseNumber": "案件编号",
+    "caseNumberHint": "已自动生成，可修改",
+    "caseTitle": "案件名称",
+    "caseTitlePlaceholder": "例：张三与李四合同纠纷案",
+    "clientName": "当事人姓名",
+    "clientNamePlaceholder": "委托人姓名或公司名称",
+    "opposingParty": "对立方信息",
+    "opposingPartyPlaceholder": "对方当事人姓名或公司名称（选填）",
+    "opposingPartyHint": "填写后将自动检查利益冲突",
+    "filedAt": "立案日期",
+    "cancel": "取消",
+    "createCase": "创建案件",
+    "createSuccess": "案件创建成功",
+    "createFailed": "创建失败，请重试",
+    "aiSuggestWarning": "请先填写案件描述",
+    "checkingConflict": "正在检查利益冲突...",
+    "conflictFound": "发现潜在利益冲突",
+    "noConflict": "未发现利益冲突",
+    "caseCategories": {
+      "civil": "民事",
+      "criminal": "刑事",
+      "family": "家事",
+      "administrative": "行政",
+      "crossborder": "涉外/跨境"
+    },
+    "caseTypes": {
+      "civil": {
+        "contract": "合同纠纷",
+        "tort": "侵权纠纷",
+        "labor": "劳动争议",
+        "ip": "知识产权",
+        "property": "房产纠纷",
+        "debt": "债权债务",
+        "equity": "公司股权",
+        "other": "其他民事"
+      },
+      "criminal": {
+        "defense": "刑事辩护",
+        "civilAttachment": "刑事附带民事",
+        "bail": "取保候审",
+        "appeal": "申诉再审",
+        "other": "其他刑事"
+      },
+      "family": {
+        "divorce": "离婚纠纷",
+        "property": "财产分割",
+        "custody": "子女抚养",
+        "inheritance": "继承纠纷",
+        "adoption": "收养纠纷",
+        "other": "其他家事"
+      },
+      "administrative": {
+        "litigation": "行政诉讼",
+        "reconsideration": "行政复议",
+        "compensation": "行政赔偿",
+        "other": "其他行政"
+      },
+      "crossborder": {
+        "cnThaiContract": "中泰跨境合同",
+        "foreignLabor": "外籍人员劳动",
+        "visaImmigration": "签证移民",
+        "crossBorderInvestment": "跨境投资",
+        "internationalTrade": "国际贸易",
+        "other": "其他涉外"
+      }
+    }
   }
 }

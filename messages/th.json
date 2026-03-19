@@ -1137,5 +1137,83 @@
       "createFailed": "สร้างเซสชันศาลจำลองล้มเหลว กรุณาลองอีกครั้ง",
       "exportFailed": "ส่งออก PDF ล้มเหลว กรุณาลองอีกครั้ง"
     }
+  },
+  "workspace": {
+    "newCase": "สร้างคดีใหม่",
+    "backToCases": "กลับไปรายการคดี",
+    "caseDescription": "รายละเอียดคดี",
+    "caseDescriptionHint": "AI สามารถแนะนำประเภทคดีจากรายละเอียดได้อัตโนมัติ",
+    "aiSuggest": "AI แนะนำประเภทคดี",
+    "caseCategory": "หมวดหมู่คดี",
+    "caseCategoryPlaceholder": "เลือกหมวดหมู่คดี",
+    "caseType": "ประเภทคดี",
+    "caseTypePlaceholder": "เลือกประเภทคดี",
+    "caseTypePlaceholderDisabled": "กรุณาเลือกหมวดหมู่ก่อน",
+    "caseNumber": "หมายเลขคดี",
+    "caseNumberHint": "สร้างอัตโนมัติ สามารถแก้ไขได้",
+    "caseTitle": "ชื่อคดี",
+    "caseTitlePlaceholder": "เช่น คดีพิพาทสัญญาระหว่างนาย ก กับนาย ข",
+    "clientName": "ชื่อลูกความ",
+    "clientNamePlaceholder": "ชื่อลูกความหรือบริษัท",
+    "opposingParty": "ฝ่ายตรงข้าม",
+    "opposingPartyPlaceholder": "ชื่อฝ่ายตรงข้ามหรือบริษัท (ไม่บังคับ)",
+    "opposingPartyHint": "ระบบจะตรวจสอบความขัดแย้งทางผลประโยชน์อัตโนมัติ",
+    "filedAt": "วันที่ยื่นฟ้อง",
+    "cancel": "ยกเลิก",
+    "createCase": "สร้างคดี",
+    "createSuccess": "สร้างคดีสำเร็จ",
+    "createFailed": "สร้างคดีล้มเหลว กรุณาลองอีกครั้ง",
+    "aiSuggestWarning": "กรุณากรอกรายละเอียดคดีก่อน",
+    "checkingConflict": "กำลังตรวจสอบความขัดแย้งทางผลประโยชน์...",
+    "conflictFound": "พบความขัดแย้งทางผลประโยชน์ที่อาจเกิดขึ้น",
+    "noConflict": "ไม่พบความขัดแย้งทางผลประโยชน์",
+    "caseCategories": {
+      "civil": "แพ่ง",
+      "criminal": "อาญา",
+      "family": "ครอบครัว",
+      "administrative": "ปกครอง",
+      "crossborder": "ข้ามพรมแดน / ระหว่างประเทศ"
+    },
+    "caseTypes": {
+      "civil": {
+        "contract": "พิพาทสัญญา",
+        "tort": "ละเมิด",
+        "labor": "แรงงาน",
+        "ip": "ทรัพย์สินทางปัญญา",
+        "property": "อสังหาริมทรัพย์",
+        "debt": "หนี้สิน",
+        "equity": "หุ้นบริษัท",
+        "other": "แพ่งอื่นๆ"
+      },
+      "criminal": {
+        "defense": "ต่อสู้คดีอาญา",
+        "civilAttachment": "คดีอาญาพร้อมแพ่ง",
+        "bail": "ขอประกันตัว",
+        "appeal": "อุทธรณ์ / ฎีกา",
+        "other": "อาญาอื่นๆ"
+      },
+      "family": {
+        "divorce": "หย่าร้าง",
+        "property": "แบ่งทรัพย์สิน",
+        "custody": "สิทธิ์ดูแลบุตร",
+        "inheritance": "มรดก",
+        "adoption": "รับบุตรบุญธรรม",
+        "other": "ครอบครัวอื่นๆ"
+      },
+      "administrative": {
+        "litigation": "คดีปกครอง",
+        "reconsideration": "อุทธรณ์ทางปกครอง",
+        "compensation": "ค่าชดเชยจากรัฐ",
+        "other": "ปกครองอื่นๆ"
+      },
+      "crossborder": {
+        "cnThaiContract": "สัญญาจีน-ไทย",
+        "foreignLabor": "แรงงานต่างชาติ",
+        "visaImmigration": "วีซ่าและการเข้าเมือง",
+        "crossBorderInvestment": "การลงทุนข้ามพรมแดน",
+        "internationalTrade": "การค้าระหว่างประเทศ",
+        "other": "ระหว่างประเทศอื่นๆ"
+      }
+    }
   }
 }

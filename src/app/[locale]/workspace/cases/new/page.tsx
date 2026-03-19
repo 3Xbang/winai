@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Form, Input, Select, DatePicker, Button, Alert, Card, message, Tag } from 'antd';
 import { WarningOutlined, CheckCircleOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { useRouter } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 
 interface ConflictResult {
@@ -17,48 +18,36 @@ interface ConflictResult {
   }>;
 }
 
-// 案件大类 → 子类映射
-const CASE_TYPE_MAP: Record<string, { label: string; children: string[] }> = {
-  civil: {
-    label: '民事',
-    children: ['合同纠纷', '侵权纠纷', '劳动争议', '知识产权', '房产纠纷', '债权债务', '公司股权', '其他民事'],
-  },
-  criminal: {
-    label: '刑事',
-    children: ['刑事辩护', '刑事附带民事', '取保候审', '申诉再审', '其他刑事'],
-  },
-  family: {
-    label: '家事',
-    children: ['离婚纠纷', '财产分割', '子女抚养', '继承纠纷', '收养纠纷', '其他家事'],
-  },
-  administrative: {
-    label: '行政',
-    children: ['行政诉讼', '行政复议', '行政赔偿', '其他行政'],
-  },
-  crossborder: {
-    label: '涉外/跨境',
-    children: ['中泰跨境合同', '外籍人员劳动', '签证移民', '跨境投资', '国际贸易', '其他涉外'],
-  },
+// 大类 → 编号前缀（固定，不需要翻译）
+const TYPE_PREFIX: Record<string, string> = {
+  civil: 'C',
+  criminal: 'CR',
+  family: 'F',
+  administrative: 'A',
+  crossborder: 'X',
 };
 
-// 大类 → 编号前缀
-const TYPE_PREFIX: Record<string, string> = {
-  civil: '民',
-  criminal: '刑',
-  family: '家',
-  administrative: '行',
-  crossborder: '涉',
+// 子类 key 列表（对应 messages 中的 key）
+const CASE_TYPE_KEYS: Record<string, string[]> = {
+  civil: ['contract', 'tort', 'labor', 'ip', 'property', 'debt', 'equity', 'other'],
+  criminal: ['defense', 'civilAttachment', 'bail', 'appeal', 'other'],
+  family: ['divorce', 'property', 'custody', 'inheritance', 'adoption', 'other'],
+  administrative: ['litigation', 'reconsideration', 'compensation', 'other'],
+  crossborder: ['cnThaiContract', 'foreignLabor', 'visaImmigration', 'crossBorderInvestment', 'internationalTrade', 'other'],
 };
+
+const CATEGORY_KEYS = ['civil', 'criminal', 'family', 'administrative', 'crossborder'];
 
 function generateCaseNumber(category: string): string {
   const year = new Date().getFullYear();
-  const prefix = TYPE_PREFIX[category] ?? '案';
-  const seq = String(Math.floor(Math.random() * 900) + 100); // 100-999
+  const prefix = TYPE_PREFIX[category] ?? 'X';
+  const seq = String(Math.floor(Math.random() * 900) + 100);
   return `${year}-${prefix}-${seq}`;
 }
 
 export default function NewCasePage() {
   const router = useRouter();
+  const t = useTranslations('workspace');
   const [form] = Form.useForm();
   const [submitting, setSubmitting] = useState(false);
   const [conflict, setConflict] = useState<ConflictResult | null>(null);
@@ -66,7 +55,6 @@ export default function NewCasePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [aiSuggesting, setAiSuggesting] = useState(false);
 
-  // 初始化时自动生成编号
   useEffect(() => {
     form.setFieldValue('caseNumber', generateCaseNumber('civil'));
   }, [form]);
@@ -74,18 +62,16 @@ export default function NewCasePage() {
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     form.setFieldValue('caseType', undefined);
-    // 更新编号前缀
     const current = form.getFieldValue('caseNumber') as string;
     const year = new Date().getFullYear();
     const seq = current?.split('-')[2] ?? String(Math.floor(Math.random() * 900) + 100);
-    form.setFieldValue('caseNumber', `${year}-${TYPE_PREFIX[category] ?? '案'}-${seq}`);
+    form.setFieldValue('caseNumber', `${year}-${TYPE_PREFIX[category] ?? 'X'}-${seq}`);
   };
 
-  // AI 根据案件描述推荐案由
   const handleAiSuggest = async () => {
     const description = form.getFieldValue('description') as string;
     if (!description?.trim()) {
-      message.warning('请先填写案件描述');
+      message.warning(t('aiSuggestWarning'));
       return;
     }
     setAiSuggesting(true);
@@ -103,10 +89,12 @@ export default function NewCasePage() {
           caseType: suggestion.caseType,
           caseNumber: generateCaseNumber(suggestion.category),
         });
-        message.success(`AI 推荐：${CASE_TYPE_MAP[suggestion.category]?.label} · ${suggestion.caseType}`);
+        const catLabel = t(`caseCategories.${suggestion.category}`);
+        const typeLabel = t(`caseTypes.${suggestion.category}.${suggestion.caseType}` as any);
+        message.success(`AI: ${catLabel} · ${typeLabel}`);
       }
     } catch {
-      // 静默失败
+      // silent fail
     } finally {
       setAiSuggesting(false);
     }
@@ -140,31 +128,39 @@ export default function NewCasePage() {
       });
       const data = await res.json();
       if (!res.ok || data?.error) {
-        message.error(data?.error?.message ?? '创建失败，请重试');
+        message.error(data?.error?.message ?? t('createFailed'));
         return;
       }
       const caseId = data?.result?.data?.case?.id;
-      message.success('案件创建成功');
+      message.success(t('createSuccess'));
       router.push(`/workspace/cases/${caseId}` as any);
     } catch {
-      message.error('创建失败，请重试');
+      message.error(t('createFailed'));
     } finally {
       setSubmitting(false);
     }
   };
 
   const subTypeOptions = selectedCategory
-    ? CASE_TYPE_MAP[selectedCategory]?.children.map((v) => ({ value: v, label: v }))
+    ? (CASE_TYPE_KEYS[selectedCategory] ?? []).map((key) => ({
+        value: key,
+        label: t(`caseTypes.${selectedCategory}.${key}` as any),
+      }))
     : [];
+
+  const categoryOptions = CATEGORY_KEYS.map((key) => ({
+    value: key,
+    label: t(`caseCategories.${key}` as any),
+  }));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-teal-50 px-4 py-8">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <Button type="link" onClick={() => router.push('/workspace/cases')} className="px-0">
-            ← 返回案件列表
+            ← {t('backToCases')}
           </Button>
-          <h1 className="text-3xl font-bold text-gray-800 mt-2">新建案件</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mt-2">{t('newCase')}</h1>
         </div>
 
         <Card className="rounded-2xl shadow-sm">
@@ -174,17 +170,13 @@ export default function NewCasePage() {
             <Form.Item
               label={
                 <span className="font-semibold flex items-center gap-2">
-                  案件描述
-                  <Tag color="blue" className="text-xs font-normal">AI 可根据描述自动推荐案由</Tag>
+                  {t('caseDescription')}
+                  <Tag color="blue" className="text-xs font-normal">{t('caseDescriptionHint')}</Tag>
                 </span>
               }
               name="description"
             >
-              <Input.TextArea
-                placeholder="简要描述案件情况，例如：当事人与前妻因房产分割产生纠纷，涉及两套房产和一个孩子的抚养权..."
-                rows={3}
-                className="rounded-xl"
-              />
+              <Input.TextArea rows={3} className="rounded-xl" />
             </Form.Item>
             <div className="mb-4 -mt-2">
               <Button
@@ -194,88 +186,85 @@ export default function NewCasePage() {
                 className="rounded-xl"
                 style={{ borderColor: '#f97316', color: '#f97316' }}
               >
-                AI 智能推荐案由
+                {t('aiSuggest')}
               </Button>
             </div>
 
             {/* 案件大类 */}
             <Form.Item
-              label={<span className="font-semibold">案件类别</span>}
+              label={<span className="font-semibold">{t('caseCategory')}</span>}
               name="caseCategory"
-              rules={[{ required: true, message: '请选择案件类别' }]}
+              rules={[{ required: true, message: t('caseCategory') }]}
             >
               <Select
-                placeholder="选择案件类别（民事 / 刑事 / 家事 / 行政 / 涉外）"
+                placeholder={t('caseCategoryPlaceholder')}
                 className="rounded-xl"
                 onChange={handleCategoryChange}
-                options={Object.entries(CASE_TYPE_MAP).map(([k, v]) => ({
-                  value: k,
-                  label: v.label,
-                }))}
+                options={categoryOptions}
               />
             </Form.Item>
 
             {/* 具体案由 */}
             <Form.Item
-              label={<span className="font-semibold">具体案由</span>}
+              label={<span className="font-semibold">{t('caseType')}</span>}
               name="caseType"
-              rules={[{ required: true, message: '请选择具体案由' }]}
+              rules={[{ required: true, message: t('caseType') }]}
             >
               <Select
-                placeholder={selectedCategory ? '选择具体案由' : '请先选择案件类别'}
+                placeholder={selectedCategory ? t('caseTypePlaceholder') : t('caseTypePlaceholderDisabled')}
                 className="rounded-xl"
                 disabled={!selectedCategory}
                 options={subTypeOptions}
               />
             </Form.Item>
 
-            {/* 案件编号（自动生成，可修改） */}
+            {/* 案件编号 */}
             <Form.Item
               label={
                 <span className="font-semibold flex items-center gap-2">
-                  案件编号
-                  <Tag color="green" className="text-xs font-normal">已自动生成，可修改</Tag>
+                  {t('caseNumber')}
+                  <Tag color="green" className="text-xs font-normal">{t('caseNumberHint')}</Tag>
                 </span>
               }
               name="caseNumber"
-              rules={[{ required: true, message: '请输入案件编号' }]}
+              rules={[{ required: true, message: t('caseNumber') }]}
             >
               <Input className="rounded-xl font-mono" />
             </Form.Item>
 
             {/* 案件名称 */}
             <Form.Item
-              label={<span className="font-semibold">案件名称</span>}
+              label={<span className="font-semibold">{t('caseTitle')}</span>}
               name="title"
-              rules={[{ required: true, message: '请输入案件名称' }]}
+              rules={[{ required: true, message: t('caseTitle') }]}
             >
-              <Input placeholder="例：张三与李四合同纠纷案" className="rounded-xl" />
+              <Input placeholder={t('caseTitlePlaceholder')} className="rounded-xl" />
             </Form.Item>
 
             {/* 当事人 */}
             <Form.Item
-              label={<span className="font-semibold">当事人姓名</span>}
+              label={<span className="font-semibold">{t('clientName')}</span>}
               name="clientName"
-              rules={[{ required: true, message: '请输入当事人姓名' }]}
+              rules={[{ required: true, message: t('clientName') }]}
             >
-              <Input placeholder="委托人姓名或公司名称" className="rounded-xl" />
+              <Input placeholder={t('clientNamePlaceholder')} className="rounded-xl" />
             </Form.Item>
 
             {/* 对立方 */}
             <Form.Item
-              label={<span className="font-semibold">对立方信息</span>}
+              label={<span className="font-semibold">{t('opposingParty')}</span>}
               name="opposingParty"
-              extra="填写后将自动检查利益冲突"
+              extra={t('opposingPartyHint')}
             >
               <Input
-                placeholder="对方当事人姓名或公司名称（选填）"
+                placeholder={t('opposingPartyPlaceholder')}
                 className="rounded-xl"
                 onBlur={(e) => checkConflict(e.target.value)}
               />
             </Form.Item>
 
             {checkingConflict && (
-              <Alert message="正在检查利益冲突..." type="info" showIcon className="mb-4 rounded-xl" />
+              <Alert message={t('checkingConflict')} type="info" showIcon className="mb-4 rounded-xl" />
             )}
             {conflict && !checkingConflict && (
               <Alert
@@ -283,13 +272,13 @@ export default function NewCasePage() {
                 type={conflict.hasConflict ? 'warning' : 'success'}
                 icon={conflict.hasConflict ? <WarningOutlined /> : <CheckCircleOutlined />}
                 showIcon
-                message={conflict.hasConflict ? '发现潜在利益冲突' : '未发现利益冲突'}
+                message={conflict.hasConflict ? t('conflictFound') : t('noConflict')}
                 description={
                   conflict.hasConflict ? (
                     <ul className="mt-2 space-y-1">
                       {conflict.conflictingCases.map((c) => (
                         <li key={c.id} className="text-sm">
-                          {c.caseNumber} · {c.title}（当事人：{c.clientName}）
+                          {c.caseNumber} · {c.title}（{c.clientName}）
                         </li>
                       ))}
                     </ul>
@@ -300,9 +289,9 @@ export default function NewCasePage() {
 
             {/* 立案日期 */}
             <Form.Item
-              label={<span className="font-semibold">立案日期</span>}
+              label={<span className="font-semibold">{t('filedAt')}</span>}
               name="filedAt"
-              rules={[{ required: true, message: '请选择立案日期' }]}
+              rules={[{ required: true, message: t('filedAt') }]}
               initialValue={dayjs()}
             >
               <DatePicker className="w-full rounded-xl" />
@@ -310,7 +299,7 @@ export default function NewCasePage() {
 
             <div className="flex gap-3 mt-6">
               <Button onClick={() => router.push('/workspace/cases')} size="large" className="flex-1 rounded-xl">
-                取消
+                {t('cancel')}
               </Button>
               <Button
                 type="primary"
@@ -320,7 +309,7 @@ export default function NewCasePage() {
                 className="flex-1 rounded-xl"
                 style={{ background: '#f97316', borderColor: '#f97316' }}
               >
-                创建案件
+                {t('createCase')}
               </Button>
             </div>
           </Form>

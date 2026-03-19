@@ -1137,5 +1137,83 @@
       "createFailed": "Failed to create mock court session. Please try again",
       "exportFailed": "Failed to export PDF. Please try again"
     }
+  },
+  "workspace": {
+    "newCase": "New Case",
+    "backToCases": "Back to Cases",
+    "caseDescription": "Case Description",
+    "caseDescriptionHint": "AI can auto-suggest case type based on description",
+    "aiSuggest": "AI Smart Suggest",
+    "caseCategory": "Case Category",
+    "caseCategoryPlaceholder": "Select case category",
+    "caseType": "Case Type",
+    "caseTypePlaceholder": "Select case type",
+    "caseTypePlaceholderDisabled": "Please select a category first",
+    "caseNumber": "Case Number",
+    "caseNumberHint": "Auto-generated, editable",
+    "caseTitle": "Case Title",
+    "caseTitlePlaceholder": "e.g. Smith v. Jones Contract Dispute",
+    "clientName": "Client Name",
+    "clientNamePlaceholder": "Client or company name",
+    "opposingParty": "Opposing Party",
+    "opposingPartyPlaceholder": "Opposing party name or company (optional)",
+    "opposingPartyHint": "Conflict of interest check will run automatically",
+    "filedAt": "Filed Date",
+    "cancel": "Cancel",
+    "createCase": "Create Case",
+    "createSuccess": "Case created successfully",
+    "createFailed": "Failed to create case. Please try again",
+    "aiSuggestWarning": "Please enter a case description first",
+    "checkingConflict": "Checking for conflicts of interest...",
+    "conflictFound": "Potential conflict of interest detected",
+    "noConflict": "No conflict of interest found",
+    "caseCategories": {
+      "civil": "Civil",
+      "criminal": "Criminal",
+      "family": "Family",
+      "administrative": "Administrative",
+      "crossborder": "Cross-Border / International"
+    },
+    "caseTypes": {
+      "civil": {
+        "contract": "Contract Dispute",
+        "tort": "Tort",
+        "labor": "Labor Dispute",
+        "ip": "Intellectual Property",
+        "property": "Real Estate Dispute",
+        "debt": "Debt & Credit",
+        "equity": "Corporate Equity",
+        "other": "Other Civil"
+      },
+      "criminal": {
+        "defense": "Criminal Defense",
+        "civilAttachment": "Criminal with Civil Claim",
+        "bail": "Bail Application",
+        "appeal": "Appeal / Retrial",
+        "other": "Other Criminal"
+      },
+      "family": {
+        "divorce": "Divorce",
+        "property": "Property Division",
+        "custody": "Child Custody",
+        "inheritance": "Inheritance",
+        "adoption": "Adoption",
+        "other": "Other Family"
+      },
+      "administrative": {
+        "litigation": "Administrative Litigation",
+        "reconsideration": "Administrative Reconsideration",
+        "compensation": "Administrative Compensation",
+        "other": "Other Administrative"
+      },
+      "crossborder": {
+        "cnThaiContract": "China-Thailand Contract",
+        "foreignLabor": "Foreign Worker Employment",
+        "visaImmigration": "Visa & Immigration",
+        "crossBorderInvestment": "Cross-Border Investment",
+        "internationalTrade": "International Trade",
+        "other": "Other International"
+      }
+    }
   }
 }
